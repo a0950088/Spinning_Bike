@@ -17,14 +17,15 @@
 5. `ToPlayScene.cs`: For the button in the `Rules` scene to switch the scene to the playing scene.
 6. `VideoSpeedController.cs`: To control the speed of the video by the player.
 
+### PythonApi
+1. `TCP_Client.py`: To make the TCP connection to send/receive Unity Server.(Now just received Server's frame and return testdata to check it work)
+2. `lane_line_detect.py`: Old version of lane line detection.
+
 ### Others Folder
 1. `Course Library`: Library download from Unity Tutorial.(Maybe useful in future)
 2. `TextMesh Pro`: Font Library.
 3. `Understone`: Unknown Library.(wait for checking)
 
-## PythonApi
-1. `TCP_Client.py`: To make the TCP connection to send/receive Unity Server.(Now just received Server's frame and return testdata to check it work)
-2. `lane_line_detect.py`: Old version of lane line detection.
 
 ## Dataset
 - `Video_Trim.mp4`: download from google drive (wait for editing) or use custom video.
