@@ -9,15 +9,15 @@ using System.Threading;
 using UnityEngine;
 using UnityEngine.UI;
 
-// Add json key from client data
-public class Data{
-    // public byte[] image;
-    public int[,] testdata;
-}
+// // Add json key from client data
+// public class Data{
+//     // public byte[] image;
+//     public int[,] testdata;
+// }
 
 public class TCPserver : MonoBehaviour
 {
-    private VideoSpeedController videospeedcontroller;
+    private VideoController videocontroller;
     private TcpListener server;
     private bool isRunning;
 
@@ -36,7 +36,7 @@ public class TCPserver : MonoBehaviour
 
         isRunning = true;
 
-        videospeedcontroller = GameObject.Find("Screen").GetComponent<VideoSpeedController>();
+        videocontroller = GameObject.Find("Screen").GetComponent<VideoController>();
         // tex = new Texture2D(1280,720);
         StartListening();
     }
@@ -76,10 +76,11 @@ public class TCPserver : MonoBehaviour
             //     Debug.Log("i: "+i); 
             // }
             // byte[] response = Encoding.ASCII.GetBytes("ACK");
-            Data res = JsonUtility.FromJson<Data>(message);
-            Debug.Log("testdata: " + res.testdata);
             
-            byte[] response = BitConverter.GetBytes(videospeedcontroller.nowframe);
+            // Data res = JsonUtility.FromJson<Data>(message);
+            // Debug.Log("testdata: " + res.testdata);
+            
+            byte[] response = BitConverter.GetBytes(videocontroller.nowframe);
             stream.Write(response, 0, response.Length);
             
             // Debug.Log("Frame on server:"+videospeedcontroller.nowframe);

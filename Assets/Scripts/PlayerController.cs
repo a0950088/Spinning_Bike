@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Video;
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,9 +10,10 @@ public class PlayerController : MonoBehaviour
     public GameObject BackWheel;
     public GameObject BikeHandleBar;
     public GameObject[] panels;
-    
     /* human */
 
+    public float camToPlayerDist = 100f;
+    public float playerPosy = -50f;
     public float firstrotate;
     private float verticalInput;
     private float TurnAngle = 30.0f;
@@ -20,10 +22,20 @@ public class PlayerController : MonoBehaviour
     private float acceleration = 10.0f;
     private float MaxSpeed = 100.0f;
     private float MinSpeed = 0.0f;
-    private float ridingSpeed = 10.0f;
+    //private float ridingSpeed = 10.0f;
 
+    private VideoPlayer videoPlayer;
+    private Transform playerPos;
+    private Transform camPos;
+
+    private void Awake()
+    {
+        Debug.Log("PlayerController Awake");
+        videoPlayer = GameObject.Find("Screen").GetComponent<VideoPlayer>();
+    }
     void Start()
     {
+        Debug.Log("PlayerController Start");
         /* init bike */
         Bike = GameObject.FindGameObjectWithTag("Bike");
         FrontWheel = GameObject.FindGameObjectWithTag("frontwheel");
@@ -31,7 +43,16 @@ public class PlayerController : MonoBehaviour
         BikeHandleBar = GameObject.FindGameObjectWithTag("bikeHandlebar");
         panels = GameObject.FindGameObjectsWithTag("panel");
 
+        camPos = GameObject.Find("Main Camera").GetComponent<Transform>();
+        playerPos = GetComponent<Transform>();
+
         firstrotate = UnityEditor.TransformUtils.GetInspectorRotation(BikeHandleBar.transform).y;
+
+        videoPlayer.prepareCompleted += (source) =>
+        {
+            Debug.Log("Video preparation completed!");
+            playerPos.position = new Vector3(0, playerPosy, camPos.position.z- camToPlayerDist);
+        };
     }
     
     void Update()
