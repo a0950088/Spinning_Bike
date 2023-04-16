@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
@@ -10,7 +8,7 @@ public class VideoController : MonoBehaviour
     private float verticalInput;
     private RectTransform imagesize;
     private RawImage rawimage;
-    private string videoFilePath = "D:\\Banana\\coding\\Unity\\TEST.mp4";
+    private string videoFilePath = "Assets/video_Trim.mp4";
     //Assets/video_Trim.mp4
     //D:\\Banana\\coding\\Unity\\TEST.mp4
     public long nowframe;

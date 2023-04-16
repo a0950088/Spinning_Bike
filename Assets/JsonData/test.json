@@ -1,4 +1,22 @@
 {
-    "objects": [100,100,200,200,400,400,200,200]
-    
+  "FrameData": [
+    {
+      "frame": 0,
+      "direction": "Left",
+      "angle": 10.5,
+      "left_line_range": [ 1.0, 1.0, 2.0, 2.0 ],
+      "right_line_range": [ 1.0, 1.0, 2.0, 2.0 ],
+      "objects_appear_frame_count": [ 30, 60 ],
+      "objects_final_positionX": [ 100.0, 567.0 ]
+    },
+    {
+      "frame": 1,
+      "direction": "Right",
+      "angle": 5.6,
+      "left_line_range": [ 3.0, 11.0, 8.0, 8.0 ],
+      "right_line_range": [ 4.0, 6.0, 2.0, 2.0 ],
+      "objects_appear_frame_count": [ 10, 2 ],
+      "objects_final_positionX": [ -87.0, -700.0 ]
+    }
+  ]
 }

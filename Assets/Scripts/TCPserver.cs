@@ -8,6 +8,7 @@ using System.IO;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Diagnostics;
 
 // // Add json key from client data
 // public class Data{
@@ -54,7 +55,7 @@ public class TCPserver : MonoBehaviour
     {
         TcpClient client = server.EndAcceptTcpClient(result);
 
-        Debug.Log("Client connected");
+        UnityEngine.Debug.Log("Client connected");
 
         NetworkStream stream = client.GetStream();
 
@@ -65,11 +66,11 @@ public class TCPserver : MonoBehaviour
             int bytesRead = stream.Read(buffer, 0, buffer.Length);
             string message = Encoding.ASCII.GetString(buffer, 0, bytesRead);
 
-            Debug.Log("Received message: " + message);
+            UnityEngine.Debug.Log("Received message: " + message);
             if (message == "Connect Check"){
                 byte[] check = Encoding.ASCII.GetBytes("Server check");
                 stream.Write(check, 0, check.Length);
-                Debug.Log("Sent check: Server check");
+                UnityEngine.Debug.Log("Sent check: Server check");
                 continue;
             }
             // for(int i=0;i<100;i++){
@@ -93,7 +94,7 @@ public class TCPserver : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        Debug.Log("isRunning: false");
+        UnityEngine.Debug.Log("isRunning: false");
         isRunning = false;
 
         if (server != null)
