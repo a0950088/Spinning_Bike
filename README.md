@@ -28,4 +28,4 @@
 
 
 ## Dataset
-- `Video_Trim.mp4`: download from google drive (wait for editing) or use custom video.
+- `Video_Trim.mp4`: download from [google drive](https://drive.google.com/drive/folders/1SZM-8ShzIN0dDf-LsiKNiY77D_f-udOa) or use custom video.
