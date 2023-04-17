@@ -50,6 +50,7 @@ public class VideoController : MonoBehaviour
             SetImageTexture();
             VideoSpeedControl();
             nowframe = videoPy.frame;
+            // Debug.Log("Frame control:" + nowframe);
         }
         else
         {
