@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 using UnityEngine.Video;
 
 public class PlayerController : MonoBehaviour
@@ -22,7 +23,7 @@ public class PlayerController : MonoBehaviour
     private float acceleration = 10.0f;
     private float MaxSpeed = 100.0f;
     private float MinSpeed = 0.0f;
-    //private float ridingSpeed = 10.0f;
+    private float ridingSpeed = 30.0f;
 
     private VideoPlayer videoPlayer;
     private Transform playerPos;
@@ -69,25 +70,25 @@ public class PlayerController : MonoBehaviour
             if (y > firstrotate - TurnAngle) {
                 ChangeBikeDirection(-turnSpeed);
             }
-            //RideBike(ridingSpeed);
+            RideBike(ridingSpeed);
         }
         if (Input.GetKey("right")) {
             if (y < firstrotate + TurnAngle) {
                 ChangeBikeDirection(turnSpeed);
             }
-            //RideBike(-ridingSpeed);
+            RideBike(-ridingSpeed);
         }
     }
 
     void ChangeBikeDirection(float frequency) {
         BikeHandleBar.transform.Rotate(0, frequency * Time.deltaTime, 0);
         Bike.transform.Rotate(0, frequency * Time.deltaTime, 0);
-        //Bike.transform.Translate(-frequency * Time.deltaTime, 0, 0);
         FrontWheel.transform.Rotate(new Vector3(0, frequency * Time.deltaTime, 0), Space.World);
     }
 
     void RideBike(float speed) {
-        Bike.transform.Translate(speed * Time.deltaTime, 0, 0);
+        //Bike.transform.Translate(new Vector3(speed * Time.deltaTime, 0f, 0f));
+        Bike.transform.position += (new Vector3(speed * Time.deltaTime, 0f, 0f));
     }
 
     void WheelRoll() {

@@ -94,7 +94,7 @@ public class ObstacleController : MonoBehaviour
             // increase z value
             zspeed = yspeed_total*proportion;
 
-            obstacleInstance.transform.position += new Vector3(0f, -yspeed_total, zspeed);
+            obstacleInstance.transform.position += new Vector3(0f, yspeed_total, zspeed);
             Debug.Log("y:" + obstacleInstance.transform.position.y);
             Debug.Log("z:" + obstacleInstance.transform.position.z);
             // Debug.Log("z speed:" + zspeed);
@@ -171,7 +171,7 @@ public class ObstacleController : MonoBehaviour
         // increase z value
         zspeed = yspeed_total*proportion;
 
-        obstacleInstance.transform.position += new Vector3(0f, -yspeed_total, zspeed);
+        obstacleInstance.transform.position += new Vector3(0f, yspeed_total, zspeed);
         Debug.Log("y:" + obstacleInstance.transform.position.y);
         Debug.Log("z:" + obstacleInstance.transform.position.z);
         // Debug.Log("z speed:" + zspeed);
