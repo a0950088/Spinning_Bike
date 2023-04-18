@@ -11,6 +11,7 @@ public class FrameData
     public float angle;
     public float[] left_line_range;
     public float[] right_line_range;
+    public float[] top_point;
     public int[] objects_appear_frame_count;
     public float[] objects_final_positionX;
 }

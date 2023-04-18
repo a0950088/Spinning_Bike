@@ -26,6 +26,7 @@ public class LoadJsonData : MonoBehaviour
         //     Debug.Log("Angle: " + frameData.angle);
         //     Debug.Log("Left line range: " + frameData.left_line_range[0]);
         //     Debug.Log("Right line range: " + string.Join(", ", frameData.right_line_range));
+        //     Debug.Log("Top point: " + string.Join(", ", frameData.top_point));
         //     Debug.Log("Objects Appear Frame count: " + string.Join(", ", frameData.objects_appear_frame_count));
         //     Debug.Log("Objects Final PositionX: " + string.Join(", ", frameData.objects_final_positionX));
         // }
