@@ -6,6 +6,7 @@
       "angle": 10.5,
       "left_line_range": [ 1.0, 1.0, 2.0, 2.0 ],
       "right_line_range": [ 1.0, 1.0, 2.0, 2.0 ],
+      "top_point": [60.0, 60.0 ],
       "objects_appear_frame_count": [ 30, 60 ],
       "objects_final_positionX": [ 100.0, 567.0 ]
     },
@@ -15,6 +16,7 @@
       "angle": 5.6,
       "left_line_range": [ 3.0, 11.0, 8.0, 8.0 ],
       "right_line_range": [ 4.0, 6.0, 2.0, 2.0 ],
+      "top_point": [60.0, 60.0 ],
       "objects_appear_frame_count": [ 10, 2 ],
       "objects_final_positionX": [ -87.0, -700.0 ]
     },
@@ -22,10 +24,41 @@
       "frame": 2,
       "direction": "Straight",
       "angle": 0,
-      "left_line_range": [ 3.0, 11.0, 8.0, 8.0 ],
-      "right_line_range": [ 4.0, 6.0, 2.0, 2.0 ],
-      "objects_appear_frame_count": [ 10, 2 ],
-      "objects_final_positionX": [ -87.0, -700.0 ]
-    }
+      "left_line_range": [ 1000.0, 1000.0, 1000.0, 1200.0 ],
+      "right_line_range": [ 2000.0, 1000.0, 2000.0, 1200.0 ],
+      "top_point": [60.0, 1400.0 ],
+      "objects_appear_frame_count": [ 30, 60 ],
+      "objects_final_positionX": [ 100.0, 567.0 ]
+    },
+    {
+      "frame": 3,
+      "direction": "Straight",
+      "angle": 0,
+      "left_line_range": [ 1.0, 1.0, 2.0, 2.0 ],
+      "right_line_range": [ 1.0, 1.0, 2.0, 2.0 ],
+      "top_point": [100.0, 100.0 ],
+      "objects_appear_frame_count": [ 30, 60 ],
+      "objects_final_positionX": [ 100.0, 567.0 ]
+    },
+    {
+      "frame": 4,
+      "direction": "Straight",
+      "angle": 0,
+      "left_line_range": [ 1000.0, 1000.0, 1000.0, 1200.0 ],
+      "right_line_range": [ 2000.0, 1000.0, 2000.0, 1200.0 ],
+      "top_point": [60.0, 800.0 ],
+      "objects_appear_frame_count": [ 30, 60 ],
+      "objects_final_positionX": [ 100.0, 567.0 ]
+    },
+    {
+      "frame": 5,
+      "direction": "Straight",
+      "angle": 0,
+      "left_line_range": [ 1.0, 1.0, 2.0, 2.0 ],
+      "right_line_range": [ 1.0, 1.0, 2.0, 2.0 ],
+      "top_point": [200.0, 200.0 ],
+      "objects_appear_frame_count": [ 30, 60 ],
+      "objects_final_positionX": [ 100.0, 567.0 ]
+    }    
   ]
 }
