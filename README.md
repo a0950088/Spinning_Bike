@@ -11,11 +11,15 @@
 
 ### Script
 1. `PlayerController.cs`: To control the player movement.
-2. `ShowVideo.cs`: To show the video.
-3. `TCPserver.cs`: To make the TCP connection between python and Unity for transferring the video frame.
-4. `Texting.cs`: To typing/texting the rules for user in the `Rules` scene.
-5. `ToPlayScene.cs`: For the button in the `Rules` scene to switch the scene to the playing scene.
-6. `VideoSpeedController.cs`: To control the speed of the video by the player.
+2. `TCPserver.cs`: To make the TCP connection between python and Unity for transferring the video frame.
+3. `Texting.cs`: To typing/texting the rules for user in the `Rules` scene.
+4. `ToPlayScene.cs`: For the button in the `Rules` scene to switch the scene to the playing scene.
+5. `VideoController.cs`: To control the speed of the video by the player.
+6. `FrameData.cs`: Create the `class` for loading frame data from the json file.
+7. `LoadJsonData.cs`: For loading the data from the jsom file.
+8. `MainCameraController.cs`: Revise the distance of the camera according to the size of the video.
+9. `ObstacleController.cs`: Use to randomly create the obstacles.
+10. `CollisonController.cs`: Used to control the situation while the collision occurred.
 
 ### PythonApi
 1. `TCP_Client.py`: To make the TCP connection to send/receive Unity Server.(Now just received Server's frame and return testdata to check it work)
