@@ -9,6 +9,7 @@ TagManager:
   - bikeHandlebar
   - panel
   - Bike
+  - obstacle
   layers:
   - Default
   - TransparentFX

@@ -6,8 +6,8 @@
 
 ### Scenes
 1. `Rules`: For texting rules here.
-2. `TestScene 1`: Test scene.
-3. `PlayScene`: This is Playing scene (lastest version)
+2. `PlayScene`: This is Playing scene (lastest version)
+3. `TestScene 1`: This is a testing scene.
 
 ### Script
 1. `PlayerController.cs`: To control the player movement.
