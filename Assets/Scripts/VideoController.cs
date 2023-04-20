@@ -4,7 +4,7 @@ using UnityEngine.Video;
 
 public class VideoController : MonoBehaviour
 {
-    private VideoPlayer videoPy;
+    public VideoPlayer videoPy;
     private float verticalInput;
     private RectTransform imagesize;
     private RawImage rawimage;

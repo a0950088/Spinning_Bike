@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     private float verticalInput;
     private float TurnAngle = 30.0f;
     private float turnSpeed = 30.0f;
-    private float WheelSpeed = 40.0f;
+    public float WheelSpeed = 40.0f;
     private float acceleration = 10.0f;
     private float MaxSpeed = 100.0f;
     private float MinSpeed = 0.0f;

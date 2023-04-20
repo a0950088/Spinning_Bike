@@ -13,10 +13,11 @@ public class ObstacleController : MonoBehaviour
     private float initialPositionZ = 15f;
 
     private float verticalInput;
-    private float initSpeed = 0.1f;
-    private float initScale = 0.01f;
+    public float initSpeed = 0.1f;
+    public float initScale = 0.01f;
     private float yspeed = 0.1f;
-    private float zspeed, yspeed_total;
+    private float zspeed;
+    private float yspeed_total = 0.1f;
     private float scale = 0.01f;
     private float rand = 1.0f;
 
@@ -58,18 +59,18 @@ public class ObstacleController : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("Obstacle update");
+        // Debug.Log("Obstacle update");
 
-        if(videoPlayer.isPrepared && videoController.nowframe>0 && videoPlayer.frame>0) // sync video frame
+        if (videoPlayer.isPrepared && videoController.nowframe > 0 && videoPlayer.frame > 0) // sync video frame
         {
-            if(videoController.nowframe<5){
+            if (videoController.nowframe < 5){
                 frameIndex = data.dataWrapper.FrameData[videoController.nowframe].frame;
                 direction = data.dataWrapper.FrameData[videoController.nowframe].direction;
                 // Debug.Log("Frame: " + videoController.nowframe);
             }
             
             float r = Random.Range(0.0f, 1.0f);
-            if(direction == "Straight" && rand>=r && obstacleInstance == null)
+            if(direction == "Straight" && rand >= r && obstacleInstance == null)
             {
                 createObstacle();
             }
@@ -85,7 +86,7 @@ public class ObstacleController : MonoBehaviour
     int normPlayer(float x)
     {
         // corresponding player world coordinate x
-        int world_x = (int) System.Math.Floor(260*x) - 130;
+        int world_x = (int) System.Math.Floor(260 * x) - 130;
         return world_x;
     }
 
@@ -120,8 +121,8 @@ public class ObstacleController : MonoBehaviour
         // Debug.Log("top r map: " + pointTopR.x/videoWidth);
         // Debug.Log("top l map: " + pointTopL.x/videoWidth);
 
-        float x = Random.Range(pointTopL.x/videoWidth, pointTopR.x/videoWidth);
-        Debug.Log("randx:" + x);
+        float x = Random.Range(pointTopL.x / videoWidth, pointTopR.x / videoWidth);
+        // Debug.Log("randx:" + x); 
 
         initialPosition = new Vector3(normPlayer(x), initialPositionY, initialPositionZ);
         // initialPosition = new Vector3(normPlayer(x), (pointTop.y - videoHeight/2) , initialPositionZ);
@@ -135,29 +136,28 @@ public class ObstacleController : MonoBehaviour
         // get initial value
         deltaY = System.Math.Abs(obstacleInstance.transform.position.y - bike.transform.position.y);
         deltaZ = System.Math.Abs(obstacleInstance.transform.position.z - bike.transform.position.z);
-        proportion = deltaZ/deltaY;
+        proportion = deltaZ / deltaY;
 
         verticalInput = Input.GetAxis("Vertical");
-
         // increase y value
-        yspeed_total = initSpeed + verticalInput*yspeed;
+        yspeed_total = initSpeed + verticalInput * yspeed;
 
         // increase z value
-        zspeed = yspeed_total*proportion;
+        zspeed = yspeed_total * proportion;
 
         obstacleInstance.transform.position += new Vector3(0f, yspeed_total, zspeed);
-        Debug.Log("y:" + obstacleInstance.transform.position.y);
-        Debug.Log("z:" + obstacleInstance.transform.position.z);
+        // Debug.Log("y:" + obstacleInstance.transform.position.y);
+        // Debug.Log("z:" + obstacleInstance.transform.position.z);
         // Debug.Log("z speed:" + zspeed);
 
         // zoom in
-        obstacleInstance.transform.localScale += new Vector3(initScale+verticalInput*scale, initScale+verticalInput*scale, initScale+verticalInput*scale);
-        Debug.Log("scale:" + obstacleInstance.transform.localScale.x);
+        obstacleInstance.transform.localScale += new Vector3(initScale + verticalInput * scale, initScale + verticalInput * scale, initScale + verticalInput * scale);
+        // Debug.Log("scale:" + obstacleInstance.transform.localScale.x);
 
         // Destroy
         if(obstacleInstance.transform.position.z > 1000)
         {
-            Debug.Log("Obstacle out of sight.");
+            // Debug.Log("Obstacle out of sight.");
             Destroy(obstacleInstance);
         }
     }
@@ -178,6 +178,5 @@ public class ObstacleController : MonoBehaviour
     //     Debug.Log("RLR: " + string.Join(", ", data.dataWrapper.FrameData[0].right_line_range));
     //     Debug.Log("RLR: " + string.Join(", ", data.dataWrapper.FrameData[0].top_point));
     // }
-
 
 }
