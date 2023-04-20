@@ -116,4 +116,13 @@ public class PlayerController : MonoBehaviour
         }
     }
     
+    /*
+    void StoprRiding(){
+
+    }
+
+    void ResumeRiding(){
+    
+    }
+    */
 }

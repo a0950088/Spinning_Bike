@@ -1414,7 +1414,9 @@ MonoBehaviour:
   camToPlayerDist: 100
   playerPosy: -50
   firstrotate: 0
+  turnSpeed: 30
   WheelSpeed: 40
+  ridingSpeed: 30
 --- !u!54 &1265276051
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1456,7 +1458,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 650e0e4741151c345a2be7e7ca4975a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  danger_win: {fileID: 921676119}
+  danger_win: {fileID: 0}
 --- !u!1001 &1271536914
 PrefabInstance:
   m_ObjectHideFlags: 0

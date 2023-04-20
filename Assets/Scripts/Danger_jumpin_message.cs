@@ -2,18 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class Danger_jumpin_message : MonoBehaviour
 {
-    public GameObject[] wins;
+    private GameObject[] wins;
     private bool crushed = false;
     public bool win_on { get => crushed; set => crushed = value; }
-    public VideoController video;
+    
     public PlayerController player;
     public ObstacleController obstacle;
+    private VideoPlayer videoPlayer;
 
     void Start()
     {
+        videoPlayer = GameObject.Find("Screen").GetComponent<VideoPlayer>();
         wins = GameObject.FindGameObjectsWithTag("danger_window");
         foreach (GameObject win in wins)
         {
@@ -29,7 +32,7 @@ public class Danger_jumpin_message : MonoBehaviour
             {
                 win.SetActive(true);
             }
-            video.videoPy.playbackSpeed = 0;
+            videoPlayer.playbackSpeed = 0;
             player.WheelSpeed = 0.0f;
             player.turnSpeed = 0.0f;
             player.ridingSpeed = 0.0f;
@@ -57,9 +60,9 @@ public class Danger_jumpin_message : MonoBehaviour
         /* close the window after 5 sec and back to the 20 frame before */
         if (win_on) {
             win_on = false;
-            video.videoPy.frame = video.nowframe - 20;
+            videoPlayer.frame = videoPlayer.frame - 40;
         }
-        video.videoPy.playbackSpeed = 1;
+        videoPlayer.playbackSpeed = 1;
         player.WheelSpeed = 40.0f;
         player.turnSpeed = 30.0f;
         player.ridingSpeed = 30.0f;
