@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement; //SceneManager
 
 public class ToPlaySence : MonoBehaviour
 {
-    public int sceneIndex = 5; //switch to which sence
+    public int sceneIndex = 1; //switch to which sence
 
     void Start()
     {

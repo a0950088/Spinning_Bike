@@ -6,15 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/SimpleInfiniteMotoBiker/Scenes/MainMenu.unity
-    guid: 3e4a524a2f72d0a49ad881b1e0dd1935
+    path: Assets/Scenes/Rules.unity
+    guid: e784679659025a642a9215424e1efc5d
   - enabled: 1
-    path: Assets/SimpleInfiniteMotoBiker/Scenes/loadScreen.unity
-    guid: 6d0c5e9acf5e38f4aa390e547e5e161c
-  - enabled: 1
-    path: Assets/SimpleInfiniteMotoBiker/Scenes/Level.unity
-    guid: 1d6e65e83357ba240950b533731c9ebf
-  - enabled: 1
-    path: Assets/SimpleInfiniteMotoBiker/Scenes/gameOver.unity
-    guid: f24398f2ad96f51438fabcfa5cccb5d0
+    path: Assets/Scenes/PlayScene.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects: {}

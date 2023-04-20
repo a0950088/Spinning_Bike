@@ -18,12 +18,12 @@ public class PlayerController : MonoBehaviour
     public float firstrotate;
     private float verticalInput;
     private float TurnAngle = 30.0f;
-    private float turnSpeed = 30.0f;
-    private float WheelSpeed = 40.0f;
+    public float turnSpeed = 30.0f;
+    public float WheelSpeed = 40.0f;
     private float acceleration = 10.0f;
     private float MaxSpeed = 100.0f;
     private float MinSpeed = 0.0f;
-    private float ridingSpeed = 30.0f;
+    public float ridingSpeed = 30.0f;
 
     private VideoPlayer videoPlayer;
     private Transform playerPos;
@@ -116,4 +116,13 @@ public class PlayerController : MonoBehaviour
         }
     }
     
+    /*
+    void StoprRiding(){
+
+    }
+
+    void ResumeRiding(){
+    
+    }
+    */
 }
