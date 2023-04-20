@@ -31,6 +31,8 @@ public class Danger_jumpin_message : MonoBehaviour
             }
             video.videoPy.playbackSpeed = 0;
             player.WheelSpeed = 0.0f;
+            player.turnSpeed = 0.0f;
+            player.ridingSpeed = 0.0f;
             obstacle.initSpeed = 0.0f;
             obstacle.initScale = 0.0f;
             StartCoroutine("Countdown");
@@ -52,14 +54,15 @@ public class Danger_jumpin_message : MonoBehaviour
             yield return new WaitForSecondsRealtime(1);
             Sec--;
         }
-
+        /* close the window after 5 sec and back to the 20 frame before */
         if (win_on) {
             win_on = false;
             video.videoPy.frame = video.nowframe - 20;
         }
-
         video.videoPy.playbackSpeed = 1;
         player.WheelSpeed = 40.0f;
+        player.turnSpeed = 30.0f;
+        player.ridingSpeed = 30.0f;
         obstacle.initSpeed = 0.1f;
         obstacle.initScale = 0.01f;
     }

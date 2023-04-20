@@ -414,7 +414,8 @@ MonoBehaviour:
   prefab: {fileID: 801287902016485815, guid: 81ab7ac6163bdf342b6a77f7be86e448, type: 3}
   obstacleInstance: {fileID: 0}
   bike: {fileID: 0}
-  yspeed_total: 0
+  initSpeed: 0.1
+  initScale: 0.01
 --- !u!54 &402676958
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -429,7 +430,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 126
   m_CollisionDetection: 2
 --- !u!1 &469380080
 GameObject:
@@ -1441,7 +1442,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 20, y: 40, z: 30.589233}
+  m_Size: {x: 10, y: 20, z: 15}
   m_Center: {x: 0, y: 20, z: -5.2946167}
 --- !u!114 &1265276053
 MonoBehaviour:
