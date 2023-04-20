@@ -881,7 +881,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c46290653e138c4697d836702740c06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  videoPy: {fileID: 0}
   nowframe: 0
 --- !u!1 &921676114
 GameObject:
@@ -998,8 +997,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6eb553d9f58302479afb5f94c37af60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wins: []
-  video: {fileID: 799664310}
   player: {fileID: 1265276050}
   obstacle: {fileID: 402676957}
 --- !u!1 &963194225
@@ -1455,10 +1452,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1265276048}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 650e0e4741151c345a2be7e7ca4975a1, type: 3}
+  m_Script: {fileID: 11500000, guid: b6163fb5347d40f4d92f7edbafa40afb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  danger_win: {fileID: 0}
+  danger_win: {fileID: 921676119}
 --- !u!1001 &1271536914
 PrefabInstance:
   m_ObjectHideFlags: 0
