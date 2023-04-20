@@ -9,6 +9,8 @@ TagManager:
   - bikeHandlebar
   - panel
   - Bike
+  - obstacle
+  - danger_window
   layers:
   - Default
   - TransparentFX
