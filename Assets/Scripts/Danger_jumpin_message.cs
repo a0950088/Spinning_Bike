@@ -6,13 +6,15 @@ using UnityEngine.Video;
 
 public class Danger_jumpin_message : MonoBehaviour
 {
+    public PlayerController player;
+    public ObstacleController obstacle;
+    private VideoPlayer videoPlayer;
+
     private GameObject[] wins;
     private bool crushed = false;
     public bool win_on { get => crushed; set => crushed = value; }
     
-    public PlayerController player;
-    public ObstacleController obstacle;
-    private VideoPlayer videoPlayer;
+    private int counter = 50;
 
     void Start()
     {
@@ -24,21 +26,20 @@ public class Danger_jumpin_message : MonoBehaviour
         }
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (win_on)
         {
-            foreach (GameObject win in wins)
+            if (counter > 0)
             {
-                win.SetActive(true);
+                Stop();
+                counter--;
             }
-            videoPlayer.playbackSpeed = 0;
-            player.WheelSpeed = 0.0f;
-            player.turnSpeed = 0.0f;
-            player.ridingSpeed = 0.0f;
-            obstacle.initSpeed = 0.0f;
-            obstacle.initScale = 0.0f;
-            StartCoroutine("Countdown");
+            else
+            {
+                Resume();
+                counter = 50;
+            }
         }
         else
         {
@@ -49,19 +50,24 @@ public class Danger_jumpin_message : MonoBehaviour
         }
     }
 
-    IEnumerator Countdown()
+    void Stop()
     {
-        int Sec = 5;
-        while (Sec > 0)
+        foreach (GameObject win in wins)
         {
-            yield return new WaitForSecondsRealtime(1);
-            Sec--;
+            win.SetActive(true);
         }
-        /* close the window after 5 sec and back to the 20 frame before */
-        if (win_on) {
-            win_on = false;
-            videoPlayer.frame = videoPlayer.frame - 40;
-        }
+        videoPlayer.playbackSpeed = 0;
+        player.WheelSpeed = 0.0f;
+        player.turnSpeed = 0.0f;
+        player.ridingSpeed = 0.0f;
+        obstacle.initSpeed = 0.0f;
+        obstacle.initScale = 0.0f;
+    }
+
+    void Resume()
+    {
+        win_on = false;
+        videoPlayer.frame = videoPlayer.frame - 40;
         videoPlayer.playbackSpeed = 1;
         player.WheelSpeed = 40.0f;
         player.turnSpeed = 30.0f;
@@ -70,3 +76,4 @@ public class Danger_jumpin_message : MonoBehaviour
         obstacle.initScale = 0.01f;
     }
 }
+
