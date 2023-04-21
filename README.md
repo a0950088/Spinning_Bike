@@ -20,6 +20,7 @@
 8. `MainCameraController.cs`: Revise the distance of the camera according to the size of the video.
 9. `ObstacleController.cs`: Use to randomly create the obstacles.
 10. `CollisonController.cs`: Used to control the situation while the collision occurred.
+11. `Danger_jumpin_message.cs`: Used to control the jumpin' message and stop the player while in the collision.
 
 ### PythonApi
 1. `TCP_Client.py`: To make the TCP connection to send/receive Unity Server.(Now just received Server's frame and return testdata to check it work)
