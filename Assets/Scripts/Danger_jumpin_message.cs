@@ -54,7 +54,8 @@ public class Danger_jumpin_message : MonoBehaviour
         int Sec = 5;
         while (Sec > 0)
         {
-            yield return new WaitForSecondsRealtime(1);
+            // yield return new WaitForSecondsRealtime(1);
+            yield return new WaitForSeconds(1f);
             Sec--;
         }
         /* close the window after 5 sec and back to the 20 frame before */
