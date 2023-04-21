@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public GameObject BackWheel;
     public GameObject BikeHandleBar;
     public GameObject[] panels;
+    
     /* human */
 
     public float camToPlayerDist = 100f;
@@ -56,7 +57,7 @@ public class PlayerController : MonoBehaviour
         };
     }
     
-    void Update()
+    void FixedUpdate()
     {
         DecideDirection();
         BikeSpeed();
@@ -115,14 +116,4 @@ public class PlayerController : MonoBehaviour
             WheelSpeed += acceleration * verticalInput * 0.01f;
         }
     }
-    
-    /*
-    void StoprRiding(){
-
-    }
-
-    void ResumeRiding(){
-    
-    }
-    */
 }
