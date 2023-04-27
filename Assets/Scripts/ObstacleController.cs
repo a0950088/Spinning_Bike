@@ -13,13 +13,13 @@ public class ObstacleController : MonoBehaviour
     private float initialPositionZ = 15f;
 
     private float verticalInput;
-    public float initSpeed = 0.1f;
+    public float initSpeed = 0.05f;
     public float initScale = 0.01f;
     private float yspeed = 0.1f;
     private float zspeed;
     private float yspeed_total = 0.1f;
     private float scale = 0.01f;
-    private float rand = 1.0f;
+    private float rand = 0.5f;
 
     private float deltaY;
     private float deltaZ;
@@ -63,14 +63,16 @@ public class ObstacleController : MonoBehaviour
 
         if (videoPlayer.isPrepared && videoController.nowframe > 0 && videoPlayer.frame > 0) // sync video frame
         {
-            if (videoController.nowframe < 5){
-                frameIndex = data.dataWrapper.FrameData[videoController.nowframe].frame;
-                direction = data.dataWrapper.FrameData[videoController.nowframe].direction;
-                // Debug.Log("Frame: " + videoController.nowframe);
-            }
-            
+            // if (videoController.nowframe < 5){
+            //     frameIndex = data.dataWrapper.FrameData[videoController.nowframe].frame;
+            //     direction = data.dataWrapper.FrameData[videoController.nowframe].direction;
+            //     // Debug.Log("Frame: " + videoController.nowframe);
+            // }            
+            frameIndex = data.dataWrapper.FrameData[videoController.nowframe].frame;
+            direction = data.dataWrapper.FrameData[videoController.nowframe].direction;
+
             float r = Random.Range(0.0f, 1.0f);
-            if(direction == "Straight" && rand >= r && obstacleInstance == null)
+            if(direction == "Straight" && r>=rand && obstacleInstance == null)
             {
                 createObstacle();
             }
@@ -109,20 +111,20 @@ public class ObstacleController : MonoBehaviour
         pointTopL = new Vector2((pointFarL.x + coefL*(pointFarL.x - pointNearL.x)), pointTop.y);
 
         float coefR = (pointTop.y - pointFarR.y)/(pointFarR.y - pointNearR.y);
-        pointTopR = new Vector2((pointFarR.x + coefL*(pointFarR.x - pointNearR.x)), pointTop.y);
+        pointTopR = new Vector2((pointFarR.x + coefR*(pointFarR.x - pointNearR.x)), pointTop.y);
 
-        // Debug.Log("frameI: " + frameIndex);
-        // Debug.Log("pnr: " + pointNearR);
-        // Debug.Log("pfr: " + pointFarR);
-        // Debug.Log("pnl: " + pointNearL);
-        // Debug.Log("pfl: " + pointFarL);
-        // Debug.Log("top l: " + pointTopL);
-        // Debug.Log("top r: " + pointTopR);
-        // Debug.Log("top r map: " + pointTopR.x/videoWidth);
-        // Debug.Log("top l map: " + pointTopL.x/videoWidth);
+        Debug.Log("frameI: " + frameIndex);
+        Debug.Log("pnr: " + pointNearR);
+        Debug.Log("pfr: " + pointFarR);
+        Debug.Log("pnl: " + pointNearL);
+        Debug.Log("pfl: " + pointFarL);
+        Debug.Log("top l: " + pointTopL);
+        Debug.Log("top r: " + pointTopR);
+        Debug.Log("top r map: " + pointTopR.x/videoWidth);
+        Debug.Log("top l map: " + pointTopL.x/videoWidth);
 
         float x = Random.Range(pointTopL.x / videoWidth, pointTopR.x / videoWidth);
-        // Debug.Log("randx:" + x); 
+        Debug.Log("randx:" + x); 
 
         initialPosition = new Vector3(normPlayer(x), initialPositionY, initialPositionZ);
         // initialPosition = new Vector3(normPlayer(x), (pointTop.y - videoHeight/2) , initialPositionZ);
