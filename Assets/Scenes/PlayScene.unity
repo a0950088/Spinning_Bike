@@ -1417,8 +1417,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6eb553d9f58302479afb5f94c37af60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1265276050}
-  obstacle: {fileID: 402676957}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -1788,6 +1786,7 @@ GameObject:
   - component: {fileID: 1265276052}
   - component: {fileID: 1265276051}
   - component: {fileID: 1265276053}
+  - component: {fileID: 1265276054}
   m_Layer: 0
   m_Name: Player
   m_TagString: Bike
@@ -1875,7 +1874,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6163fb5347d40f4d92f7edbafa40afb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  danger_win: {fileID: 921676119}
+--- !u!114 &1265276054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1265276048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52728137b36bee0488227e17b44dcb12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bike: {fileID: 1265276048}
 --- !u!1001 &1271536914
 PrefabInstance:
   m_ObjectHideFlags: 0

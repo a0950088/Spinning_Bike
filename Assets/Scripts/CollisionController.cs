@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class CollisionController : MonoBehaviour
 {
-    public Danger_jumpin_message danger_win;
+    private Danger_jumpin_message danger_win;
+
+    void Start()
+    {
+        danger_win = GameObject.FindObjectOfType<Danger_jumpin_message>();
+    }
 
     void OnCollisionEnter(Collision other)
     {
