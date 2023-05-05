@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.Video;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -30,6 +31,8 @@ public class PlayerController : MonoBehaviour
     private Transform playerPos;
     private Transform camPos;
 
+    private TMP_Text display_speed;
+
     private void Awake()
     {
         Debug.Log("PlayerController Awake");
@@ -44,6 +47,7 @@ public class PlayerController : MonoBehaviour
         BackWheel = GameObject.FindGameObjectWithTag("backwheel");
         BikeHandleBar = GameObject.FindGameObjectWithTag("bikeHandlebar");
         panels = GameObject.FindGameObjectsWithTag("panel");
+        display_speed = GameObject.Find("speed_text").GetComponent<TMP_Text>();
 
         camPos = GameObject.Find("Main Camera").GetComponent<Transform>();
         playerPos = GetComponent<Transform>();
@@ -115,5 +119,6 @@ public class PlayerController : MonoBehaviour
         else {
             WheelSpeed += acceleration * verticalInput * 0.01f;
         }
+        display_speed.text = System.Math.Floor(WheelSpeed).ToString();
     }
 }
