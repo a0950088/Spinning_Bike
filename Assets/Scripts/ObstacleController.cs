@@ -8,7 +8,6 @@ public class ObstacleController : MonoBehaviour
     public GameObject prefab, obstacleInstance, bike;
 
     Vector3 initialPosition;
-    // private float initialPositionX;
     private float initialPositionY = -100f;
     private float initialPositionZ = 15f;
 
@@ -19,7 +18,7 @@ public class ObstacleController : MonoBehaviour
     private float zspeed;
     private float yspeed_total = 0.1f;
     private float scale = 0.01f;
-    private float rand = 0.5f;
+    private float rand = 0.3f;
 
     private float deltaY;
     private float deltaZ;
@@ -59,20 +58,13 @@ public class ObstacleController : MonoBehaviour
 
     void Update()
     {
-        // Debug.Log("Obstacle update");
-
         if (videoPlayer.isPrepared && videoController.nowframe > 0 && videoPlayer.frame > 0) // sync video frame
-        {
-            // if (videoController.nowframe < 5){
-            //     frameIndex = data.dataWrapper.FrameData[videoController.nowframe].frame;
-            //     direction = data.dataWrapper.FrameData[videoController.nowframe].direction;
-            //     // Debug.Log("Frame: " + videoController.nowframe);
-            // }            
+        {  
             frameIndex = data.dataWrapper.FrameData[videoController.nowframe].frame;
             direction = data.dataWrapper.FrameData[videoController.nowframe].direction;
 
             float r = Random.Range(0.0f, 1.0f);
-            if(direction == "Straight" && r>=rand && obstacleInstance == null)
+            if(direction == "Straight" && rand>=r && obstacleInstance == null)
             {
                 createObstacle();
             }
@@ -94,9 +86,6 @@ public class ObstacleController : MonoBehaviour
 
     void createObstacle()
     {
-        // random object x
-        // float x = Random.Range(0.0f, 1.0f);
-        // near(x1, y1), far(x2, y2) [0 1 2 3]
         Vector2 pointNearL = new Vector2(data.dataWrapper.FrameData[frameIndex].left_line_range[0], data.dataWrapper.FrameData[frameIndex].left_line_range[1]);
         Vector2 pointFarL = new Vector2(data.dataWrapper.FrameData[frameIndex].left_line_range[2], data.dataWrapper.FrameData[frameIndex].left_line_range[3]);
 
@@ -113,21 +102,19 @@ public class ObstacleController : MonoBehaviour
         float coefR = (pointTop.y - pointFarR.y)/(pointFarR.y - pointNearR.y);
         pointTopR = new Vector2((pointFarR.x + coefR*(pointFarR.x - pointNearR.x)), pointTop.y);
 
-        Debug.Log("frameI: " + frameIndex);
-        Debug.Log("pnr: " + pointNearR);
-        Debug.Log("pfr: " + pointFarR);
-        Debug.Log("pnl: " + pointNearL);
-        Debug.Log("pfl: " + pointFarL);
-        Debug.Log("top l: " + pointTopL);
-        Debug.Log("top r: " + pointTopR);
-        Debug.Log("top r map: " + pointTopR.x/videoWidth);
-        Debug.Log("top l map: " + pointTopL.x/videoWidth);
+        // Debug.Log("frameI: " + frameIndex);
+        // Debug.Log("pnr: " + pointNearR);
+        // Debug.Log("pfr: " + pointFarR);
+        // Debug.Log("pnl: " + pointNearL);
+        // Debug.Log("pfl: " + pointFarL);
+        // Debug.Log("top l: " + pointTopL);
+        // Debug.Log("top r: " + pointTopR);
+        // Debug.Log("top r map: " + pointTopR.x/videoWidth);
+        // Debug.Log("top l map: " + pointTopL.x/videoWidth);
 
         float x = Random.Range(pointTopL.x / videoWidth, pointTopR.x / videoWidth);
-        Debug.Log("randx:" + x); 
 
         initialPosition = new Vector3(normPlayer(x), initialPositionY, initialPositionZ);
-        // initialPosition = new Vector3(normPlayer(x), (pointTop.y - videoHeight/2) , initialPositionZ);
 
         // instantiate object
         obstacleInstance = Instantiate(prefab, initialPosition, Quaternion.identity);
@@ -141,6 +128,7 @@ public class ObstacleController : MonoBehaviour
         proportion = deltaZ / deltaY;
 
         verticalInput = Input.GetAxis("Vertical");
+
         // increase y value
         yspeed_total = initSpeed + verticalInput * yspeed;
 
@@ -148,13 +136,9 @@ public class ObstacleController : MonoBehaviour
         zspeed = yspeed_total * proportion;
 
         obstacleInstance.transform.position += new Vector3(0f, yspeed_total, zspeed);
-        // Debug.Log("y:" + obstacleInstance.transform.position.y);
-        // Debug.Log("z:" + obstacleInstance.transform.position.z);
-        // Debug.Log("z speed:" + zspeed);
 
         // zoom in
         obstacleInstance.transform.localScale += new Vector3(initScale + verticalInput * scale, initScale + verticalInput * scale, initScale + verticalInput * scale);
-        // Debug.Log("scale:" + obstacleInstance.transform.localScale.x);
 
         // Destroy
         if(obstacleInstance.transform.position.z > 1000)
@@ -163,22 +147,5 @@ public class ObstacleController : MonoBehaviour
             Destroy(obstacleInstance);
         }
     }
-
-    // float normCanvas(float x)
-    // {
-    //     // normalize canvas x to [0, 1]
-    //     float norm_x = x/videoWidth; // catch video width
-    //     return norm_x;
-    // }
-
-    // void loadData()
-    // {
-    //     Debug.Log(data.dataWrapper);
-    //     Debug.Log("Frame: " + data.dataWrapper.FrameData[0].frame);
-    //     Debug.Log("Direction: " + data.dataWrapper.FrameData[0].direction);
-    //     Debug.Log("LLR: " + data.dataWrapper.FrameData[0].left_line_range[0]);
-    //     Debug.Log("RLR: " + string.Join(", ", data.dataWrapper.FrameData[0].right_line_range));
-    //     Debug.Log("RLR: " + string.Join(", ", data.dataWrapper.FrameData[0].top_point));
-    // }
 
 }
