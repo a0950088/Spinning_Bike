@@ -11,6 +11,7 @@ TagManager:
   - Bike
   - obstacle
   - danger_window
+  - object
   layers:
   - Default
   - TransparentFX

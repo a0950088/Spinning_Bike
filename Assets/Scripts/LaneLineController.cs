@@ -72,9 +72,9 @@ public class LaneLineController : MonoBehaviour
 		
 		if (playerPos.position.x > right_lane_line || playerPos.position.x < left_lane_line)
 		{
-			Debug.Log("left x: " + left_lane_line);
-			Debug.Log("right x: " + right_lane_line);
-			Debug.Log("player: " + playerPos.position.x);
+			// Debug.Log("left x: " + left_lane_line);
+			// Debug.Log("right x: " + right_lane_line);
+			// Debug.Log("player: " + playerPos.position.x);
 			minusPoints();
 			minus_point.SetActive(true);
 			scores.text = "SCORE: " + points.ToString();

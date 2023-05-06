@@ -117,7 +117,7 @@ public class PlayerController : MonoBehaviour
             WheelSpeed = MinSpeed;
         }
         else {
-            WheelSpeed += acceleration * verticalInput * 0.01f;
+            WheelSpeed += acceleration * verticalInput * 0.1f;
         }
         display_speed.text = System.Math.Floor(WheelSpeed).ToString();
     }
