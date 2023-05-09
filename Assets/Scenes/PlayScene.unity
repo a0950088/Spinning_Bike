@@ -2084,9 +2084,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd0f958974ef2094b9736e3f2d76a46e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bike: {fileID: 0}
+  bike: {fileID: 1265276048}
   prefab: {fileID: 1667342984366313220, guid: 043b7878a7c660340ab9156c2ad0f84e, type: 3}
-  objectInstance: []
 --- !u!1 &1875129099
 GameObject:
   m_ObjectHideFlags: 0

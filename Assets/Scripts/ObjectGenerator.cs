@@ -20,7 +20,7 @@ public class ObjectGenerator : MonoBehaviour
 	private float[] objects;
 
 	private Vector3[] ObjectPosition;
-	private float initPositionZ = 900f;
+	// private float initPositionZ = 900f;
 
 	private Transform playerPos;
 
@@ -46,12 +46,10 @@ public class ObjectGenerator : MonoBehaviour
 			frameIndex = jsondata.dataWrapper.FrameData[videoController.nowframe].frame;
             objects = jsondata.dataWrapper.FrameData[videoController.nowframe].objects_position;
 
-            // Debug.Log(objects);
-
             if (objects.Length != 0)
             {
             	CreateObjects();
-            	Debug.Log("objects generated.");
+            	// Debug.Log("objects generated.");
             }
             // else
             // {
@@ -72,14 +70,21 @@ public class ObjectGenerator : MonoBehaviour
 		// 	DeleteObjects();
 		// }
 		int NumOfObjects = objects.Length / 4;	// x, y, w, h
+
 		for (int i = 0; i < NumOfObjects; i += 4)
 		{
 			Vector2 objectPointL = new Vector2(objects[i], objects[i+1]);
 			float objectWidth = objects[i+2];
 			float objectHeight = objects[i+3];
+			
 			Vector2 objectPointR = new Vector2(objectPointL.x + objectWidth, objectPointL.y + objectHeight);
+			float Left_x = normPlayer(objectPointL.x/videoWidth);
+			float Left_y = objectPointL.y/videoHeight;
 
-			if (playerPos.position.x >= objectPointL.x && playerPos.position.x <= objectPointR.x && playerPos.position.y >= objectPointL.y && playerPos.position.y <= objectPointR.y)
+			float Right_x = normPlayer(objectPointR.x/videoWidth);
+			float Right_y = objectPointR.y/videoHeight;
+
+			if (playerPos.position.x >= Left_x && playerPos.position.x <= Right_x && playerPos.position.y >= Left_y && playerPos.position.y <= Right_y)
 			{
 				danger_win.win_on = true;
 			}
