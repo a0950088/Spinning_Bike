@@ -10,12 +10,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Diagnostics;
 
-// // Add json key from client data
-// public class Data{
-//     // public byte[] image;
-//     public int[,] testdata;
-// }
-
 public class TCPserver : MonoBehaviour
 {
     private VideoController videocontroller;
