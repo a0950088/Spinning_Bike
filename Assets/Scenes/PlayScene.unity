@@ -183,8 +183,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Score  -1
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
+  m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -715,90 +715,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 410080455}
   m_CullTransparentMesh: 1
---- !u!1001 &449856762
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1667342984366313220, guid: 043b7878a7c660340ab9156c2ad0f84e,
-        type: 3}
-      propertyPath: m_Name
-      value: object
-      objectReference: {fileID: 0}
-    - target: {fileID: 5587252963606395536, guid: 043b7878a7c660340ab9156c2ad0f84e,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5587252963606395536, guid: 043b7878a7c660340ab9156c2ad0f84e,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5587252963606395536, guid: 043b7878a7c660340ab9156c2ad0f84e,
-        type: 3}
-      propertyPath: m_Size.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5610069372078240771, guid: 043b7878a7c660340ab9156c2ad0f84e,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 5610069372078240771, guid: 043b7878a7c660340ab9156c2ad0f84e,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5610069372078240771, guid: 043b7878a7c660340ab9156c2ad0f84e,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5610069372078240771, guid: 043b7878a7c660340ab9156c2ad0f84e,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5610069372078240771, guid: 043b7878a7c660340ab9156c2ad0f84e,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5610069372078240771, guid: 043b7878a7c660340ab9156c2ad0f84e,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5610069372078240771, guid: 043b7878a7c660340ab9156c2ad0f84e,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5610069372078240771, guid: 043b7878a7c660340ab9156c2ad0f84e,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5610069372078240771, guid: 043b7878a7c660340ab9156c2ad0f84e,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5610069372078240771, guid: 043b7878a7c660340ab9156c2ad0f84e,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5610069372078240771, guid: 043b7878a7c660340ab9156c2ad0f84e,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 043b7878a7c660340ab9156c2ad0f84e, type: 3}
 --- !u!1 &469380080
 GameObject:
   m_ObjectHideFlags: 0
@@ -859,8 +775,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Turn right
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
+  m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1014,7 +930,7 @@ GameObject:
   - component: {fileID: 683025736}
   - component: {fileID: 683025735}
   m_Layer: 5
-  m_Name: speed_text
+  m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1385,7 +1301,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c46290653e138c4697d836702740c06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  videoFilePath: Assets/video_Trim.mp4
   nowframe: 0
 --- !u!1 &921676114
 GameObject:
@@ -1502,6 +1417,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6eb553d9f58302479afb5f94c37af60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 1265276050}
+  obstacle: {fileID: 402676957}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -1729,7 +1646,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1168571187}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 599d8f2eb4bace344b3a67c03de364cb, type: 3}
+  m_Script: {fileID: 11500000, guid: b04b7dfcfee1d294096ad2baedfdfda0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1231804410
@@ -1870,7 +1787,6 @@ GameObject:
   - component: {fileID: 1265276052}
   - component: {fileID: 1265276051}
   - component: {fileID: 1265276053}
-  - component: {fileID: 1265276054}
   m_Layer: 0
   m_Name: Player
   m_TagString: Bike
@@ -1958,20 +1874,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6163fb5347d40f4d92f7edbafa40afb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1265276054
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1265276048}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52728137b36bee0488227e17b44dcb12, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bike: {fileID: 1265276048}
-  minus_point: {fileID: 6763671}
+  danger_win: {fileID: 921676119}
 --- !u!1001 &1271536914
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2066,26 +1969,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 81ab7ac6163bdf342b6a77f7be86e448, type: 3}
---- !u!1 &1475296420 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1667342984366313220, guid: 043b7878a7c660340ab9156c2ad0f84e,
-    type: 3}
-  m_PrefabInstance: {fileID: 449856762}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1475296426
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1475296420}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd0f958974ef2094b9736e3f2d76a46e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bike: {fileID: 1265276048}
-  prefab: {fileID: 1667342984366313220, guid: 043b7878a7c660340ab9156c2ad0f84e, type: 3}
 --- !u!1 &1875129099
 GameObject:
   m_ObjectHideFlags: 0
@@ -2098,7 +1981,7 @@ GameObject:
   - component: {fileID: 1875129102}
   - component: {fileID: 1875129101}
   m_Layer: 5
-  m_Name: Score_text
+  m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2643,8 +2526,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
+  m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
