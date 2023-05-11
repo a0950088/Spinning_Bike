@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class CollisionController : MonoBehaviour
 {
-    public Danger_jumpin_message danger_win;
+    private Danger_jumpin_message danger_win;
+
+    void Start()
+    {
+        danger_win = GameObject.FindObjectOfType<Danger_jumpin_message>();
+    }
 
     void OnCollisionEnter(Collision other)
     {
+        // if (other.gameObject.CompareTag("obstacle") || other.gameObject.CompareTag("object")){
         if (other.gameObject.CompareTag("obstacle")){
             danger_win.win_on = true;
         }

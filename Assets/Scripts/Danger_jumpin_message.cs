@@ -6,8 +6,8 @@ using UnityEngine.Video;
 
 public class Danger_jumpin_message : MonoBehaviour
 {
-    public PlayerController player;
-    public ObstacleController obstacle;
+    private PlayerController player;
+    private ObstacleController obstacle;
     private VideoPlayer videoPlayer;
 
     private GameObject[] wins;
@@ -18,6 +18,8 @@ public class Danger_jumpin_message : MonoBehaviour
 
     void Start()
     {
+        player = GameObject.FindObjectOfType<PlayerController>();
+        obstacle = GameObject.FindObjectOfType<ObstacleController>();
         videoPlayer = GameObject.Find("Screen").GetComponent<VideoPlayer>();
         wins = GameObject.FindGameObjectsWithTag("danger_window");
         foreach (GameObject win in wins)

@@ -10,26 +10,17 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Diagnostics;
 
-// // Add json key from client data
-// public class Data{
-//     // public byte[] image;
-//     public int[,] testdata;
-// }
-
 public class TCPserver : MonoBehaviour
 {
     private VideoController videocontroller;
     private TcpListener server;
     private bool isRunning;
 
-    // byte[] imageDatas = new byte[0];
-
-    // Texture2D tex;
     public int Port = 30000;
-    // public RawImage img;
+
     private void Start()
     {
-        print("Start");
+        print("TCP server start");
         IPAddress ipAddress = IPAddress.Parse("127.0.0.1");
 
         server = new TcpListener(ipAddress, Port);
@@ -38,11 +29,11 @@ public class TCPserver : MonoBehaviour
         isRunning = true;
 
         videocontroller = GameObject.Find("Screen").GetComponent<VideoController>();
-        // tex = new Texture2D(1280,720);
+
         StartListening();
     }
 
-    private void Update(){
+    private void FixedUpdate(){
         StartListening();
     }
 
@@ -61,34 +52,24 @@ public class TCPserver : MonoBehaviour
 
         while (isRunning)
         {
-            print("Running");
-            byte[] buffer = new byte[300000];
+            print("Running...");
+
+            byte[] buffer = new byte[1024];
             int bytesRead = stream.Read(buffer, 0, buffer.Length);
             string message = Encoding.ASCII.GetString(buffer, 0, bytesRead);
 
             UnityEngine.Debug.Log("Received message: " + message);
-            if (message == "Connect Check"){
+            if (message == "Connect Check")
+            {
                 byte[] check = Encoding.ASCII.GetBytes("Server check");
                 stream.Write(check, 0, check.Length);
                 UnityEngine.Debug.Log("Sent check: Server check");
                 continue;
             }
-            // for(int i=0;i<100;i++){
-            //     Debug.Log("i: "+i); 
-            // }
-            // byte[] response = Encoding.ASCII.GetBytes("ACK");
             
-            // Data res = JsonUtility.FromJson<Data>(message);
-            // Debug.Log("testdata: " + res.testdata);
-            
-            byte[] response = BitConverter.GetBytes(videocontroller.nowframe);
+            // byte[] response = BitConverter.GetBytes(videocontroller.videoFilePath);
+            byte[] response = Encoding.ASCII.GetBytes(videocontroller.videoFilePath);
             stream.Write(response, 0, response.Length);
-            
-            // Debug.Log("Frame on server:"+videospeedcontroller.nowframe);
-            
-            // imageDatas = _imgData.image;
-
-            
         }
     }
 
@@ -99,13 +80,8 @@ public class TCPserver : MonoBehaviour
 
         if (server != null)
         {
-            print("stop");
+            print("TCP server stop");
             server.Stop();
         }
     }
-    /*
-    private void FixedUpdate(){
-        tex.LoadImage(imageDatas);
-        img.texture = tex;
-    }*/
 }
