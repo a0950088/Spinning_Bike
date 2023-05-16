@@ -46,10 +46,12 @@ public class ObjectGenerator : MonoBehaviour
 			frameIndex = jsondata.dataWrapper.FrameData[videoController.nowframe].frame;
             objects = jsondata.dataWrapper.FrameData[videoController.nowframe].objects_position;
 
+            // Debug.Log(objects);
             if (objects.Length != 0)
             {
             	CreateObjects();
-            	// Debug.Log("objects generated.");
+            	Debug.Log(frameIndex);
+            	Debug.Log("objects generated.");
             }
             // else
             // {
@@ -87,6 +89,7 @@ public class ObjectGenerator : MonoBehaviour
 			if (playerPos.position.x >= Left_x && playerPos.position.x <= Right_x && playerPos.position.y >= Left_y && playerPos.position.y <= Right_y)
 			{
 				danger_win.win_on = true;
+				Debug.Log("crushed");
 			}
 
 			// ObjectPosition[i/4] = new Vector3(normPlayer(objectPoint.x/videoWidth), objectPoint.y/videoHeight, initPositionZ);
