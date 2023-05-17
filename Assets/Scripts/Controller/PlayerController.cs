@@ -162,7 +162,7 @@ public class PlayerController : MonoBehaviour
 
     void RideBike(float speed) {
         // Bike.transform.Translate(speed * Time.deltaTime, 0, 0);
-        Debug.Log("change position");
+        // Debug.Log("change position");
         Bike.transform.position += (new Vector3(speed * Time.deltaTime, 0f, 0f));
 
     }

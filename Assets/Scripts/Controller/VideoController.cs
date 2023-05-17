@@ -45,7 +45,7 @@ public class VideoController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Video Update");
+        // Debug.Log("Video Update");
         if(videoPy.isPrepared)
         {
             SetImageTexture();
