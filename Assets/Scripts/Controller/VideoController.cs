@@ -8,7 +8,7 @@ public class VideoController : MonoBehaviour
     private float verticalInput;
     private RectTransform imagesize;
     private RawImage rawimage;
-    public string videoFilePath = "Assets/video_Trim.mp4";
+    public string videoFilePath = "Assets/output_Trim.mp4";
     //Assets/video_Trim.mp4
     //D:\\Banana\\coding\\Unity\\TEST.mp4
     public long nowframe;
@@ -45,10 +45,11 @@ public class VideoController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("Video Update");
         if(videoPy.isPrepared)
         {
             SetImageTexture();
-            VideoSpeedControl();
+            // VideoSpeedControl();
             nowframe = videoPy.frame;
             // Debug.Log("Frame control:" + nowframe);
         }
