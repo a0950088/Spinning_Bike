@@ -6,6 +6,13 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 
+[Serializable]
+public class RecData{
+    public float speed;
+    public float cadence;
+    public float angle;
+}
+
 public class TCP_Client : MonoBehaviour
 {
     private TcpClient client;
@@ -14,9 +21,11 @@ public class TCP_Client : MonoBehaviour
 
     private VideoController videoController;
     private bool isPath = false;
+    private PlayerController player;
 
     private void Start()
     {
+        Debug.Log("Socket Start");
         IPAddress localIpAddress = IPAddress.Parse("127.0.0.1");
         client = new TcpClient();
         client.Client.Bind(new IPEndPoint(localIpAddress, 14786));
@@ -24,12 +33,13 @@ public class TCP_Client : MonoBehaviour
         stream = client.GetStream();
 
         videoController = GameObject.FindObjectOfType<VideoController>();
-
+        player = GameObject.FindObjectOfType<PlayerController>();
         StartReceiving();
     }
 
     private void Update()
     {
+        Debug.Log("Socket update");
         // Send data to the server every second
         if (Time.time >= 1f)
         {
@@ -40,7 +50,8 @@ public class TCP_Client : MonoBehaviour
             }
             else
             {
-                SendData("ready to receive");
+                SendData("path: " + isPath);
+                Debug.Log("Socket log");
             }
             Time.timeScale = 0f; // Pause the game after sending the data
             StartReceiving();
@@ -63,14 +74,43 @@ public class TCP_Client : MonoBehaviour
             {
                 string receivedData = Encoding.ASCII.GetString(receiveBuffer, 0, bytesRead);
                 Debug.Log("Received data: " + receivedData);
+                
+                ProcessRecData(receivedData);
+                
+                // float.Parse(receivedData)
                 // SendData("Received data.");
-
                 StartReceiving();
             }
         }
         catch (Exception e)
         {
             Debug.LogError("Error receiving data: " + e.Message);
+        }
+    }
+
+    private void ProcessRecData(string jsonData)
+    {
+        try
+        {
+            // Deserialize the JSON data into a C# object
+            RecData dataObject = JsonUtility.FromJson<RecData>(jsonData);
+
+            // Access the values from the deserialized object
+            float speed = dataObject.speed;
+            float cadence = dataObject.cadence;
+            float angle = dataObject.angle;
+
+            // Process or use the received data as needed
+            Debug.Log("Received Data:");
+            Debug.Log("Speed: " + speed);
+            Debug.Log("Cadence: " + cadence);
+            Debug.Log("Angle: " + angle);
+            player.getSensorData(speed, cadence, angle);
+        }
+        catch (Exception e)
+        {
+            Debug.Log("Receive: " + jsonData);
+            // Debug.Log("JSON processing error: " + e.Message);
         }
     }
 
