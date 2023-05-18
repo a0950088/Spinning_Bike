@@ -26,7 +26,6 @@ public class OpenFilePanel : MonoBehaviour
     public int thumbnailHeight = 144;
 
     public GameObject listPanel;
-    private bool isThumbnailSaved = false;
 
     private string fileName;
     private string videoURL;
@@ -36,8 +35,6 @@ public class OpenFilePanel : MonoBehaviour
 
     public void OpenFile()
     {
-        isThumbnailSaved = false;
-
         string title = "Select a video file";
         string directory = "";
         string extension = "mp4";
@@ -263,16 +260,23 @@ public class OpenFilePanel : MonoBehaviour
         Sprite sprite = Sprite.Create(thumbnailTexture, new Rect(0, 0, thumbnailTexture.width, thumbnailTexture.height), Vector2.one * 0.5f);
         newButton.GetComponent<Image>().sprite = sprite;
 
-        if (!JsonExists(fileName))
-        {
-            Color darkColor = new Color(0.4f, 0.4f, 0.4f); // 自定義暗色
-            darkColor.a = 0.8f; // 設置透明度
-            newButton.GetComponent<Image>().color = darkColor;
-        }
-
+        ChangeState(newButton);
 
         // 加 onClick 時觸發的函式
         //newButton.GetComponent<Button>().onClick.AddListener(() => CreateNewButton());
+    }
+
+    public void ChangeState(Button newButton)
+    {
+        if (!JsonExists(fileName))
+        {
+            newButton.interactable = false;
+        }
+        else
+        {
+            newButton.interactable = true;
+        }
+
     }
 
 
@@ -296,7 +300,7 @@ public class OpenFilePanel : MonoBehaviour
     private bool JsonExists(string buttonName)
     {
         string jsonFileName = buttonName + ".json";
-        string jsonPath = Path.Combine(Application.dataPath, "Json", jsonFileName);
+        string jsonPath = Path.Combine(Application.dataPath, "JsonData", jsonFileName);
         return File.Exists(jsonPath);
     }
 }
