@@ -184,6 +184,7 @@ public class PlayerController : MonoBehaviour
 
     void RideBike(float speed) {
         // Bike.transform.Translate(speed * Time.deltaTime, 0, 0);
+        
         Debug.Log("position: " + Bike.transform.position.x);
         // Bike.transform.position += (new Vector3(speed * Time.deltaTime, 0f, 0f));
         if(Bike.transform.position.x<=MAX_X &&  Bike.transform.position.x>=MIN_X){
@@ -196,7 +197,6 @@ public class PlayerController : MonoBehaviour
         else if(Bike.transform.position.x < MIN_X && speed>=0){
             Bike.transform.position += (new Vector3(speed*TIME_CONSTANT, 0f, 0f));
         }
-
     }
 
     public void WheelRoll() {

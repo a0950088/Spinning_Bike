@@ -12,7 +12,7 @@ public class LoadJsonData : MonoBehaviour
     //LevelData[] MyData;
     void Awake(){
         Debug.Log("Load data Awake");
-        LoadData = File.ReadAllText(Application.dataPath + "/JsonData/test.json");
+        LoadData = File.ReadAllText(Application.dataPath + "/JsonData/30427_hd_Trim.json");
         dataWrapper = JsonUtility.FromJson<FrameDataWrapper>(LoadData);
     }
     void Start()
