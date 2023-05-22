@@ -27,10 +27,10 @@ public class TCP_Client : MonoBehaviour
     private void Start()
     {
         Debug.Log("Socket Start");
-        IPAddress localIpAddress = IPAddress.Parse("127.0.0.1");
+        IPAddress localIpAddress = IPAddress.Parse("192.168.100.166");
         client = new TcpClient();
         client.Client.Bind(new IPEndPoint(localIpAddress, 14786));
-        client.Connect("127.0.0.1", 30000);
+        client.Connect("192.168.100.166", 30000);
         stream = client.GetStream();
 
         videoController = GameObject.FindObjectOfType<VideoController>();
