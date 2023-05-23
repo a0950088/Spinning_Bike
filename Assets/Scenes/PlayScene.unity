@@ -2064,11 +2064,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1168571187}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b04b7dfcfee1d294096ad2baedfdfda0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  processPath: 
 --- !u!1001 &1231804410
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2295,7 +2296,6 @@ MonoBehaviour:
   turnSpeed: 30
   WheelSpeed: 40
   ridingSpeed: 30
-  testflag: 1
 --- !u!54 &1265276051
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3025,7 +3025,7 @@ GameObject:
   - component: {fileID: 1749388702}
   m_Layer: 5
   m_Name: loading
-  m_TagString: Untagged
+  m_TagString: loading
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -12,6 +12,7 @@ TagManager:
   - obstacle
   - danger_window
   - object
+  - loading
   layers:
   - Default
   - TransparentFX

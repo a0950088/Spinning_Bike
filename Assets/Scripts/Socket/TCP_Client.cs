@@ -88,6 +88,14 @@ public class TCP_Client : MonoBehaviour
             SendData();
             bytesRead = stream.Read(receiveBuffer, 0, receiveBuffer.Length);
             receivedData = Encoding.UTF8.GetString(receiveBuffer, 0, bytesRead);
+            //check connection state
+            Debug.Log("receivedData: " + receivedData);
+
+            if(receivedData=="OK"){
+                conn_state=1;
+                Debug.Log("conn_state: " + conn_state);
+            }
+            //
             ProcessRecData(receivedData);
             // int bytesRead = stream.Read(receiveBuffer, 0, receiveBuffer.Length);
             // if(bytesRead > 0){
