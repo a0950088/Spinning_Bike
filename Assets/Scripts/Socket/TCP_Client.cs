@@ -17,6 +17,7 @@ public class RecData{
 public class TCP_Client : MonoBehaviour
 {
     private Thread receiveThread;
+    public static int conn_state=0; //pie+unity are connected,conn_state=1
     private TcpClient client;
     private NetworkStream stream;
     private byte[] receiveBuffer = new byte[1024];
@@ -125,6 +126,12 @@ public class TCP_Client : MonoBehaviour
                 
                 // float.Parse(receivedData)
                 // SendData("Received data.");
+                //check connection state
+                if(receivedData=="OK"){
+                    conn_state=1;
+                    Debug.Log("conn_state: " + conn_state);
+                }
+                //
                 StartReceiving();
             }
         }
