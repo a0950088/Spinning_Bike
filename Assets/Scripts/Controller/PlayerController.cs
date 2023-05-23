@@ -28,7 +28,8 @@ public class PlayerController : MonoBehaviour
     public float ridingSpeed = 30.0f;
 
     // socket version
-    public bool testflag = true;
+    private float MAX_LEFT_ROTATE_ANGLE = -45.0f;
+    private float MAX_RIGHT_ROTATE_ANGLE = 45.0f;
     private float MAX_X = 130.0f;
     private float MIN_X = -130.0f;
     private float sensor_speed = 0.0f;
@@ -75,7 +76,7 @@ public class PlayerController : MonoBehaviour
         };
     }
     
-    void Update()
+    void FixedUpdate()
     {
         Debug.Log("Player Update");
         Debug.Log("sensor_speed: "+sensor_speed);
@@ -106,9 +107,9 @@ public class PlayerController : MonoBehaviour
 
     public void getSensorData(float speed, float cadence, float angle){
         // send sensor data to process player animation
-        Debug.Log("rec speed: " + speed);// 0 ~ 20
-        Debug.Log("rec cadence: " + cadence);
-        Debug.Log("rec angle: " + angle); // (right)-45 ~ 45(left)
+        // Debug.Log("rec speed: " + speed);// 0 ~ 20
+        // Debug.Log("rec cadence: " + cadence);
+        // Debug.Log("rec angle: " + angle); // (right)-45 ~ 45(left)
         sensor_speed = speed;
         sensor_cadence = cadence;
         sensor_angle = angle;
@@ -119,11 +120,11 @@ public class PlayerController : MonoBehaviour
     void setPlayerAnimation(float speed, float angle){
         videoPlayer.playbackSpeed = (speed/10.0f)+0.5f;
         ChangePlayerDirection(angle);
-        if(angle>=0){
+        if(angle>0){
             //left
             RideBike(speed);
         }
-        else{
+        else if(angle<0){
             //right
             RideBike(-speed);
         }
@@ -138,42 +139,44 @@ public class PlayerController : MonoBehaviour
     void ChangePlayerDirection(float angle){
         var bikeHandleBar_Y = UnityEditor.TransformUtils.GetInspectorRotation(BikeHandleBar.transform).y;
         
-        Vector3 bikeHandleBar_vec = BikeHandleBar.transform.rotation.eulerAngles;
-        Vector3 bike_vec = Bike.transform.rotation.eulerAngles;
-        Vector3 frontWheel_vec = FrontWheel.transform.rotation.eulerAngles;
-        //Rotate turn left: minus right: plus
-        //Position turn left: plus right: minus
-        bikeHandleBar_vec.y = -angle;
-        bike_vec.y = -angle;
-        frontWheel_vec.y = -angle;
-        Debug.Log("bikeHandleBar_vec: " + bikeHandleBar_vec.y);
-        Debug.Log("bike_vec: " + bike_vec.y);
-        Debug.Log("frontWheel_vec.y: " + frontWheel_vec.y);
+        // Vector3 bikeHandleBar_vec = BikeHandleBar.transform.rotation.eulerAngles;
+        // Vector3 bike_vec = Bike.transform.rotation.eulerAngles;
+        // Vector3 frontWheel_vec = FrontWheel.transform.rotation.eulerAngles;
+        // bikeHandleBar_vec.y = -angle;
+        // bike_vec.y = -angle;
+        // frontWheel_vec.y = -angle;
+        // Debug.Log("bikeHandleBar_vec: " + bikeHandleBar_vec.y);
+        // Debug.Log("bike_vec: " + bike_vec.y);
 
-        BikeHandleBar.transform.rotation = Quaternion.Euler(bikeHandleBar_vec);
-        Bike.transform.rotation = Quaternion.Euler(bike_vec);
-        FrontWheel.transform.rotation = Quaternion.Euler(frontWheel_vec);
+        // BikeHandleBar.transform.rotation = Quaternion.Euler(bikeHandleBar_vec);
+        // Bike.transform.rotation = Quaternion.Euler(bike_vec);
+        // FrontWheel.transform.rotation = Quaternion.Euler(frontWheel_vec);
         
-        /*
-        if(bikeHandleBar_Y <= MAX_LEFT_ANGLE && bikeHandleBar_Y >= MAX_RIGHT_ANGLE){
+        
+        //Rotate turn left: minus right: plus
+        Debug.Log("bikeHandleBar_Y: " + bikeHandleBar_Y);
+        //Position turn left: plus right: minus
+        if(bikeHandleBar_Y <= MAX_RIGHT_ROTATE_ANGLE && bikeHandleBar_Y >= MAX_LEFT_ROTATE_ANGLE){
             Debug.Log("in1: ");
-            BikeHandleBar.transform.Rotate(0, -angle*TIME_CONSTANT , 0);
-            Bike.transform.Rotate(0, -angle*TIME_CONSTANT , 0);
-            FrontWheel.transform.Rotate(new Vector3(0, -angle*TIME_CONSTANT , 0), Space.World);
+            BikeHandleBar.transform.Rotate(0, (-angle)*Time.deltaTime , 0);
+            Bike.transform.Rotate(0, (-angle)*Time.deltaTime , 0);
+            FrontWheel.transform.Rotate(new Vector3(0, (-angle)*Time.deltaTime , 0), Space.World);
         }
-        else if(bikeHandleBar_Y > MAX_LEFT_ANGLE && angle <= 0){
+        else if(bikeHandleBar_Y > MAX_RIGHT_ROTATE_ANGLE && (-angle) <= 0){
+            //右轉到底
             Debug.Log("in2: ");
-            BikeHandleBar.transform.Rotate(0, -angle*TIME_CONSTANT , 0);
-            Bike.transform.Rotate(0, -angle*TIME_CONSTANT , 0);
-            FrontWheel.transform.Rotate(new Vector3(0, -angle*TIME_CONSTANT , 0), Space.World);
+            BikeHandleBar.transform.Rotate(0, (-angle)*Time.deltaTime , 0);
+            Bike.transform.Rotate(0, (-angle)*Time.deltaTime , 0);
+            FrontWheel.transform.Rotate(new Vector3(0, (-angle)*Time.deltaTime , 0), Space.World);
         }
-        else if(bikeHandleBar_Y < MAX_RIGHT_ANGLE && angle >= 0){
+        else if(bikeHandleBar_Y < MAX_LEFT_ROTATE_ANGLE && (-angle) >= 0){
+            //左轉到底
             Debug.Log("in3: ");
-            BikeHandleBar.transform.Rotate(0, -angle*TIME_CONSTANT , 0);
-            Bike.transform.Rotate(0, -angle*TIME_CONSTANT , 0);
-            FrontWheel.transform.Rotate(new Vector3(0, -angle*TIME_CONSTANT , 0), Space.World);
+            BikeHandleBar.transform.Rotate(0, (-angle)*Time.deltaTime , 0);
+            Bike.transform.Rotate(0, (-angle)*Time.deltaTime , 0);
+            FrontWheel.transform.Rotate(new Vector3(0, (-angle)*Time.deltaTime , 0), Space.World);
         }
-        */
+        
     }
 
     void ChangeBikeDirection(float frequency) {
@@ -185,17 +188,17 @@ public class PlayerController : MonoBehaviour
     void RideBike(float speed) {
         // Bike.transform.Translate(speed * Time.deltaTime, 0, 0);
         
-        Debug.Log("position: " + Bike.transform.position.x);
+        // Debug.Log("position: " + Bike.transform.position.x);
         // Bike.transform.position += (new Vector3(speed * Time.deltaTime, 0f, 0f));
         if(Bike.transform.position.x<=MAX_X &&  Bike.transform.position.x>=MIN_X){
-            Bike.transform.position += (new Vector3(speed*TIME_CONSTANT, 0f, 0f));
+            Bike.transform.position += (new Vector3(speed*Time.deltaTime, 0f, 0f));
         }
         else if(Bike.transform.position.x > MAX_X && speed<=0){
-            Bike.transform.position += (new Vector3(speed*TIME_CONSTANT, 0f, 0f));
+            Bike.transform.position += (new Vector3(speed*Time.deltaTime, 0f, 0f));
 
         }
         else if(Bike.transform.position.x < MIN_X && speed>=0){
-            Bike.transform.position += (new Vector3(speed*TIME_CONSTANT, 0f, 0f));
+            Bike.transform.position += (new Vector3(speed*Time.deltaTime, 0f, 0f));
         }
     }
 
