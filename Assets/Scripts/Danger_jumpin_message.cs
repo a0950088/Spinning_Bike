@@ -14,7 +14,8 @@ public class Danger_jumpin_message : MonoBehaviour
     private bool crushed = false;
     public bool win_on { get => crushed; set => crushed = value; }
     
-    private int counter = 50;
+    private int init_counter = 500;
+    private int counter;
 
     void Start()
     {
@@ -26,9 +27,10 @@ public class Danger_jumpin_message : MonoBehaviour
         {
             win.SetActive(false);
         }
+        counter = init_counter;
     }
 
-    void FixedUpdate()
+    void Update()
     {
         if (win_on)
         {
@@ -40,7 +42,7 @@ public class Danger_jumpin_message : MonoBehaviour
             else
             {
                 Resume();
-                counter = 50;
+                counter = init_counter;
             }
         }
         else
@@ -59,9 +61,7 @@ public class Danger_jumpin_message : MonoBehaviour
             win.SetActive(true);
         }
         videoPlayer.playbackSpeed = 0;
-        player.WheelSpeed = 0.0f;
-        player.turnSpeed = 0.0f;
-        player.ridingSpeed = 0.0f;
+        player.init_speed = 0.0f;
         obstacle.initSpeed = 0.0f;
         obstacle.initScale = 0.0f;
     }
@@ -71,9 +71,7 @@ public class Danger_jumpin_message : MonoBehaviour
         win_on = false;
         videoPlayer.frame = videoPlayer.frame - 40;
         videoPlayer.playbackSpeed = 1;
-        player.WheelSpeed = 40.0f;
-        player.turnSpeed = 30.0f;
-        player.ridingSpeed = 30.0f;
+        player.init_speed = 0.5f;
         obstacle.initSpeed = 0.1f;
         obstacle.initScale = 0.01f;
     }
