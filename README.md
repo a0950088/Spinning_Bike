@@ -22,7 +22,7 @@
 10. `CollisonController.cs`: Used to control the situation while the collision occurred.
 11. `Danger_jumpin_message.cs`: Used to control the jumpin' message and stop the player while in the collision.
 12. `LaneLineController.cs`: It is used to detect whether the player is out of the lane line or not and give the player a hint of direction.
-13. `ObjectGenerator.cs`: For generating objects on the road while riding.
+13. `ObjectController.cs`: For generating objects on the road while riding.
 
 ### PythonApi
 1. `TCP_Client.py`: To make the TCP connection to send/receive Unity Server.(Now just received Server's frame and return testdata to check it work)

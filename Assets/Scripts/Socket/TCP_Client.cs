@@ -17,23 +17,22 @@ public class RecData{
 public class TCP_Client : MonoBehaviour
 {
     private Thread receiveThread;
-    public static int conn_state=0; //pie+unity are connected,conn_state=1
+    public static int conn_state = 0; //pie+unity are connected,conn_state=1
     private TcpClient client;
     private NetworkStream stream;
     private byte[] receiveBuffer = new byte[1024];
     private bool isRunning = true;
     public String processPath;
-    private bool isPath = false;
+    // private bool isPath = false;
     private PlayerController player;
 
     private void Awake() {
         Debug.Log("Socket Awake");
-        IPAddress localIpAddress = IPAddress.Parse("127.0.0.1");//192.168.100.166
+        IPAddress localIpAddress = IPAddress.Parse("127.0.0.1");    //192.168.100.166
         client = new TcpClient();
         client.Client.Bind(new IPEndPoint(localIpAddress, 14786));
         client.Connect("127.0.0.1", 30000);
         
-
         player = GameObject.FindObjectOfType<PlayerController>();
         processPath = null;
     }
@@ -76,6 +75,7 @@ public class TCP_Client : MonoBehaviour
     //         StartReceiving();
     //     }
     // }
+
     void SocketClientThread(){
         stream = client.GetStream();
         // StartReceiving();
@@ -95,7 +95,7 @@ public class TCP_Client : MonoBehaviour
                 conn_state=1;
                 Debug.Log("conn_state: " + conn_state);
             }
-            //
+            
             ProcessRecData(receivedData);
             // int bytesRead = stream.Read(receiveBuffer, 0, receiveBuffer.Length);
             // if(bytesRead > 0){
@@ -107,6 +107,7 @@ public class TCP_Client : MonoBehaviour
         stream.Close();
         client.Close();
     }
+
 /* 非同步socket
     private void StartReceiving()
     {
@@ -155,7 +156,7 @@ public class TCP_Client : MonoBehaviour
         {
             // Deserialize the JSON data into a C# object
             RecData dataObject = JsonUtility.FromJson<RecData>(jsonData);
-
+            
             // Access the values from the deserialized object
             float speed = dataObject.speed;
             float cadence = dataObject.cadence;

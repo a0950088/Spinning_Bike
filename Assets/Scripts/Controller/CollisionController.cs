@@ -13,8 +13,8 @@ public class CollisionController : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
-        // if (other.gameObject.CompareTag("obstacle") || other.gameObject.CompareTag("object")){
         if (other.gameObject.CompareTag("obstacle")){
+            print("!!!!!crushed obstacle.");
             danger_win.win_on = true;
         }
     }

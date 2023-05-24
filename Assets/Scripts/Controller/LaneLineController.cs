@@ -24,6 +24,7 @@ public class LaneLineController : MonoBehaviour
 
 	private int points = 100;
 	private TMP_Text scores;
+	private bool continue_minus = false;
 
 	private TMP_Text direction_hit;
 
@@ -75,13 +76,17 @@ public class LaneLineController : MonoBehaviour
 			// Debug.Log("left x: " + left_lane_line);
 			// Debug.Log("right x: " + right_lane_line);
 			// Debug.Log("player: " + playerPos.position.x);
-			minusPoints();
+			if (!continue_minus)
+			{
+				minusPoints();
+			}
 			minus_point.SetActive(true);
 			scores.text = "SCORE: " + points.ToString();
 		}
 		else
 		{
 			minus_point.SetActive(false);
+			continue_minus = false;
 		}
 		direction_hit.text = direction;
 	}
@@ -90,7 +95,8 @@ public class LaneLineController : MonoBehaviour
 	{
 		if (points > 0)
 		{
-			points -= 1;	
+			points -= 1;
+			continue_minus = true;
 		}
 		else
 		{

@@ -19,9 +19,10 @@ public class ObjectController : MonoBehaviour
 	private float[] objects;
 
 	private Vector3[] ObjectPosition;
-	// private float initPositionZ = 900f;
 
 	private Transform playerPos;
+	private int MAX_X = 130;
+	private int MAX_Y;
 
 	void Start()
 	{
@@ -36,6 +37,7 @@ public class ObjectController : MonoBehaviour
         };
         danger_win = GameObject.FindObjectOfType<Danger_jumpin_message>();
         playerPos = bike.GetComponent<Transform>();
+        MAX_Y = calNormRatio(MAX_X);
 	}
 
 	void FixedUpdate()
@@ -48,17 +50,20 @@ public class ObjectController : MonoBehaviour
             if (objects.Length != 0)
             {
             	CreateObjects();
-            	// Debug.Log(frameIndex);
-            	// Debug.Log("objects generated.");
             }
 		}
+	}
+
+	int calNormRatio(int x) 
+	{
+		return (int) System.Math.Floor(x * 2 * videoHeight / videoWidth);
 	}
 	
 	int[] normPlayer(float x, float y)
 	{
 		List<int> tempList = new List<int>();
-		tempList.Add((int) System.Math.Floor(-260 * x/videoWidth) + 130);
-		tempList.Add((int) System.Math.Floor(-146 * y/videoHeight) + 73);
+		tempList.Add((int) System.Math.Floor(-(MAX_X*2) * x/videoWidth) + MAX_X);
+		tempList.Add((int) System.Math.Floor(-(MAX_Y*2) * y/videoHeight) + MAX_Y);
 		int[] new_point = tempList.ToArray();
     	return new_point;
     }
@@ -83,13 +88,13 @@ public class ObjectController : MonoBehaviour
 			float player_posx = playerPos.position.x;
 			float player_posy = playerPos.position.y;
 
-			Debug.Log(frameIndex);
-			Debug.Log("left x: " + Left_x);
-			Debug.Log("player x: " + player_posx);
-			Debug.Log("right x: " + Right_x);
-			Debug.Log("left y: " + Left_y);
-			Debug.Log("player y: " + player_posy);
-			Debug.Log("right y: " + Right_y);
+			// Debug.Log(frameIndex);
+			// Debug.Log("left x: " + Left_x);
+			// Debug.Log("player x: " + player_posx);
+			// Debug.Log("right x: " + Right_x);
+			// Debug.Log("left y: " + Left_y);
+			// Debug.Log("player y: " + player_posy);
+			// Debug.Log("right y: " + Right_y);
 
 			float min_x = System.Math.Min(Left_x, Right_x);
 			float max_x = System.Math.Max(Left_x, Right_x);
@@ -99,7 +104,7 @@ public class ObjectController : MonoBehaviour
 			if (player_posx >= min_x && player_posx <= max_x && player_posy >= min_y && player_posy <= max_y)
 			{
 				danger_win.win_on = true;
-				Debug.Log("!!!!!!Crushed: " + frameIndex);
+				// Debug.Log("!!!!!!Crushed: " + frameIndex);
 			}
 		}
 	}

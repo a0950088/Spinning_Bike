@@ -56,7 +56,7 @@ public class ObstacleController : MonoBehaviour
 
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (videoPlayer.isPrepared && videoController.nowframe > 0 && videoPlayer.frame > 0) // sync video frame
         {  
