@@ -112,25 +112,16 @@ public class PlayerController : MonoBehaviour
         if (bikeHandleBar_Y <= MAX_RIGHT_ROTATE_ANGLE && bikeHandleBar_Y >= MAX_LEFT_ROTATE_ANGLE) {
             Debug.Log("in1: ");
             ChangeBikeDirection(-angle);
-            // BikeHandleBar.transform.Rotate(0, (-angle) * Time.deltaTime, 0);
-            // Bike.transform.Rotate(0, (-angle) * Time.deltaTime , 0);
-            // FrontWheel.transform.Rotate(new Vector3(0, (-angle) * Time.deltaTime, 0), Space.World);
         }
         else if (bikeHandleBar_Y > MAX_RIGHT_ROTATE_ANGLE && (-angle) <= 0) {
             //右轉到底
             Debug.Log("in2: ");
             ChangeBikeDirection(-angle);
-            // BikeHandleBar.transform.Rotate(0, (-angle) * Time.deltaTime , 0);
-            // Bike.transform.Rotate(0, (-angle) * Time.deltaTime , 0);
-            // FrontWheel.transform.Rotate(new Vector3(0, (-angle) * Time.deltaTime, 0), Space.World);
         }
         else if (bikeHandleBar_Y < MAX_LEFT_ROTATE_ANGLE && (-angle) >= 0) {
             //左轉到底
             Debug.Log("in3: ");
             ChangeBikeDirection(-angle);
-            // BikeHandleBar.transform.Rotate(0, (-angle) * Time.deltaTime, 0);
-            // Bike.transform.Rotate(0, (-angle) * Time.deltaTime , 0);
-            // FrontWheel.transform.Rotate(new Vector3(0, (-angle) * Time.deltaTime, 0), Space.World);
         }
         
         // Vector3 bikeHandleBar_vec = BikeHandleBar.transform.rotation.eulerAngles;
