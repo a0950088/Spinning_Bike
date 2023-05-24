@@ -78,14 +78,16 @@ public class PlayerController : MonoBehaviour
 
     void setPlayerAnimation(float speed, float angle){
         if (init_speed > 0) {  // while not stopped
-            videoPlayer.playbackSpeed = (speed/10.0f) + init_speed;    
-        }
-        ChangePlayerDirection(angle);
-        if (angle > 0) {    //left
-            RideBike(speed);
-        }
-        else if (angle < 0) {   //right
-            RideBike(-speed);
+            videoPlayer.playbackSpeed = (speed/10.0f) + init_speed;
+
+            ChangePlayerDirection(angle);
+
+            if (angle > 0) {    //left
+                RideBike(speed);
+            }
+            else if (angle < 0) {   //right
+                RideBike(-speed);
+            }
         }
     }
 
@@ -109,23 +111,26 @@ public class PlayerController : MonoBehaviour
         // Position turn left: plus right: minus
         if (bikeHandleBar_Y <= MAX_RIGHT_ROTATE_ANGLE && bikeHandleBar_Y >= MAX_LEFT_ROTATE_ANGLE) {
             Debug.Log("in1: ");
-            BikeHandleBar.transform.Rotate(0, (-angle) * Time.deltaTime, 0);
-            Bike.transform.Rotate(0, (-angle) * Time.deltaTime , 0);
-            FrontWheel.transform.Rotate(new Vector3(0, (-angle) * Time.deltaTime, 0), Space.World);
+            ChangeBikeDirection(-angle);
+            // BikeHandleBar.transform.Rotate(0, (-angle) * Time.deltaTime, 0);
+            // Bike.transform.Rotate(0, (-angle) * Time.deltaTime , 0);
+            // FrontWheel.transform.Rotate(new Vector3(0, (-angle) * Time.deltaTime, 0), Space.World);
         }
         else if (bikeHandleBar_Y > MAX_RIGHT_ROTATE_ANGLE && (-angle) <= 0) {
             //右轉到底
             Debug.Log("in2: ");
-            BikeHandleBar.transform.Rotate(0, (-angle) * Time.deltaTime , 0);
-            Bike.transform.Rotate(0, (-angle) * Time.deltaTime , 0);
-            FrontWheel.transform.Rotate(new Vector3(0, (-angle) * Time.deltaTime, 0), Space.World);
+            ChangeBikeDirection(-angle);
+            // BikeHandleBar.transform.Rotate(0, (-angle) * Time.deltaTime , 0);
+            // Bike.transform.Rotate(0, (-angle) * Time.deltaTime , 0);
+            // FrontWheel.transform.Rotate(new Vector3(0, (-angle) * Time.deltaTime, 0), Space.World);
         }
         else if (bikeHandleBar_Y < MAX_LEFT_ROTATE_ANGLE && (-angle) >= 0) {
             //左轉到底
             Debug.Log("in3: ");
-            BikeHandleBar.transform.Rotate(0, (-angle) * Time.deltaTime, 0);
-            Bike.transform.Rotate(0, (-angle) * Time.deltaTime , 0);
-            FrontWheel.transform.Rotate(new Vector3(0, (-angle) * Time.deltaTime, 0), Space.World);
+            ChangeBikeDirection(-angle);
+            // BikeHandleBar.transform.Rotate(0, (-angle) * Time.deltaTime, 0);
+            // Bike.transform.Rotate(0, (-angle) * Time.deltaTime , 0);
+            // FrontWheel.transform.Rotate(new Vector3(0, (-angle) * Time.deltaTime, 0), Space.World);
         }
         
         // Vector3 bikeHandleBar_vec = BikeHandleBar.transform.rotation.eulerAngles;
@@ -157,6 +162,12 @@ public class PlayerController : MonoBehaviour
         // Bike.transform.Translate(speed * Time.deltaTime, 0, 0);
     }
 
+    void ChangeBikeDirection(float frequency) {
+        BikeHandleBar.transform.Rotate(0, frequency * Time.deltaTime, 0);
+        Bike.transform.Rotate(0, frequency * Time.deltaTime, 0);
+        FrontWheel.transform.Rotate(new Vector3(0, frequency * Time.deltaTime, 0), Space.World);
+    }
+
     // public void DecideDirection() {
     //     var y = UnityEditor.TransformUtils.GetInspectorRotation(BikeHandleBar.transform).y;
     //     if (Input.GetKey("left")) {
@@ -171,12 +182,6 @@ public class PlayerController : MonoBehaviour
     //         }
     //         RideBike(-ridingSpeed);
     //     }
-    // }
-
-    // void ChangeBikeDirection(float frequency) {
-    //     BikeHandleBar.transform.Rotate(0, frequency * Time.deltaTime, 0);
-    //     Bike.transform.Rotate(0, frequency * Time.deltaTime, 0);
-    //     FrontWheel.transform.Rotate(new Vector3(0, frequency * Time.deltaTime, 0), Space.World);
     // }
 
     // public void WheelRoll() {
