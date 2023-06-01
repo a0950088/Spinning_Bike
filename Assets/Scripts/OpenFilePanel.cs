@@ -271,6 +271,9 @@ public class OpenFilePanel : MonoBehaviour
         if (!JsonExists(fileName))
         {
             newButton.interactable = false;
+            //改一下 TCP_Client 下面的 processPath
+            tcpClient = GameObject.Find("Server").GetComponent<TCP_Client>();
+            tcpClient.processPath = videoURL;
         }
         else
         {

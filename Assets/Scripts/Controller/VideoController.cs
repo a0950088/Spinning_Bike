@@ -8,7 +8,8 @@ public class VideoController : MonoBehaviour
     private float verticalInput;
     private RectTransform imagesize;
     private RawImage rawimage;
-    public string videoFilePath = "Assets/output_Trim.mp4";
+    //public string videoFilePath = "Assets/output_Trim.mp4";
+    public string videoFilePath;
     //Assets/video_Trim.mp4
     //D:\\Banana\\coding\\Unity\\TEST.mp4
     public long nowframe;
@@ -18,12 +19,13 @@ public class VideoController : MonoBehaviour
         Debug.Log("VideoController Awake");
         videoPy = GetComponent<VideoPlayer>();
         //videoPy.source = VideoSource.Url;
+        videoFilePath = PlayerPrefs.GetString("VideoPath");
         videoPy.url = videoFilePath;
         videoPy.renderMode = VideoRenderMode.APIOnly;
         videoPy.playOnAwake = false;
         videoPy.waitForFirstFrame = true;
         videoPy.Prepare();
-
+        Debug.Log("VideoPath:" + videoPy.url);
         imagesize = GameObject.Find("VideoFrame").GetComponent<RectTransform>();
         rawimage = GameObject.Find("VideoFrame").GetComponent<RawImage>();
 

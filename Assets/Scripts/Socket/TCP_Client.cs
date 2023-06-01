@@ -182,6 +182,7 @@ public class TCP_Client : MonoBehaviour
         }
         else{
             sendData = Encoding.ASCII.GetBytes(processPath);
+            processPath = null;
         }
 
         try

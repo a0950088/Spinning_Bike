@@ -1574,7 +1574,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c46290653e138c4697d836702740c06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  videoFilePath: Assets/output_Trim.mp4
+  videoFilePath: 
   nowframe: 0
 --- !u!1 &911126185
 GameObject:
@@ -2292,10 +2292,6 @@ MonoBehaviour:
   panels: []
   camToPlayerDist: 100
   playerPosy: -50
-  firstrotate: 0
-  turnSpeed: 30
-  WheelSpeed: 40
-  ridingSpeed: 30
   init_speed: 0.5
 --- !u!54 &1265276051
 Rigidbody:

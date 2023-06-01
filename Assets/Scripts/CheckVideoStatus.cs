@@ -8,7 +8,6 @@ public class CheckVideoStatus : MonoBehaviour
 {
     public GameObject listPanel;
 
-
     public void CheckAllVideoStatus()
     {
         // 搜尋 List Panel 下的所有按鈕
@@ -30,6 +29,11 @@ public class CheckVideoStatus : MonoBehaviour
             if (!JsonExists(buttonName))
             { 
                 videoButton.interactable = false;
+                //改一下 TCP_Client 下面的 processPath
+                string videoFileName = buttonName + ".mp4";
+                string videoPath = Path.Combine(Application.dataPath, "Video", videoFileName);
+                tcpClient = GameObject.Find("Server").GetComponent<TCP_Client>();
+                tcpClient.processPath = videoPath;
             }
             else
             {

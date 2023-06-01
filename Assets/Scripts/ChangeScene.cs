@@ -13,8 +13,11 @@ public class ChangeScene : MonoBehaviour
         string buttonName = gameObject.name;
         string videoFolder = Path.Combine(Application.dataPath, "Video");
         string videoPath = Path.Combine(videoFolder, buttonName + ".mp4");
-        
+        string jsonFolder = Path.Combine(Application.dataPath, "JsonData");
+        string jsonPath = Path.Combine(jsonFolder, buttonName + ".json");
+
         PlayerPrefs.SetString("VideoPath", videoPath);
+        PlayerPrefs.SetString("JsonPath", jsonPath);
 
         // 獲取按鈕的影片路徑
         // string videoPath = PlayerPrefs.GetString("VideoPath");
