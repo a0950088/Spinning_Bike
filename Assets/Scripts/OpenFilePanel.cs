@@ -272,8 +272,7 @@ public class OpenFilePanel : MonoBehaviour
         {
             newButton.interactable = false;
             //改一下 TCP_Client 下面的 processPath
-            tcpClient = GameObject.Find("Server").GetComponent<TCP_Client>();
-            tcpClient.processPath = videoURL;
+            TCP_Client.processPath = videoURL;
         }
         else
         {
