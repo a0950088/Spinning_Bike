@@ -22,7 +22,7 @@ public class TCP_Client : MonoBehaviour
     private NetworkStream stream;
     private byte[] receiveBuffer = new byte[1024];
     private bool isRunning = true;
-    public String processPath;
+    public static String processPath;
     // private bool isPath = false;
     private PlayerController player;
 
