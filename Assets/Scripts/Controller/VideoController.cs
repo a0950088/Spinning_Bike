@@ -59,14 +59,6 @@ public class VideoController : MonoBehaviour
         {
             Debug.Log("Not yet");
         }
-        //if pie+unity connected than play vedio
-        if(TCP_Client.conn_state!=1){
-            videoPy.Pause();
-        }
-        else{
-            videoPy.Play();
-        }
-        //
     }
 
     private void SetImageTexture()
