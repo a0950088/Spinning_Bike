@@ -10,7 +10,7 @@ public class ScrollbarControl : MonoBehaviour
     private Scrollbar scrollbar;
     private float range = 244.0f;
     public RectTransform list;
-    public int buttonCount = 1;
+    public int buttonCount = 0;
 
 
     void Start()
@@ -29,7 +29,7 @@ public class ScrollbarControl : MonoBehaviour
     public void ListScroll()
     {
         CountButtons();
-        range = 244.0f * (buttonCount / 4);
+        range = 244.0f * (buttonCount / 4 - 1) ;
         Debug.Log("range: " + range);
         list.localPosition = new Vector3(list.localPosition.x, 190 + scrollbar.value * range, list.localPosition.z);
         Debug.Log("list.localPosition.y" + list.localPosition.y);
