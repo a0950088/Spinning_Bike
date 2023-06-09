@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using SFB;
 
 
-public class OpenFilePanel : MonoBehaviour
+public class AddVideo : MonoBehaviour
 {
     private struct ThumbnailRequest
     {
@@ -25,7 +25,7 @@ public class OpenFilePanel : MonoBehaviour
     public int thumbnailWidth = 224;
     public int thumbnailHeight = 144;
 
-    public GameObject listPanel;
+    private GameObject listPanel;
 
     private string fileName;
     private string videoURL;
@@ -33,7 +33,15 @@ public class OpenFilePanel : MonoBehaviour
     private string thumbnailPath;
     private string thumbnailFolder;
 
-    public void OpenFile()
+    void Start()
+    {
+        listPanel = GameObject.Find("List");
+        videoFolder = Path.Combine(Application.dataPath, "Video");
+        thumbnailFolder = Path.Combine(Application.dataPath, "Thumbnail");
+    }
+
+
+    private void OpenFile()
     {
         string title = "Select a video file";
         string directory = "";
@@ -41,11 +49,8 @@ public class OpenFilePanel : MonoBehaviour
 
         string path = StandaloneFileBrowser.OpenFilePanel(title, directory, extension, false)[0];
 
-
         fileName = Path.GetFileNameWithoutExtension(path);
-        videoFolder = Path.Combine(Application.dataPath, "Video");
         videoURL = Path.Combine(videoFolder, fileName + ".mp4");
-        thumbnailFolder = Path.Combine(Application.dataPath, "Thumbnail");
         thumbnailPath = Path.Combine(thumbnailFolder, fileName + ".png");
 
         if (!Directory.Exists(videoFolder))
@@ -271,6 +276,8 @@ public class OpenFilePanel : MonoBehaviour
         if (!JsonExists(fileName))
         {
             newButton.interactable = false;
+            //改一下 TCP_Client 下面的 processPath
+            TCP_Client.processPath = videoURL;
         }
         else
         {

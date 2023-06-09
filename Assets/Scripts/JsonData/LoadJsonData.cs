@@ -12,7 +12,9 @@ public class LoadJsonData : MonoBehaviour
     //LevelData[] MyData;
     void Awake(){
         Debug.Log("Load data Awake");
-        LoadData = File.ReadAllText(Application.dataPath + "/JsonData/test.json");
+        //LoadData = File.ReadAllText(Application.dataPath + "/JsonData/test.json");
+        LoadData = File.ReadAllText(PlayerPrefs.GetString("JsonPath"));
+        Debug.Log("JsonPath:" + PlayerPrefs.GetString("JsonPath"));
         dataWrapper = JsonUtility.FromJson<FrameDataWrapper>(LoadData);
     }
     void Start()

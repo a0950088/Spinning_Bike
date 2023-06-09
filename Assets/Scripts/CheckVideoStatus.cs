@@ -8,13 +8,12 @@ public class CheckVideoStatus : MonoBehaviour
 {
     public GameObject listPanel;
 
-
     public void CheckAllVideoStatus()
     {
-        // ·j´M List Panel ¤Uªº©Ò¦³«ö¶s
+        // æœå°‹ List Panel ä¸‹çš„æ‰€æœ‰æŒ‰éˆ•
         Button[] buttons = listPanel.GetComponentsInChildren<Button>();
 
-        // ÀË¬d«ö¶s¬O§_¤w¦s¦b©ó¦Cªí¤¤
+        // æª¢æŸ¥æŒ‰éˆ•æ˜¯å¦å·²å­˜åœ¨æ–¼åˆ—è¡¨ä¸­
         foreach (Button button in buttons)
         {
             ChangeStatus(button);
@@ -24,12 +23,16 @@ public class CheckVideoStatus : MonoBehaviour
 
     public void ChangeStatus(Button videoButton)
     {
-        string buttonName = videoButton.gameObject.name; // ¨ú±o«ö¶sªº¦W¦r
+        string buttonName = videoButton.gameObject.name; // å–å¾—æŒ‰éˆ•çš„åå­—
         if (buttonName != "AddVideo")
         {
             if (!JsonExists(buttonName))
             { 
                 videoButton.interactable = false;
+                //æ”¹ä¸€ä¸‹ TCP_Client ä¸‹é¢çš„ processPath
+                string videoFileName = buttonName + ".mp4";
+                string videoPath = Path.Combine(Application.dataPath, "Video", videoFileName);
+                TCP_Client.processPath = videoPath;
             }
             else
             {

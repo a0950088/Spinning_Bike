@@ -2,15 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
+
 public class ScrollbarControl : MonoBehaviour
 {
+
     private Scrollbar scrollbar;
+    private float range = 244.0f;
+    public RectTransform list;
+    public int buttonCount = 0;
+
+
     void Start()
     {
         scrollbar = GetComponent<Scrollbar>();
     }
-    public void ListScroll(RectTransform list)
+
+    private void CountButtons()
     {
-        list.localPosition = new Vector3(list.localPosition.x, 190+scrollbar.value * 380.0f, list.localPosition.z);////(1)
+        buttonCount = list.childCount;
+        Debug.Log("Buttons: " + buttonCount);
     }
+
+
+
+    public void ListScroll()
+    {
+        CountButtons();
+        range = 244.0f * (buttonCount / 4 - 1) ;
+        Debug.Log("range: " + range);
+        list.localPosition = new Vector3(list.localPosition.x, 190 + scrollbar.value * range, list.localPosition.z);
+        Debug.Log("list.localPosition.y" + list.localPosition.y);
+    }
+
 }
