@@ -35,6 +35,8 @@ public class PlayerController : MonoBehaviour
     private TMP_Text display_cadence;
     private TMP_Text display_angle;
 
+    TCP_Client tcpClient = TCP_Client.Instance;
+
     private void Awake()
     {
         Debug.Log("PlayerController Awake");
@@ -65,6 +67,12 @@ public class PlayerController : MonoBehaviour
     
     void FixedUpdate()
     {
+        sensor_speed = tcpClient.speed;
+        sensor_cadence = tcpClient.cadence;
+        sensor_angle = tcpClient.angle;
+        // Debug.Log("player speed: "+tcpClient.speed);
+        // Debug.Log("player cadence: "+tcpClient.cadence);
+        // Debug.Log("player angle: "+tcpClient.angle);
         setPlayerAnimation(sensor_speed, sensor_angle);
         setUiText();
     }
