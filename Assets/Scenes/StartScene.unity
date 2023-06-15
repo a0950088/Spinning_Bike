@@ -3474,7 +3474,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: PlayScene
           m_BoolArgument: 0
-        m_CallState: 2
+        m_CallState: 1
       - m_Target: {fileID: 215574723}
         m_TargetAssemblyTypeName: Loading_scene_ctrl, Assembly-CSharp
         m_MethodName: Start
@@ -3486,7 +3486,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
+        m_CallState: 1
 --- !u!114 &1445113323
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5030,6 +5030,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b04b7dfcfee1d294096ad2baedfdfda0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 0
+  cadence: 0
+  angle: 0
 --- !u!1 &2073634516
 GameObject:
   m_ObjectHideFlags: 0
