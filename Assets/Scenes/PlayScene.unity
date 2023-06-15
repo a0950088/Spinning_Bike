@@ -1921,7 +1921,6 @@ GameObject:
   - component: {fileID: 1087150328}
   - component: {fileID: 1087150330}
   - component: {fileID: 1087150329}
-  - component: {fileID: 1087150331}
   m_Layer: 5
   m_Name: VideoFrame
   m_TagString: Untagged
@@ -1984,20 +1983,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1087150327}
   m_CullTransparentMesh: 1
---- !u!114 &1087150331
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1087150327}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6f1ebbdb8774c14da37f93cc92cbb8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  originWidth: 2560
-  originHeight: 1440
 --- !u!1 &1168571187
 GameObject:
   m_ObjectHideFlags: 0
@@ -2008,7 +1993,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1168571189}
   - component: {fileID: 1168571188}
-  - component: {fileID: 1168571190}
   m_Layer: 0
   m_Name: Server
   m_TagString: Untagged
@@ -2045,18 +2029,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1168571190
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1168571187}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b04b7dfcfee1d294096ad2baedfdfda0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1231804410
 PrefabInstance:
   m_ObjectHideFlags: 0
