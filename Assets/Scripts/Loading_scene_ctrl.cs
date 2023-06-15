@@ -13,8 +13,8 @@ public class Loading_scene_ctrl : MonoBehaviour
     {
         if(TCP_Client.conn_state==1){
             load.SetActive(false);
-            LoadScene("PlayScene");
             Debug.Log("Connected");
+            LoadScene("PlayScene");
         }
         else{
             load.SetActive(true);
@@ -25,8 +25,8 @@ public class Loading_scene_ctrl : MonoBehaviour
     {
         if(TCP_Client.conn_state==1){
             load.SetActive(false);
-            LoadScene("PlayScene");
             Debug.Log("Connected");
+            LoadScene("PlayScene");
         }
         else{
             Debug.Log("Nothing");
@@ -47,7 +47,6 @@ public class Loading_scene_ctrl : MonoBehaviour
         // string videoPath = PlayerPrefs.GetString("VideoPath");
         string getPath = PlayerPrefs.GetString("VideoPath");
         Debug.Log("VideoPath: " + getPath);
-
         SceneManager.LoadScene(sceneName);
     }
     
