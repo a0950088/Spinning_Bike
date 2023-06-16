@@ -1,6 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
+using UnityEngine.SceneManagement;
+using TMPro;
+using System;
+using System.Text.RegularExpressions;
 
 public class VideoController : MonoBehaviour
 {
@@ -13,6 +17,7 @@ public class VideoController : MonoBehaviour
     //Assets/video_Trim.mp4
     //D:\\Banana\\coding\\Unity\\TEST.mp4
     public long nowframe;
+    private TMP_Text scores;
 
     private void Awake()
     {
@@ -28,7 +33,9 @@ public class VideoController : MonoBehaviour
         Debug.Log("VideoPath:" + videoPy.url);
         imagesize = GameObject.Find("VideoFrame").GetComponent<RectTransform>();
         rawimage = GameObject.Find("VideoFrame").GetComponent<RawImage>();
-
+        //影片 EndReached
+        videoPy.loopPointReached+=EndReached;
+        
         //videoPy.Play();
     }
     // Start is called before the first frame update
@@ -61,7 +68,12 @@ public class VideoController : MonoBehaviour
             Debug.Log("Not yet");
         }
     }
-
+    void EndReached(UnityEngine.Video.VideoPlayer vp){
+        //影片放完切畫面
+        //Debug.Log("Frame control:" + nowframe);
+        //videoPy.Pause();
+        LoadScene("Score_Scene");
+    }
     private void SetImageTexture()
     {
         //rawimage.texture = videoPy.texture;
@@ -85,6 +97,7 @@ public class VideoController : MonoBehaviour
         }
     }
     
+
     private void ScaleUIWithVideo()
     {
         float originWidth = 2560f;
@@ -139,6 +152,21 @@ public class VideoController : MonoBehaviour
         score_minus.localScale = newMinusScale;
         score_minus.localPosition = newPositionScoreMinus;
 
+    }
+    public void LoadScene(string sceneName)
+    {
+        //讀取分數
+        scores = GameObject.Find("Score_text").GetComponent<TMP_Text>();
+        string Final_point=scores.text;
+        string pattern = @"\d+";
+        Match match = Regex.Match(Final_point, pattern);
+        if (match.Success){
+            Final_point = match.Value;
+        }
+        PlayerPrefs.SetString("Final_point_str", Final_point);
+        //string justtest = PlayerPrefs.GetString("Final_point_str");
+        //Debug.Log("Final Score: " + justtest);
+        SceneManager.LoadScene(sceneName);
     }
     
 }
