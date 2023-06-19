@@ -18,6 +18,9 @@ public class VideoController : MonoBehaviour
     //D:\\Banana\\coding\\Unity\\TEST.mp4
     public long nowframe;
     private TMP_Text scores;
+    private float time_start;
+    private float time_end;
+    private int time_total;
 
     private void Awake()
     {
@@ -34,6 +37,7 @@ public class VideoController : MonoBehaviour
         imagesize = GameObject.Find("VideoFrame").GetComponent<RectTransform>();
         rawimage = GameObject.Find("VideoFrame").GetComponent<RawImage>();
         //影片 EndReached
+        time_start=Time.time;
         videoPy.loopPointReached+=EndReached;
         
         //videoPy.Play();
@@ -72,6 +76,9 @@ public class VideoController : MonoBehaviour
         //影片放完切畫面
         //Debug.Log("Frame control:" + nowframe);
         //videoPy.Pause();
+        time_end=Time.time;
+        time_start=time_end-time_start;
+        time_total=Mathf.FloorToInt(time_start);
         LoadScene("Score_Scene");
     }
     private void SetImageTexture()
@@ -155,7 +162,7 @@ public class VideoController : MonoBehaviour
     }
     public void LoadScene(string sceneName)
     {
-        //讀取分數
+        //讀取分數+時間
         scores = GameObject.Find("Score_text").GetComponent<TMP_Text>();
         string Final_point=scores.text;
         string pattern = @"\d+";
@@ -164,6 +171,7 @@ public class VideoController : MonoBehaviour
             Final_point = match.Value;
         }
         PlayerPrefs.SetString("Final_point_str", Final_point);
+        PlayerPrefs.SetString("Time_total",time_total.ToString());
         //string justtest = PlayerPrefs.GetString("Final_point_str");
         //Debug.Log("Final Score: " + justtest);
         SceneManager.LoadScene(sceneName);

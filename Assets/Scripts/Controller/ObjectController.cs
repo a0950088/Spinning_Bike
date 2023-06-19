@@ -23,7 +23,7 @@ public class ObjectController : MonoBehaviour
 	private Transform playerPos;
 	private int MAX_X = 130;
 	private int MAX_Y;
-
+	
 	void Start()
 	{
 		videoPlayer = GameObject.Find("Screen").GetComponent<VideoPlayer>();
