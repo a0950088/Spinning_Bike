@@ -12,6 +12,8 @@ public class Loading_scene_ctrl : MonoBehaviour
     public GameObject load;
     public static string buttonName;
     private TMP_Text str1;
+    private bool countdown = false;
+
     public void Start()
     {
         load.SetActive(true);
@@ -21,8 +23,12 @@ public class Loading_scene_ctrl : MonoBehaviour
     {
         if(TCP_Client.conn_state==1){
             //load.SetActive(false);
-            Debug.Log("Connected");
-            LoadScene("PlayScene");
+            if (!countdown)
+            {
+                Debug.Log("Connected");
+                countdown = true;
+                LoadScene("PlayScene");
+            }
         }
         else{
             Debug.Log("Nothing");
