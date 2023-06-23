@@ -18,8 +18,8 @@ public class AddVideo : MonoBehaviour
         public ThumnailCreated callback;
     }
 
-    //public delegate void ThumnailCreated(Sprite thumbnail);
-    public delegate void ThumnailCreated();
+    public delegate void ThumnailCreated(Sprite thumbnailSprite);
+    //public delegate void ThumnailCreated();
 
     public Button buttonPrefab;
     public int thumbnailWidth = 224;
@@ -27,17 +27,36 @@ public class AddVideo : MonoBehaviour
 
     private GameObject listPanel;
 
-    private string fileName;
-    private string videoURL;
-    private string videoFolder;
-    private string thumbnailPath;
-    private string thumbnailFolder;
+    public string fileName;
+    public string videoURL;
+    public string videoFolder;
+    //public string thumbnailPath;
+    //public string thumbnailFolder;
+
+    public Dictionary<string, Button> buttonDictionary = new Dictionary<string, Button>();
 
     void Start()
     {
+        Initialize();
+    }
+
+
+    public void Initialize()
+    {
         listPanel = GameObject.Find("List");
         videoFolder = Path.Combine(Application.dataPath, "Video");
-        thumbnailFolder = Path.Combine(Application.dataPath, "Thumbnail");
+        //thumbnailFolder = Path.Combine(Application.dataPath, "Thumbnail");
+
+        if (!Directory.Exists(videoFolder))
+        {
+            Directory.CreateDirectory(videoFolder);
+        }
+        /*
+        if (!Directory.Exists(thumbnailFolder))
+        {
+            Directory.CreateDirectory(thumbnailFolder);
+        }
+        */
     }
 
 
@@ -51,27 +70,14 @@ public class AddVideo : MonoBehaviour
 
         fileName = Path.GetFileNameWithoutExtension(path);
         videoURL = Path.Combine(videoFolder, fileName + ".mp4");
-        thumbnailPath = Path.Combine(thumbnailFolder, fileName + ".png");
+        //thumbnailPath = Path.Combine(thumbnailFolder, fileName + ".png");
 
-        if (!Directory.Exists(videoFolder))
+
+        if (!File.Exists(videoURL))
         {
-            Directory.CreateDirectory(videoFolder);
-        }
-        if (!Directory.Exists(thumbnailFolder))
-        {
-            Directory.CreateDirectory(thumbnailFolder);
+            File.Copy(path, videoURL);
         }
 
-        Transform buttonTransform = listPanel.transform.Find("filename");
-        if (buttonTransform == null)
-        {
-
-            if (!File.Exists(videoURL))
-            {
-                File.Copy(path, videoURL);
-
-            }
-        }
 
         GetThumbnailFromVideo(videoURL, CreateNewButton);
     }
@@ -179,6 +185,8 @@ public class AddVideo : MonoBehaviour
         videoPlayer.clip = videoClip;
         PrepareVideoForProcessing(frameToCapture);
 
+        //Debug.Log("Thumbnail bytes length: " + bytes.Length);
+
     }
 
     private void PrepareVideoForProcessing(int frameToCapture)
@@ -196,35 +204,37 @@ public class AddVideo : MonoBehaviour
         videoPlayer.sendFrameReadyEvents = false;
         videoPlayer.frameReady -= ThumbnailReady;
         Texture2D tex = new Texture2D(2, 2);
-        //Texture2D tex = new Texture2D(thumbnailWidth, thumbnailHeight);
         RenderTexture renderTexture = source.texture as RenderTexture;
-
         if (tex.width != renderTexture.width || tex.height != renderTexture.height)
         {
             tex.Reinitialize(renderTexture.width, renderTexture.height);
         }
-
+ 
         RenderTexture currentActiveRT = RenderTexture.active;
         RenderTexture.active = renderTexture;
         tex.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0);
         tex.Apply();
-        
+
+        RenderTexture.active = null;
         renderTexture.Release();
         RenderTexture.active = currentActiveRT;
 
-
-
+        /*
         byte[] bytes = tex.EncodeToPNG();
         File.WriteAllBytes(thumbnailPath, bytes);
 
-
-        /*
         Sprite thumbnailSprite = Sprite.Create(tex, new Rect(0f, 0f, tex.width, tex.height), new Vector2(0.5f, 0.5f), 100f);
 
         EyeTrackerManager.Instance.Sprites.Add(thumbnailSprite);
         thumbNailCreatedCallback?.Invoke(thumbnailSprite);
+
+        // 將當前影片的縮圖路徑設為 thumbnailPath
+        thumbnailPath = Path.Combine(thumbnailFolder, fileName + ".PNG");
         */
-        thumbNailCreatedCallback?.Invoke();
+
+        Sprite thumbnailSprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), Vector2.one * 0.5f);
+
+        thumbNailCreatedCallback?.Invoke(thumbnailSprite);
 
         processInProgress = false;
         if (thumbnailQueue.Count > 0)
@@ -235,37 +245,27 @@ public class AddVideo : MonoBehaviour
 
 
 
-    public void CreateNewButton()
+    public void CreateNewButton(Sprite thumbnailSprite)
     {
 
         if (ButtonExists(fileName))
         {
-            Debug.Log("Button already exists.");
+            Debug.Log("Button already exists: " + fileName);
             return;
         }
 
-        // 將當前影片的縮圖路徑設為 thumbnailPath
-        thumbnailPath = Path.Combine(thumbnailFolder, fileName + ".PNG");
-
-        // 讀取縮圖資料
-        byte[] bytes = File.ReadAllBytes(thumbnailPath);
-        Texture2D thumbnailTexture = new Texture2D(2, 2);
-        thumbnailTexture.LoadImage(bytes);
-        //Debug.Log("Thumbnail bytes length: " + bytes.Length);
-
-
-
-        // 建立 newButton 及設定大小
         Button newButton = Instantiate(buttonPrefab, transform.parent);
         newButton.name = fileName;
         newButton.GetComponent<RectTransform>().sizeDelta = buttonPrefab.GetComponent<RectTransform>().sizeDelta;
         newButton.gameObject.SetActive(true);
 
-        // 將縮圖套用到按鈕上
-        Sprite sprite = Sprite.Create(thumbnailTexture, new Rect(0, 0, thumbnailTexture.width, thumbnailTexture.height), Vector2.one * 0.5f);
-        newButton.GetComponent<Image>().sprite = sprite;
+        newButton.GetComponent<Image>().sprite = thumbnailSprite;
 
+        
         ChangeState(newButton);
+
+        buttonDictionary[fileName] = newButton;
+
 
         // 加 onClick 時觸發的函式
         //newButton.GetComponent<Button>().onClick.AddListener(() => CreateNewButton());
@@ -310,4 +310,6 @@ public class AddVideo : MonoBehaviour
         string jsonPath = Path.Combine(Application.dataPath, "JsonData", jsonFileName);
         return File.Exists(jsonPath);
     }
+
+
 }

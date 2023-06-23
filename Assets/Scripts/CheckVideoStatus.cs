@@ -7,6 +7,54 @@ using System.IO;
 public class CheckVideoStatus : MonoBehaviour
 {
     public GameObject listPanel;
+    private AddVideo addVideo;
+
+
+    void Start()
+    {
+        GameObject AddVideoButton = GameObject.Find("AddVideo");
+        addVideo = AddVideoButton.GetComponent<AddVideo>();
+    }
+
+
+    void Update()
+    {
+        string videoFolder = Path.Combine(Application.dataPath, "Video");
+        string[] allVideoPath = Directory.GetFiles(videoFolder);
+
+        /*
+        foreach (string key in addVideo.buttonDictionary.Keys)
+        {
+            Debug.Log("Key: " + key);
+        }
+        */
+
+        foreach (string videoPath in allVideoPath)
+        {
+            if (Path.GetExtension(videoPath) != ".mp4")
+            {
+                continue;
+            }
+            string videoName = Path.GetFileNameWithoutExtension(videoPath);
+            
+
+             if (!addVideo.buttonDictionary.ContainsKey(videoName))
+             {
+                addVideo.fileName = videoName;
+                addVideo.videoURL = videoPath;
+
+                // Debug.Log("videoName: " + videoName);
+                //addVideo.thumbnailPath = Path.Combine(addVideo.thumbnailFolder, videoName + ".png");
+
+                addVideo.GetThumbnailFromVideo(videoPath, addVideo.CreateNewButton);
+             }
+
+        }
+
+        CheckAllVideoStatus();
+
+    }
+
 
     public void CheckAllVideoStatus()
     {
