@@ -17,7 +17,7 @@ public class TCP_Client : MonoBehaviour
 {
     private static TCP_Client instance;
     private Thread receiveThread;
-    private TcpClient client;
+    private static TcpClient client;
     private NetworkStream stream;
     private bool isRunning = true;
     public static int conn_state = 0;
@@ -44,12 +44,12 @@ public class TCP_Client : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(this.gameObject);
+            IPAddress localIpAddress = IPAddress.Parse("127.0.0.1");
+            client = new TcpClient();
+            client.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
+            client.Client.Bind(new IPEndPoint(localIpAddress, 14786));
+            client.Connect("127.0.0.1", 30000);
         }
-
-        IPAddress localIpAddress = IPAddress.Parse("127.0.0.1");
-        client = new TcpClient();
-        client.Client.Bind(new IPEndPoint(localIpAddress, 14786));
-        client.Connect("127.0.0.1", 30000);
         
         player = GameObject.FindObjectOfType<PlayerController>();
         processPath = null;
@@ -65,49 +65,40 @@ public class TCP_Client : MonoBehaviour
         receiveThread.Start();
     }
 
-    private void OnDestroy()
-    {
-        isRunning = false;
-        receiveThread.Abort();
-        if (receiveThread != null && receiveThread.IsAlive)
-        {
-            receiveThread.Join();
-        }
-        DisconnectFromServer();
-    }
-
     private void OnApplicationQuit()
     {
+        DisconnectFromServer();
         isRunning = false;
-        receiveThread.Abort();
-        if (client != null)
-        {
-            stream.Close();
-            client.Close();
-        }
+        AbortReceiveThread();
+        Debug.Log("OnApplicationQuit");
     }
 
     private void SocketClientThread()
     {
-        stream = client.GetStream();
-        int bytesRead;
-        string receivedData;
-        while (isRunning)
-        {
-            SendData();
-            bytesRead = stream.Read(receiveBuffer, 0, receiveBuffer.Length);
-            receivedData = Encoding.UTF8.GetString(receiveBuffer, 0, bytesRead);
-
-            if (receivedData == "OK")
+        try{
+            stream = client.GetStream();
+            int bytesRead;
+            string receivedData;
+            while (isRunning)
             {
-                conn_state = 1;
-                Debug.Log("conn_state: " + conn_state);
-            }
+                SendData();
+                bytesRead = stream.Read(receiveBuffer, 0, receiveBuffer.Length);
+                receivedData = Encoding.UTF8.GetString(receiveBuffer, 0, bytesRead);
 
-            ProcessRecData(receivedData);
+                if (receivedData == "OK")
+                {
+                    conn_state = 1;
+                    Debug.Log("conn_state: " + conn_state);
+                }
+
+                ProcessRecData(receivedData);
+            }
         }
-        stream.Close();
-        client.Close();
+        finally{
+            // DisconnectFromServer();
+            Debug.Log("ReceiveThread Close");
+        }
+       
     }
 
     private void ProcessRecData(string jsonData)
@@ -133,12 +124,12 @@ public class TCP_Client : MonoBehaviour
         }
     }
 
-    private void SendData()
+    private void SendData(string message = "")
     {
         byte[] sendData;
         if (processPath == null)
         {
-            sendData = Encoding.ASCII.GetBytes("");
+            sendData = Encoding.ASCII.GetBytes(message);
         }
         else
         {
@@ -161,8 +152,22 @@ public class TCP_Client : MonoBehaviour
     {
         if (client != null && client.Connected)
         {
+            SendData("Disconnect");
             client.Client.Shutdown(SocketShutdown.Both);
+            client.Client.Close();
             client.Close();
+            client = null;
         }
     }
+
+    private void AbortReceiveThread()
+    {
+        if (receiveThread != null && receiveThread.IsAlive)
+        {
+            stream.Close();
+            receiveThread.Abort();
+            receiveThread.Join();
+        }
+    }
+
 }
