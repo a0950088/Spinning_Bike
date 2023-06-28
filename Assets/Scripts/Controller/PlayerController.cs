@@ -90,13 +90,7 @@ public class PlayerController : MonoBehaviour
         if (init_speed > 0) {  // while not stopped
             videoPlayer.playbackSpeed = (speed/10.0f) + init_speed;
             ChangePlayerDirection(angle);
-
-            if (angle > 0) {    //left
-                RideBike(speed,Math.Abs(angle));
-            }
-            else if (angle < 0) {   //right
-                RideBike(-speed,Math.Abs(angle));
-            }
+            RideBike(speed,angle);
         }
     }
 
@@ -158,6 +152,12 @@ public class PlayerController : MonoBehaviour
     void RideBike(float speed,float angle) {
         double dx_move=speed*Math.Sin(angle);
         float x_move=(float)dx_move;
+        if(x_move*angle<0){
+            x_move=(-1)*x_move;
+        }
+        if(x_move*angle<0){
+            Debug.Log("Something terrible happen");
+        }
         if (Bike.transform.position.x <= MAX_X && Bike.transform.position.x >= MIN_X) {
             Bike.transform.position += (new Vector3(x_move *Time.deltaTime, 0f, 0f));
         }
