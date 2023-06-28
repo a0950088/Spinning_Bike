@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.Video;
 using TMPro;
+using System;
 
 public class PlayerController : MonoBehaviour
 {
@@ -91,10 +92,10 @@ public class PlayerController : MonoBehaviour
             ChangePlayerDirection(angle);
 
             if (angle > 0) {    //left
-                RideBike(speed);
+                RideBike(speed,Math.Abs(angle));
             }
             else if (angle < 0) {   //right
-                RideBike(-speed);
+                RideBike(-speed,Math.Abs(angle));
             }
         }
     }
@@ -146,7 +147,9 @@ public class PlayerController : MonoBehaviour
         // FrontWheel.transform.rotation = Quaternion.Euler(frontWheel_vec);
     }
 
-    void RideBike(float speed) {
+    void RideBike(float speed,float angle) {
+        double dx_move=speed*Math.Sin(angle);
+        float x_move=(float)dx_move;
         if (Bike.transform.position.x <= MAX_X && Bike.transform.position.x >= MIN_X) {
             Bike.transform.position += (new Vector3(speed *Time.deltaTime, 0f, 0f));
         }
@@ -163,7 +166,8 @@ public class PlayerController : MonoBehaviour
 
     void ChangeBikeDirection(float frequency) {
         BikeHandleBar.transform.Rotate(0, frequency * Time.deltaTime, 0);
-        Bike.transform.Rotate(0, frequency * Time.deltaTime, 0);
+        Bike.transform.Rotate(0, (3*frequency/4) * Time.deltaTime, 0);
+        //Bike.transform.Rotate(0, (frequency/2) * Time.deltaTime, 0);
         FrontWheel.transform.Rotate(new Vector3(0, frequency * Time.deltaTime, 0), Space.World);
     }
 

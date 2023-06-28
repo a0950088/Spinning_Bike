@@ -8,10 +8,12 @@ public class CheckVideoStatus : MonoBehaviour
 {
     public GameObject listPanel;
     private AddVideo addVideo;
+    TCP_Client tcpClient;
 
 
     void Start()
     {
+        tcpClient = TCP_Client.Instance;
         GameObject AddVideoButton = GameObject.Find("AddVideo");
         addVideo = AddVideoButton.GetComponent<AddVideo>();
     }
@@ -60,12 +62,12 @@ public class CheckVideoStatus : MonoBehaviour
     {
         // 搜尋 List Panel 下的所有按鈕
         Button[] buttons = listPanel.GetComponentsInChildren<Button>();
-
         // 檢查按鈕是否已存在於列表中
         foreach (Button button in buttons)
         {
             ChangeStatus(button);
         }
+        
     }
 
 
@@ -80,7 +82,7 @@ public class CheckVideoStatus : MonoBehaviour
                 //改一下 TCP_Client 下面的 processPath
                 string videoFileName = buttonName + ".mp4";
                 string videoPath = Path.Combine(Application.dataPath, "Video", videoFileName);
-                TCP_Client.processPath = videoPath;
+                tcpClient.processPath = videoPath;
             }
             else
             {
