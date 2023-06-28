@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
     private TMP_Text display_cadence;
     private TMP_Text display_angle;
 
+
     TCP_Client tcpClient = TCP_Client.Instance;
 
     private void Awake()
@@ -88,7 +89,6 @@ public class PlayerController : MonoBehaviour
     void setPlayerAnimation(float speed, float angle){
         if (init_speed > 0) {  // while not stopped
             videoPlayer.playbackSpeed = (speed/10.0f) + init_speed;
-
             ChangePlayerDirection(angle);
 
             if (angle > 0) {    //left
@@ -116,9 +116,17 @@ public class PlayerController : MonoBehaviour
         
         // Rotate turn left: minus right: plus
         Debug.Log("bikeHandleBar_Y: " + bikeHandleBar_Y);
-
+        
         // Position turn left: plus right: minus
-        if (bikeHandleBar_Y <= MAX_RIGHT_ROTATE_ANGLE && bikeHandleBar_Y >= MAX_LEFT_ROTATE_ANGLE) {
+
+        if(bikeHandleBar_Y<= MAX_RIGHT_ROTATE_ANGLE && bikeHandleBar_Y<-(angle)){
+            ChangeBikeDirection(-(angle+bikeHandleBar_Y));
+        }
+        else if(bikeHandleBar_Y>= MAX_LEFT_ROTATE_ANGLE && bikeHandleBar_Y>-(angle)){
+            ChangeBikeDirection(-(angle+bikeHandleBar_Y));
+        }
+
+        /*if (bikeHandleBar_Y <= MAX_RIGHT_ROTATE_ANGLE && bikeHandleBar_Y >= MAX_LEFT_ROTATE_ANGLE) {
             Debug.Log("in1: ");
             ChangeBikeDirection(-angle);
         }
@@ -131,7 +139,7 @@ public class PlayerController : MonoBehaviour
             //左轉到底
             Debug.Log("in3: ");
             ChangeBikeDirection(-angle);
-        }
+        }*/
         
         // Vector3 bikeHandleBar_vec = BikeHandleBar.transform.rotation.eulerAngles;
         // Vector3 bike_vec = Bike.transform.rotation.eulerAngles;
@@ -151,24 +159,23 @@ public class PlayerController : MonoBehaviour
         double dx_move=speed*Math.Sin(angle);
         float x_move=(float)dx_move;
         if (Bike.transform.position.x <= MAX_X && Bike.transform.position.x >= MIN_X) {
-            Bike.transform.position += (new Vector3(speed *Time.deltaTime, 0f, 0f));
+            Bike.transform.position += (new Vector3(x_move *Time.deltaTime, 0f, 0f));
         }
         else if (Bike.transform.position.x > MAX_X && speed <= 0) {
-            Bike.transform.position += (new Vector3(speed * Time.deltaTime, 0f, 0f));
+            Bike.transform.position += (new Vector3(x_move * Time.deltaTime, 0f, 0f));
 
         }
         else if (Bike.transform.position.x < MIN_X && speed >= 0) {
-            Bike.transform.position += (new Vector3(speed *Time.deltaTime, 0f, 0f));
+            Bike.transform.position += (new Vector3(x_move *Time.deltaTime, 0f, 0f));
         }
 
         // Bike.transform.Translate(speed * Time.deltaTime, 0, 0);
     }
 
     void ChangeBikeDirection(float frequency) {
-        BikeHandleBar.transform.Rotate(0, frequency * Time.deltaTime, 0);
-        Bike.transform.Rotate(0, (3*frequency/4) * Time.deltaTime, 0);
-        //Bike.transform.Rotate(0, (frequency/2) * Time.deltaTime, 0);
-        FrontWheel.transform.Rotate(new Vector3(0, frequency * Time.deltaTime, 0), Space.World);
+        BikeHandleBar.transform.Rotate(0, frequency*Time.deltaTime, 0);
+        FrontWheel.transform.Rotate(new Vector3(0, frequency*Time.deltaTime, 0), Space.World);
+        Bike.transform.Rotate(0,frequency*Time.deltaTime, 0);
     }
 
     // public void DecideDirection() {
