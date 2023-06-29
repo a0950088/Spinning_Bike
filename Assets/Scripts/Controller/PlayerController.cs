@@ -175,7 +175,7 @@ public class PlayerController : MonoBehaviour
     void ChangeBikeDirection(float frequency) {
         BikeHandleBar.transform.Rotate(0, frequency*Time.deltaTime, 0);
         FrontWheel.transform.Rotate(new Vector3(0, frequency*Time.deltaTime, 0), Space.World);
-        Bike.transform.Rotate(0,frequency*Time.deltaTime, 0);
+        Bike.transform.Rotate(0,(3*frequency/4)*Time.deltaTime, 0);
     }
 
     // public void DecideDirection() {
