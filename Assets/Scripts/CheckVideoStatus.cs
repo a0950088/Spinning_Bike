@@ -14,12 +14,12 @@ public class CheckVideoStatus : MonoBehaviour
     void Start()
     {
         tcpClient = TCP_Client.Instance;
-        GameObject AddVideoButton = GameObject.Find("AddVideo");
-        addVideo = AddVideoButton.GetComponent<AddVideo>();
+        Transform addVideoButton = listPanel.transform.Find("AddVideo");
+        addVideo = addVideoButton.GetComponent<AddVideo>();
     }
 
 
-    void Update()
+    public void AddVideoButton()
     {
         string videoFolder = Path.Combine(Application.dataPath, "Video");
         string[] allVideoPath = Directory.GetFiles(videoFolder);
@@ -40,7 +40,7 @@ public class CheckVideoStatus : MonoBehaviour
             string videoName = Path.GetFileNameWithoutExtension(videoPath);
             
 
-             if (!addVideo.buttonDictionary.ContainsKey(videoName))
+            if (!addVideo.buttonDictionary.ContainsKey(videoName))
              {
                 addVideo.fileName = videoName;
                 addVideo.videoURL = videoPath;
