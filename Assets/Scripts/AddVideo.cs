@@ -20,6 +20,7 @@ public class AddVideo : MonoBehaviour
 
     public delegate void ThumnailCreated(Sprite thumbnailSprite);
     //public delegate void ThumnailCreated();
+    TCP_Client tcpClient;
 
     public Button buttonPrefab;
     public int thumbnailWidth = 224;
@@ -37,10 +38,9 @@ public class AddVideo : MonoBehaviour
 
     void Start()
     {
+        tcpClient = TCP_Client.Instance;
         Initialize();
     }
-
-
     public void Initialize()
     {
         listPanel = GameObject.Find("List");
@@ -55,9 +55,10 @@ public class AddVideo : MonoBehaviour
         if (!Directory.Exists(thumbnailFolder))
         {
             Directory.CreateDirectory(thumbnailFolder);
-        }
-        */
+        }*/
+        
     }
+    
 
 
     private void OpenFile()
@@ -248,7 +249,7 @@ public class AddVideo : MonoBehaviour
     public void CreateNewButton(Sprite thumbnailSprite)
     {
 
-        if (ButtonExists(fileName))
+        if (ButtonExists(fileName)) 
         {
             Debug.Log("Button already exists: " + fileName);
             return;
@@ -260,7 +261,6 @@ public class AddVideo : MonoBehaviour
         newButton.gameObject.SetActive(true);
 
         newButton.GetComponent<Image>().sprite = thumbnailSprite;
-
         
         ChangeState(newButton);
 
@@ -277,7 +277,7 @@ public class AddVideo : MonoBehaviour
         {
             newButton.interactable = false;
             //改一下 TCP_Client 下面的 processPath
-            TCP_Client.processPath = videoURL;
+            tcpClient.processPath = videoURL;
         }
         else
         {
@@ -290,7 +290,7 @@ public class AddVideo : MonoBehaviour
     private bool ButtonExists(string buttonName)
     {
         // 搜尋 List Panel 下的所有按鈕
-        Button[] buttons = listPanel.GetComponentsInChildren<Button>();
+        Button[] buttons = listPanel.GetComponentsInChildren<Button>(); 
 
         // 檢查按鈕是否已存在於列表中
         foreach (Button button in buttons)
@@ -310,6 +310,7 @@ public class AddVideo : MonoBehaviour
         string jsonPath = Path.Combine(Application.dataPath, "JsonData", jsonFileName);
         return File.Exists(jsonPath);
     }
+
 
 
 }

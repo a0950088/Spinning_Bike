@@ -20,9 +20,9 @@ public class TCP_Client : MonoBehaviour
     private static TcpClient client;
     private NetworkStream stream;
     private bool isRunning = true;
-    public static int conn_state = 0;
+    public int conn_state = 0;
     private byte[] receiveBuffer = new byte[1024];
-    public static String processPath;
+    public String processPath;
     private PlayerController player;
 
     public float speed;

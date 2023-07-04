@@ -13,15 +13,17 @@ public class Loading_scene_ctrl : MonoBehaviour
     public static string buttonName;
     private TMP_Text str1;
     private bool countdown = false;
+    TCP_Client tcpClient;
 
     public void Start()
     {
+        tcpClient = TCP_Client.Instance;
         load.SetActive(true);
         str1=GameObject.Find("Loading_text").GetComponent<TMP_Text>();
     }
     public void Update()
     {
-        if(TCP_Client.conn_state==1){
+        if(tcpClient.conn_state==1){
             //load.SetActive(false);
             if (!countdown)
             {
