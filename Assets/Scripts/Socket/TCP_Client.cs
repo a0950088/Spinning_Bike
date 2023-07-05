@@ -44,11 +44,11 @@ public class TCP_Client : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(this.gameObject);
-            IPAddress localIpAddress = IPAddress.Parse("127.0.0.1");
+            IPAddress localIpAddress = IPAddress.Parse("192.168.100.145");
             client = new TcpClient();
             client.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
-            client.Client.Bind(new IPEndPoint(localIpAddress, 14786));
-            client.Connect("127.0.0.1", 30000);
+            // client.Client.Bind(new IPEndPoint(localIpAddress, 14786));
+            client.Connect("192.168.100.145", 30000);
         }
         
         player = GameObject.FindObjectOfType<PlayerController>();
@@ -90,8 +90,12 @@ public class TCP_Client : MonoBehaviour
                     conn_state = 1;
                     Debug.Log("conn_state: " + conn_state);
                 }
-
-                ProcessRecData(receivedData);
+                else if(receivedData == "Respberry Pi Connect Failed"){
+                    conn_state = 0;
+                }
+                else{
+                    ProcessRecData(receivedData);
+                }
             }
         }
         finally{

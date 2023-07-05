@@ -21,6 +21,7 @@ public class VideoController : MonoBehaviour
     private float time_start;
     private float time_end;
     private int time_total;
+    TCP_Client tcpClient;
 
     private void Awake()
     {
@@ -39,7 +40,7 @@ public class VideoController : MonoBehaviour
         //影片 EndReached
         time_start=Time.time;
         videoPy.loopPointReached+=EndReached;
-        
+        tcpClient = TCP_Client.Instance;
         //videoPy.Play();
     }
     // Start is called before the first frame update
@@ -59,17 +60,19 @@ public class VideoController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Debug.Log("Video Update");
-        if(videoPy.isPrepared)
-        {
-            SetImageTexture();
-            // VideoSpeedControl();
-            nowframe = videoPy.frame;
-            // Debug.Log("Frame control:" + nowframe);
+        if(tcpClient.conn_state == 1){
+            if(videoPy.isPrepared)
+            {
+                videoPy.Play();
+                SetImageTexture();
+                // VideoSpeedControl();
+                nowframe = videoPy.frame;
+                // Debug.Log("Frame control:" + nowframe);
+            }
         }
-        else
-        {
-            Debug.Log("Not yet");
+        else{
+            videoPy.Pause();
+            Debug.Log("Pause");
         }
     }
     void EndReached(UnityEngine.Video.VideoPlayer vp){
