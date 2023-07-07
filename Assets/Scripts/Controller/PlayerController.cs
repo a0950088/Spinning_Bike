@@ -33,8 +33,8 @@ public class PlayerController : MonoBehaviour
     private Transform camPos;
 
     private TMP_Text display_speed;
-    private TMP_Text display_cadence;
-    private TMP_Text display_angle;
+    //private TMP_Text display_cadence;
+    //private TMP_Text display_angle;
 
 
     TCP_Client tcpClient = TCP_Client.Instance;
@@ -54,8 +54,8 @@ public class PlayerController : MonoBehaviour
         BikeHandleBar = GameObject.FindGameObjectWithTag("bikeHandlebar");
         panels = GameObject.FindGameObjectsWithTag("panel");
         display_speed = GameObject.Find("speed_text").GetComponent<TMP_Text>();
-        display_cadence = GameObject.Find("cadence_text").GetComponent<TMP_Text>();
-        display_angle = GameObject.Find("angle_text").GetComponent<TMP_Text>();
+        //display_cadence = GameObject.Find("cadence_text").GetComponent<TMP_Text>();
+        //display_angle = GameObject.Find("angle_text").GetComponent<TMP_Text>();
 
         camPos = GameObject.Find("Main Camera").GetComponent<Transform>();
         playerPos = GetComponent<Transform>();
@@ -75,8 +75,11 @@ public class PlayerController : MonoBehaviour
         // Debug.Log("player speed: "+tcpClient.speed);
         // Debug.Log("player cadence: "+tcpClient.cadence);
         // Debug.Log("player angle: "+tcpClient.angle);
-        setPlayerAnimation(sensor_speed, sensor_angle);
-        setUiText();
+        if(tcpClient.conn_state==1){
+            setPlayerAnimation(sensor_speed, sensor_angle);
+            setUiText();
+        }
+        
     }
 
     public void getSensorData(float speed, float cadence, float angle){
@@ -101,8 +104,8 @@ public class PlayerController : MonoBehaviour
         else{
             display_speed.text = System.Math.Floor(sensor_speed).ToString();    
         }
-        display_cadence.text = System.Math.Floor(sensor_cadence).ToString();
-        display_angle.text = System.Math.Floor(sensor_angle).ToString();
+        //display_cadence.text = System.Math.Floor(sensor_cadence).ToString();
+        //display_angle.text = System.Math.Floor(sensor_angle).ToString();
     }
 
     void ChangePlayerDirection(float angle) {

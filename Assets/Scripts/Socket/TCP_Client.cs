@@ -29,6 +29,8 @@ public class TCP_Client : MonoBehaviour
     public float cadence;
     public float angle;
 
+    private bool reconnect_flag=false;
+
     public static TCP_Client Instance
     {
         get { return instance; }
@@ -44,11 +46,13 @@ public class TCP_Client : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(this.gameObject);
-            IPAddress localIpAddress = IPAddress.Parse("192.168.100.145");
+            //IPAddress localIpAddress = IPAddress.Parse("192.168.100.145");
+            IPAddress localIpAddress = IPAddress.Parse("127.0.0.1");
             client = new TcpClient();
             client.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
             // client.Client.Bind(new IPEndPoint(localIpAddress, 14786));
-            client.Connect("192.168.100.145", 30000);
+            // client.Connect("192.168.100.145", 30000);
+            client.Connect("127.0.0.1", 30000);
         }
         
         player = GameObject.FindObjectOfType<PlayerController>();
@@ -64,7 +68,25 @@ public class TCP_Client : MonoBehaviour
         receiveThread = new Thread(SocketClientThread);
         receiveThread.Start();
     }
-
+    private void Update(){
+        if(client.Connected==false && reconnect_flag==false){
+            conn_state=0;
+            Debug.Log("no conn "+conn_state);
+            reconnect_flag=true;
+            DisconnectFromServer();
+            AbortReceiveThread();
+        }
+        if(reconnect_flag==true){
+            client = new TcpClient();
+            client.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
+            client.Connect("127.0.0.1", 30000);
+            if(client.Connected==true){
+                reconnect_flag=false;
+                receiveThread = new Thread(SocketClientThread);
+                receiveThread.Start();
+            }
+        }
+    }
     private void OnApplicationQuit()
     {
         DisconnectFromServer();
@@ -84,7 +106,6 @@ public class TCP_Client : MonoBehaviour
                 SendData();
                 bytesRead = stream.Read(receiveBuffer, 0, receiveBuffer.Length);
                 receivedData = Encoding.UTF8.GetString(receiveBuffer, 0, bytesRead);
-
                 if (receivedData == "OK")
                 {
                     conn_state = 1;
@@ -96,6 +117,7 @@ public class TCP_Client : MonoBehaviour
                 else{
                     ProcessRecData(receivedData);
                 }
+                
             }
         }
         finally{
