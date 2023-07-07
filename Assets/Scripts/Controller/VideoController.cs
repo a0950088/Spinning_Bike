@@ -133,7 +133,8 @@ public class VideoController : MonoBehaviour
         //RectTransform angle = GameObject.Find("Angle").GetComponent<RectTransform>();
         RectTransform score = GameObject.Find("Score").GetComponent<RectTransform>();
         RectTransform score_minus = GameObject.Find("score_minus").GetComponent<RectTransform>();
-
+        RectTransform left = GameObject.Find("Left").GetComponent<RectTransform>();
+        RectTransform right = GameObject.Find("Right").GetComponent<RectTransform>();
 
         // 重新計算 Scale、位置
         Vector3 originalScale = speed.localScale;
@@ -143,10 +144,9 @@ public class VideoController : MonoBehaviour
         //Vector3 newPositionCadence = cadence.localPosition * scalingRatio;
         //Vector3 newPositionAngle = angle.localPosition * scalingRatio;
         Vector3 newPositionScore = score.localPosition * scalingRatio;
-
-        Vector3 MinusScale = score_minus.localScale;
-        Vector3 newMinusScale = MinusScale * scalingRatio;
         Vector3 newPositionScoreMinus = score_minus.localPosition * scalingRatio;
+        Vector3 newPositionLeft = left.localPosition * scalingRatio;
+        Vector3 newPositionRight = right.localPosition * scalingRatio;
 
         // 調整 UI
         speed.localScale = newScale;
@@ -161,8 +161,22 @@ public class VideoController : MonoBehaviour
         score.localScale = newScale;
         score.localPosition = newPositionScore;
 
-        score_minus.localScale = newMinusScale;
+        score_minus.localScale = newScale;
         score_minus.localPosition = newPositionScoreMinus;
+
+        left.localScale = newScale;
+        left.localPosition = newPositionLeft;
+
+        right.localScale = newScale;
+        right.localPosition = newPositionRight;
+
+
+        //GameObject leftObject = GameObject.Find("Left");
+        //leftObject.SetActive(false);
+
+        GameObject rightObject = GameObject.Find("Right");
+        rightObject.SetActive(false);
+
 
     }
     public void LoadScene(string sceneName)

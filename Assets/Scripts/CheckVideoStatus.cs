@@ -9,7 +9,7 @@ public class CheckVideoStatus : MonoBehaviour
     public GameObject listPanel;
     private AddVideo addVideo;
     TCP_Client tcpClient;
-
+    public bool created = false;
 
     void Start()
     {
@@ -24,6 +24,12 @@ public class CheckVideoStatus : MonoBehaviour
         string videoFolder = Path.Combine(Application.dataPath, "Video");
         string[] allVideoPath = Directory.GetFiles(videoFolder);
 
+        StartCoroutine(GenerateThumbnails(allVideoPath));
+    }
+
+
+    IEnumerator GenerateThumbnails(string[] allVideoPath)
+    {
         /*
         foreach (string key in addVideo.buttonDictionary.Keys)
         {
@@ -38,10 +44,11 @@ public class CheckVideoStatus : MonoBehaviour
                 continue;
             }
             string videoName = Path.GetFileNameWithoutExtension(videoPath);
-            
+
 
             if (!addVideo.buttonDictionary.ContainsKey(videoName))
-             {
+            {
+                created = false;
                 addVideo.fileName = videoName;
                 addVideo.videoURL = videoPath;
 
@@ -49,13 +56,15 @@ public class CheckVideoStatus : MonoBehaviour
                 //addVideo.thumbnailPath = Path.Combine(addVideo.thumbnailFolder, videoName + ".png");
 
                 addVideo.GetThumbnailFromVideo(videoPath, addVideo.CreateNewButton);
-             }
+
+                yield return new WaitUntil(() => created);
+            }
 
         }
 
         CheckAllVideoStatus();
-
     }
+
 
 
     public void CheckAllVideoStatus()

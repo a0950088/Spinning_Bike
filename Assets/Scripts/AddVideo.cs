@@ -31,10 +31,10 @@ public class AddVideo : MonoBehaviour
     public string fileName;
     public string videoURL;
     public string videoFolder;
-    //public string thumbnailPath;
-    //public string thumbnailFolder;
+    
 
     public Dictionary<string, Button> buttonDictionary = new Dictionary<string, Button>();
+    private CheckVideoStatus checkVideoStatus;
 
     void Start()
     {
@@ -56,7 +56,10 @@ public class AddVideo : MonoBehaviour
         {
             Directory.CreateDirectory(thumbnailFolder);
         }*/
-        
+
+        GameObject CheckVideoObject = GameObject.Find("CheckVideo");
+        checkVideoStatus = CheckVideoObject.GetComponent<CheckVideoStatus>();
+
     }
     
 
@@ -269,6 +272,7 @@ public class AddVideo : MonoBehaviour
 
         // 加 onClick 時觸發的函式
         //newButton.GetComponent<Button>().onClick.AddListener(() => CreateNewButton());
+        checkVideoStatus.created = true;
     }
 
     public void ChangeState(Button newButton)
