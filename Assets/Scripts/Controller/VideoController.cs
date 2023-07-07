@@ -23,6 +23,7 @@ public class VideoController : MonoBehaviour
     private int time_total;
     TCP_Client tcpClient;
 
+
     private void Awake()
     {
         Debug.Log("VideoController Awake");
@@ -74,6 +75,7 @@ public class VideoController : MonoBehaviour
             videoPy.Pause();
             Debug.Log("Pause");
         }
+
     }
     void EndReached(UnityEngine.Video.VideoPlayer vp){
         //影片放完切畫面
@@ -127,8 +129,8 @@ public class VideoController : MonoBehaviour
 
         // 取得 UI 
         RectTransform speed = GameObject.Find("Speed").GetComponent<RectTransform>();
-        RectTransform cadence = GameObject.Find("Cadence").GetComponent<RectTransform>();
-        RectTransform angle = GameObject.Find("Angle").GetComponent<RectTransform>();
+        //RectTransform cadence = GameObject.Find("Cadence").GetComponent<RectTransform>();
+        //RectTransform angle = GameObject.Find("Angle").GetComponent<RectTransform>();
         RectTransform score = GameObject.Find("Score").GetComponent<RectTransform>();
         RectTransform score_minus = GameObject.Find("score_minus").GetComponent<RectTransform>();
 
@@ -138,8 +140,8 @@ public class VideoController : MonoBehaviour
         Vector3 newScale = originalScale * scalingRatio;
 
         Vector3 newPositionSpeed = speed.localPosition * scalingRatio;
-        Vector3 newPositionCadence = cadence.localPosition * scalingRatio;
-        Vector3 newPositionAngle = angle.localPosition * scalingRatio;
+        //Vector3 newPositionCadence = cadence.localPosition * scalingRatio;
+        //Vector3 newPositionAngle = angle.localPosition * scalingRatio;
         Vector3 newPositionScore = score.localPosition * scalingRatio;
 
         Vector3 MinusScale = score_minus.localScale;
@@ -150,11 +152,11 @@ public class VideoController : MonoBehaviour
         speed.localScale = newScale;
         speed.localPosition = newPositionSpeed;
 
-        cadence.localScale = newScale;
-        cadence.localPosition = newPositionCadence;
+        //cadence.localScale = newScale;
+        //cadence.localPosition = newPositionCadence;
 
-        angle.localScale = newScale;
-        angle.localPosition = newPositionAngle;
+        //angle.localScale = newScale;
+        //angle.localPosition = newPositionAngle;
 
         score.localScale = newScale;
         score.localPosition = newPositionScore;

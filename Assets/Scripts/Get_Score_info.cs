@@ -19,10 +19,10 @@ public class Get_Score_info : MonoBehaviour
 
         string crash_num = PlayerPrefs.GetString("crash_num");
         if(crash_num==""){
-            miss.text="Miss 0";
+            miss.text="Crash 0";
         }
         else{
-            miss.text="Miss "+crash_num;
+            miss.text="Crash "+crash_num;
         }
         
         

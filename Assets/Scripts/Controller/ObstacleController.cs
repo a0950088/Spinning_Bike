@@ -34,6 +34,8 @@ public class ObstacleController : MonoBehaviour
     private long frameIndex;
     private string direction;
 
+    TCP_Client tcpClient=TCP_Client.Instance;
+
     // 1. if go staight, then possibly create object;
     // 2. when creating object, i need to initiate x: within lines, y: on the top point
     // 3. increase y value, and zoom in object size with speed and time
@@ -129,16 +131,19 @@ public class ObstacleController : MonoBehaviour
 
         verticalInput = Input.GetAxis("Vertical");
 
-        // increase y value
-        yspeed_total = initSpeed + verticalInput * yspeed;
+        if(tcpClient.conn_state==1){
+             // increase y value
+            yspeed_total = initSpeed + verticalInput * yspeed;
 
-        // increase z value
-        zspeed = yspeed_total * proportion;
+            // increase z value
+            zspeed = yspeed_total * proportion;
 
-        obstacleInstance.transform.position += new Vector3(0f, yspeed_total, zspeed);
+            obstacleInstance.transform.position += new Vector3(0f, yspeed_total, zspeed);
 
-        // zoom in
-        obstacleInstance.transform.localScale += new Vector3(initScale + verticalInput * scale, initScale + verticalInput * scale, initScale + verticalInput * scale);
+            // zoom in
+            obstacleInstance.transform.localScale += new Vector3(initScale + verticalInput * scale, initScale + verticalInput * scale, initScale + verticalInput * scale);
+        }
+        
 
         // Destroy
         if(obstacleInstance.transform.position.z > 1000)
