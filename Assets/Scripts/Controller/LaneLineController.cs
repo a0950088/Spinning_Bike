@@ -42,6 +42,8 @@ public class LaneLineController : MonoBehaviour
         playerPos = bike.GetComponent<Transform>();
         minus_point = GameObject.Find("score_minus");
         scores = GameObject.Find("Score_text").GetComponent<TMP_Text>();
+		// score UI init
+		scores.text = "SCORE: " + points.ToString();
         direction_hit = GameObject.Find("hint").GetComponent<TMP_Text>();
 	}
 
@@ -70,25 +72,25 @@ public class LaneLineController : MonoBehaviour
 
 		float left_lane_line = normPlayer(pointNearL.x / videoWidth);
 		float right_lane_line = normPlayer(pointNearR.x / videoWidth);
-		
-		if (playerPos.position.x > right_lane_line || playerPos.position.x < left_lane_line)
+
+		if (pointNearL != new Vector2(0, 0) && pointNearR != new Vector2(0, 0))
 		{
-			// Debug.Log("left x: " + left_lane_line);
-			// Debug.Log("right x: " + right_lane_line);
-			// Debug.Log("player: " + playerPos.position.x);
-			if (!continue_minus)
+			if (playerPos.position.x > right_lane_line || playerPos.position.x < left_lane_line)
 			{
-				minusPoints();
+				if (!continue_minus)
+				{
+					minusPoints();
+				}
+				minus_point.SetActive(true);
+				scores.text = "SCORE: " + points.ToString();
 			}
-			minus_point.SetActive(true);
-			scores.text = "SCORE: " + points.ToString();
+			else
+			{
+				minus_point.SetActive(false);
+				continue_minus = false;
+			}
+			direction_hit.text = direction;
 		}
-		else
-		{
-			minus_point.SetActive(false);
-			continue_minus = false;
-		}
-		direction_hit.text = direction;
 	}
 
 	void minusPoints()
