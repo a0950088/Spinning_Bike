@@ -31,6 +31,7 @@ public class TCP_Client : MonoBehaviour
 
     private bool reconnect_flag=false;
 
+
     public static TCP_Client Instance
     {
         get { return instance; }
