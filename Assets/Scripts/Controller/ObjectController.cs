@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
+using TMPro;
 
 public class ObjectController : MonoBehaviour
 {
@@ -23,6 +24,8 @@ public class ObjectController : MonoBehaviour
 	private Transform playerPos;
 	private int MAX_X = 130;
 	private int MAX_Y;
+
+	private TMP_Text hint;
 	
 	void Start()
 	{
@@ -38,6 +41,7 @@ public class ObjectController : MonoBehaviour
         danger_win = GameObject.FindObjectOfType<Danger_jumpin_message>();
         playerPos = bike.GetComponent<Transform>();
         MAX_Y = calNormRatio(MAX_X);
+		hint=GameObject.Find("hint").GetComponent<TMP_Text>();
 	}
 
 	void FixedUpdate()
@@ -49,8 +53,13 @@ public class ObjectController : MonoBehaviour
 
             if (objects.Length != 0)
             {
+				hint.text="Watch out for pedestrians/vehicles ahead";
+				//Debug.Log("object find in frame "+frameIndex);
             	CreateObjects();
             }
+			else{
+				hint.text="Safe";
+			}
 		}
 	}
 

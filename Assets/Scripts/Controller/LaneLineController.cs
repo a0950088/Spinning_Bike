@@ -26,7 +26,10 @@ public class LaneLineController : MonoBehaviour
 	private TMP_Text scores;
 	private bool continue_minus = false;
 
-	private TMP_Text direction_hit;
+	//private TMP_Text direction_hit;
+
+	public GameObject Turn_right_tag;
+	public GameObject Turn_left_tag;
 
 	void Start()
 	{
@@ -44,7 +47,9 @@ public class LaneLineController : MonoBehaviour
         scores = GameObject.Find("Score_text").GetComponent<TMP_Text>();
 		// score UI init
 		scores.text = "SCORE: " + points.ToString();
-        direction_hit = GameObject.Find("hint").GetComponent<TMP_Text>();
+        //direction_hit = GameObject.Find("hint").GetComponent<TMP_Text>();
+		Turn_right_tag=GameObject.Find("Right");
+		Turn_left_tag=GameObject.Find("Left");
 	}
 
 	void FixedUpdate()
@@ -89,7 +94,19 @@ public class LaneLineController : MonoBehaviour
 				minus_point.SetActive(false);
 				continue_minus = false;
 			}
-			direction_hit.text = direction;
+			//direction_hit.text = direction;
+			if(direction=="Left"){
+				Turn_left_tag.SetActive(true);
+				Turn_right_tag.SetActive(false);
+			}
+			else if(direction=="Right"){
+				Turn_right_tag.SetActive(true);
+				Turn_left_tag.SetActive(false);
+			}
+			else{
+				Turn_left_tag.SetActive(false);
+				Turn_right_tag.SetActive(false);
+			}
 		}
 	}
 
@@ -105,4 +122,5 @@ public class LaneLineController : MonoBehaviour
 			points = 0;
 		}
 	}
+
 }

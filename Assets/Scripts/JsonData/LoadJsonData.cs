@@ -7,7 +7,7 @@ using UnityEngine.Playables;
 public class LoadJsonData : MonoBehaviour
 {
     // Start is called before the first frame update
-    string LoadData;
+    public string LoadData;
     public FrameDataWrapper dataWrapper;
     //LevelData[] MyData;
     void Awake(){
