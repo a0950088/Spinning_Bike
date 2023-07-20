@@ -27,6 +27,7 @@ public class VideoController : MonoBehaviour
     private RectTransform pauseWindow;
 
 
+
     private void Awake()
     {
         Debug.Log("VideoController Awake");
@@ -75,11 +76,13 @@ public class VideoController : MonoBehaviour
                 // VideoSpeedControl();
                 nowframe = videoPy.frame;
                 // Debug.Log("Frame control:" + nowframe);
+                Time.timeScale = 1f;
             }
         }
         else{
             videoPy.Pause();
-            Debug.Log("Pause");
+            Time.timeScale = 0f;
+            Debug.Log("Pause"); 
         }
 
     }
