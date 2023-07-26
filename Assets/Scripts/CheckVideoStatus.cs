@@ -10,6 +10,7 @@ public class CheckVideoStatus : MonoBehaviour
     private AddVideo addVideo;
     TCP_Client tcpClient;
     public bool created = false;
+    private Button thumbnaliButton;
 
     void Start()
     {
@@ -24,11 +25,11 @@ public class CheckVideoStatus : MonoBehaviour
         string videoFolder = Path.Combine(Application.dataPath, "Video");
         string[] allVideoPath = Directory.GetFiles(videoFolder);
 
-        StartCoroutine(GenerateThumbnails(allVideoPath));
+        StartCoroutine(CreateThumbnailButton(allVideoPath));
     }
 
 
-    IEnumerator GenerateThumbnails(string[] allVideoPath)
+    IEnumerator CreateThumbnailButton(string[] allVideoPath)
     {
         /*
         foreach (string key in addVideo.buttonDictionary.Keys)
@@ -71,10 +72,11 @@ public class CheckVideoStatus : MonoBehaviour
     {
         // 搜尋 List Panel 下的所有按鈕
         Button[] buttons = listPanel.GetComponentsInChildren<Button>();
-        // 檢查按鈕是否已存在於列表中
+        // 檢查按鈕是否已存在於 List 中
         foreach (Button button in buttons)
         {
             ChangeStatus(button);
+            ThumbnailStatus(button);
         }
         
     }
@@ -106,5 +108,45 @@ public class CheckVideoStatus : MonoBehaviour
         string jsonPath = Path.Combine(Application.dataPath, "JsonData", jsonFileName);
         return File.Exists(jsonPath);
     }
+
+    private void ThumbnailStatus(Button videoButton)
+    {
+        string buttonName = videoButton.gameObject.name;
+        if (buttonName != "AddVideo")
+        {
+            if (ThumbnailError(videoButton))
+            {
+                string videoFolder = Path.Combine(Application.dataPath, "Video");
+                string videoPath = Path.Combine(videoFolder, buttonName);
+                thumbnaliButton = videoButton;
+                addVideo.GetThumbnailFromVideo(videoPath, AddThumbnail);
+                Debug.Log("Where is Image????????????????");
+
+            }
+
+        }
+    }
+
+    private bool ThumbnailError(Button videoButton)
+    {
+        Image image = videoButton.GetComponent<Image>();
+        Color[] pixels = image.sprite.texture.GetPixels();
+        for (int i = 0; i < pixels.Length; i++)
+        {
+            if (pixels[i].a > 0)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void AddThumbnail(Sprite thumbnailSprite)
+    {
+        Debug.Log("Heyyyyyy");
+        thumbnaliButton.GetComponent<Image>().sprite = thumbnailSprite;
+        
+    }
+
 
 }

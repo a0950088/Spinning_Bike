@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
 using TMPro;
+using System.Globalization;
 
 public class LaneLineController : MonoBehaviour
 {
@@ -30,6 +31,8 @@ public class LaneLineController : MonoBehaviour
 
 	public GameObject Turn_right_tag;
 	public GameObject Turn_left_tag;
+
+	public AudioSource outlaneSE;
 
 	void Start()
 	{
@@ -86,6 +89,10 @@ public class LaneLineController : MonoBehaviour
 				{
 					minusPoints();
 				}
+				string SEString=PlayerPrefs.GetString("SEValue");
+            	float SEnum=float.Parse(SEString, CultureInfo.InvariantCulture.NumberFormat);
+				outlaneSE.volume=SEnum;
+				outlaneSE.Play();
 				minus_point.SetActive(true);
 				scores.text = "SCORE: " + points.ToString();
 			}

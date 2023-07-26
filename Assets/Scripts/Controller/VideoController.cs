@@ -23,6 +23,10 @@ public class VideoController : MonoBehaviour
     private int time_total;
     TCP_Client tcpClient;
 
+    private RectTransform dangerWindow;
+    private RectTransform pauseWindow;
+
+
 
     private void Awake()
     {
@@ -56,6 +60,9 @@ public class VideoController : MonoBehaviour
             ScaleUIWithVideo();
             videoPy.Play();
         };
+
+        dangerWindow = GameObject.Find("danger_window").GetComponent<RectTransform>();
+        pauseWindow = GameObject.Find("PauseWindow").GetComponent<RectTransform>();
     }
 
     // Update is called once per frame
@@ -69,11 +76,13 @@ public class VideoController : MonoBehaviour
                 // VideoSpeedControl();
                 nowframe = videoPy.frame;
                 // Debug.Log("Frame control:" + nowframe);
+                Time.timeScale = 1f;
             }
         }
         else{
             videoPy.Pause();
-            Debug.Log("Pause");
+            Time.timeScale = 0f;
+            Debug.Log("Pause"); 
         }
 
     }
@@ -137,9 +146,10 @@ public class VideoController : MonoBehaviour
         RectTransform score_minus = GameObject.Find("score_minus").GetComponent<RectTransform>();
         RectTransform left = GameObject.Find("Left").GetComponent<RectTransform>();
         RectTransform right = GameObject.Find("Right").GetComponent<RectTransform>();
-        RectTransform hint=GameObject.Find("hint").GetComponent<RectTransform>();
+        RectTransform hint = GameObject.Find("hint").GetComponent<RectTransform>();
+        
 
-        // 重新計算 Scale、位置
+        // 重新計算位置
         Vector3 originalScale = speed.localScale;
         Vector3 newScale = originalScale * scalingRatio;
 
@@ -150,7 +160,7 @@ public class VideoController : MonoBehaviour
         Vector3 newPositionScoreMinus = score_minus.localPosition * scalingRatio;
         Vector3 newPositionLeft = left.localPosition * scalingRatio;
         Vector3 newPositionRight = right.localPosition * scalingRatio;
-        Vector3 newPositionhint=hint.localPosition*scalingRatio;
+        Vector3 newPositionhint = hint.localPosition * scalingRatio;
 
         // 調整 UI
         speed.localScale = newScale;
@@ -177,13 +187,8 @@ public class VideoController : MonoBehaviour
         hint.localScale = newScale;
         hint.localPosition = newPositionhint;
 
-
-        //GameObject leftObject = GameObject.Find("Left");
-        //leftObject.SetActive(false);
-
-        GameObject rightObject = GameObject.Find("Right");
-        rightObject.SetActive(false);
-
+        dangerWindow.localScale = newScale;
+        pauseWindow.localScale = newScale;
 
     }
     public void LoadScene(string sceneName)

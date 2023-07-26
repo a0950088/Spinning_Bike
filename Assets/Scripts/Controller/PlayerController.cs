@@ -112,7 +112,7 @@ public class PlayerController : MonoBehaviour
         var bikeHandleBar_Y = UnityEditor.TransformUtils.GetInspectorRotation(BikeHandleBar.transform).y;
         
         // Rotate turn left: minus right: plus
-        Debug.Log("bikeHandleBar_Y: " + bikeHandleBar_Y);
+        //Debug.Log("bikeHandleBar_Y: " + bikeHandleBar_Y);
         
         // Position turn left: plus right: minus
 
