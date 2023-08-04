@@ -43,8 +43,8 @@ public class VideoController : MonoBehaviour
         imagesize = GameObject.Find("VideoFrame").GetComponent<RectTransform>();
         rawimage = GameObject.Find("VideoFrame").GetComponent<RawImage>();
         //影片 EndReached
-        time_start=Time.time;
-        videoPy.loopPointReached+=EndReached;
+        time_start = Time.time;
+        videoPy.loopPointReached += EndReached;
         tcpClient = TCP_Client.Instance;
         //videoPy.Play();
     }
@@ -68,31 +68,33 @@ public class VideoController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(tcpClient.conn_state == 1){
-            if(videoPy.isPrepared)
+        if (tcpClient.conn_state == 1)
+        {
+            if (videoPy.isPrepared)
             {
                 videoPy.Play();
                 SetImageTexture();
                 // VideoSpeedControl();
                 nowframe = videoPy.frame;
                 // Debug.Log("Frame control:" + nowframe);
-                Time.timeScale = 1f;
+                videoPy.playbackSpeed = 1;
             }
         }
-        else{
-            videoPy.Pause();
-            Time.timeScale = 0f;
-            Debug.Log("Pause"); 
+        else
+        {
+            videoPy.playbackSpeed = 0;
+            Debug.Log("Pause");
         }
 
     }
-    void EndReached(UnityEngine.Video.VideoPlayer vp){
+    void EndReached(UnityEngine.Video.VideoPlayer vp)
+    {
         //影片放完切畫面
         //Debug.Log("Frame control:" + nowframe);
         //videoPy.Pause();
-        time_end=Time.time;
-        time_start=time_end-time_start;
-        time_total=Mathf.FloorToInt(time_start);
+        time_end = Time.time;
+        time_start = time_end - time_start;
+        time_total = Mathf.FloorToInt(time_start);
         LoadScene("Score_Scene");
     }
     private void SetImageTexture()
@@ -117,9 +119,9 @@ public class VideoController : MonoBehaviour
             videoPy.playbackSpeed = nowPlayBackSpeed;
         }
     }
-    
 
-    
+
+
 
     private void ScaleUIWithVideo()
     {
@@ -147,7 +149,7 @@ public class VideoController : MonoBehaviour
         RectTransform left = GameObject.Find("Left").GetComponent<RectTransform>();
         RectTransform right = GameObject.Find("Right").GetComponent<RectTransform>();
         RectTransform hint = GameObject.Find("hint").GetComponent<RectTransform>();
-        
+
 
         // 重新計算位置
         Vector3 originalScale = speed.localScale;
@@ -195,17 +197,18 @@ public class VideoController : MonoBehaviour
     {
         //讀取分數+時間
         scores = GameObject.Find("Score_text").GetComponent<TMP_Text>();
-        string Final_point=scores.text;
+        string Final_point = scores.text;
         string pattern = @"\d+";
         Match match = Regex.Match(Final_point, pattern);
-        if (match.Success){
+        if (match.Success)
+        {
             Final_point = match.Value;
         }
         PlayerPrefs.SetString("Final_point_str", Final_point);
-        PlayerPrefs.SetString("Time_total",time_total.ToString());
+        PlayerPrefs.SetString("Time_total", time_total.ToString());
         //string justtest = PlayerPrefs.GetString("Final_point_str");
         //Debug.Log("Final Score: " + justtest);
         SceneManager.LoadScene(sceneName);
     }
-    
+
 }
