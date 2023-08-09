@@ -8,7 +8,8 @@ using System.Text;
 using System.Threading;
 
 [Serializable]
-public class RecData{
+public class RecData
+{
     public float speed;
     public float cadence;
     public float angle;
@@ -29,7 +30,7 @@ public class TCP_Client : MonoBehaviour
     public float cadence;
     public float angle;
 
-    private bool reconnect_flag=false;
+    private bool reconnect_flag = false;
 
 
     public static TCP_Client Instance
@@ -48,14 +49,14 @@ public class TCP_Client : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(this.gameObject);
             //IPAddress localIpAddress = IPAddress.Parse("192.168.100.145");
-            IPAddress localIpAddress = IPAddress.Parse("127.0.0.1");
+            IPAddress localIpAddress = IPAddress.Parse("192.168.100.172");
             client = new TcpClient();
             client.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
             // client.Client.Bind(new IPEndPoint(localIpAddress, 14786));
             // client.Connect("192.168.100.145", 30000);
-            client.Connect("127.0.0.1", 30000);
+            client.Connect("192.168.100.172", 30000);
         }
-        
+
         player = GameObject.FindObjectOfType<PlayerController>();
         processPath = null;
 
@@ -69,20 +70,24 @@ public class TCP_Client : MonoBehaviour
         receiveThread = new Thread(SocketClientThread);
         receiveThread.Start();
     }
-    private void Update(){
-        if(client.Connected==false && reconnect_flag==false){
-            conn_state=0;
-            Debug.Log("no conn "+conn_state);
-            reconnect_flag=true;
+    private void Update()
+    {
+        if (client.Connected == false && reconnect_flag == false)
+        {
+            conn_state = 0;
+            Debug.Log("no conn " + conn_state);
+            reconnect_flag = true;
             DisconnectFromServer();
             AbortReceiveThread();
         }
-        if(reconnect_flag==true){
+        if (reconnect_flag == true)
+        {
             client = new TcpClient();
             client.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
             client.Connect("127.0.0.1", 30000);
-            if(client.Connected==true){
-                reconnect_flag=false;
+            if (client.Connected == true)
+            {
+                reconnect_flag = false;
                 receiveThread = new Thread(SocketClientThread);
                 receiveThread.Start();
             }
@@ -98,7 +103,8 @@ public class TCP_Client : MonoBehaviour
 
     private void SocketClientThread()
     {
-        try{
+        try
+        {
             stream = client.GetStream();
             int bytesRead;
             string receivedData;
@@ -112,20 +118,23 @@ public class TCP_Client : MonoBehaviour
                     conn_state = 1;
                     Debug.Log("conn_state: " + conn_state);
                 }
-                else if(receivedData == "Respberry Pi Connect Failed"){
+                else if (receivedData == "Respberry Pi Connect Failed")
+                {
                     conn_state = 0;
                 }
-                else{
+                else
+                {
                     ProcessRecData(receivedData);
                 }
-                
+
             }
         }
-        finally{
+        finally
+        {
             // DisconnectFromServer();
             Debug.Log("ReceiveThread Close");
         }
-       
+
     }
 
     private void ProcessRecData(string jsonData)
