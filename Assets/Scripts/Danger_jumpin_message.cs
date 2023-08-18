@@ -74,6 +74,7 @@ public class Danger_jumpin_message : MonoBehaviour
         player.init_speed = 0.5f;
         obstacle.initSpeed = 0.1f;
         obstacle.initScale = 0.01f;
+        Destroy(obstacle.obstacleInstance);
     }
 }
 
