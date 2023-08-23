@@ -19,11 +19,13 @@ public class Loading_scene_ctrl : MonoBehaviour
     {
         tcpClient = TCP_Client.Instance;
         load.SetActive(true);
-        str1=GameObject.Find("Loading_text").GetComponent<TMP_Text>();
+        str1 = GameObject.Find("Loading_text").GetComponent<TMP_Text>();
+        PlayerPrefs.SetString("crash_num", "0");
     }
     public void Update()
     {
-        if(tcpClient.conn_state==1){
+        if (tcpClient.conn_state == 1)
+        {
             //load.SetActive(false);
             if (!countdown)
             {
@@ -32,10 +34,11 @@ public class Loading_scene_ctrl : MonoBehaviour
                 LoadScene("PlayScene");
             }
         }
-        else{
+        else
+        {
             Debug.Log("Nothing");
         }
-        
+
     }
     public void LoadScene(string sceneName)
     {
@@ -55,11 +58,11 @@ public class Loading_scene_ctrl : MonoBehaviour
     }
     IEnumerator WaitAndContinue(string sceneName)
     {
-        str1.text="3";
+        str1.text = "3";
         yield return new WaitForSecondsRealtime(1);
-        str1.text="2";
+        str1.text = "2";
         yield return new WaitForSecondsRealtime(1);
-        str1.text="1";
+        str1.text = "1";
         yield return new WaitForSecondsRealtime(1);
         Debug.Log("Just Check");
         SceneManager.LoadScene(sceneName);

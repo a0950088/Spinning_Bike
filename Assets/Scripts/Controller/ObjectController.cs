@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
 using TMPro;
-
+using System.Globalization;
 public class ObjectController : MonoBehaviour
 {
 	public GameObject bike;
-	
+
 	private VideoController videoController;
 	private Danger_jumpin_message danger_win;
 
 	private VideoPlayer videoPlayer;
 	private float videoWidth;
-    private float videoHeight;
+	private float videoHeight;
 
 	private LoadJsonData jsondata;
 	private long frameIndex;
@@ -26,22 +26,23 @@ public class ObjectController : MonoBehaviour
 	private int MAX_Y;
 
 	private TMP_Text hint;
-	
+	public AudioSource crashSE;
+
 	void Start()
 	{
 		videoPlayer = GameObject.Find("Screen").GetComponent<VideoPlayer>();
-        videoPlayer.prepareCompleted += (source) =>
-        {
-            videoWidth = videoPlayer.width;
-            videoHeight = videoPlayer.height;         
-            bike = GameObject.FindGameObjectWithTag("Bike");
-            videoController = GameObject.FindObjectOfType<VideoController>();
-            jsondata = GameObject.FindObjectOfType<LoadJsonData>();
-        };
-        danger_win = GameObject.FindObjectOfType<Danger_jumpin_message>();
-        playerPos = bike.GetComponent<Transform>();
-        MAX_Y = calNormRatio(MAX_X);
-		hint=GameObject.Find("hint").GetComponent<TMP_Text>();
+		videoPlayer.prepareCompleted += (source) =>
+		{
+			videoWidth = videoPlayer.width;
+			videoHeight = videoPlayer.height;
+			bike = GameObject.FindGameObjectWithTag("Bike");
+			videoController = GameObject.FindObjectOfType<VideoController>();
+			jsondata = GameObject.FindObjectOfType<LoadJsonData>();
+		};
+		danger_win = GameObject.FindObjectOfType<Danger_jumpin_message>();
+		playerPos = bike.GetComponent<Transform>();
+		MAX_Y = calNormRatio(MAX_X);
+		hint = GameObject.Find("hint").GetComponent<TMP_Text>();
 	}
 
 	void FixedUpdate()
@@ -49,33 +50,34 @@ public class ObjectController : MonoBehaviour
 		if (videoPlayer.isPrepared && videoController.nowframe > 0 && videoPlayer.frame > 0)
 		{
 			frameIndex = jsondata.dataWrapper.FrameData[videoController.nowframe].frame;
-            objects = jsondata.dataWrapper.FrameData[videoController.nowframe].objects_position;
+			objects = jsondata.dataWrapper.FrameData[videoController.nowframe].objects_position;
 
-            if (objects.Length != 0)
-            {
-				hint.text="Watch out for pedestrians/vehicles ahead";
+			if (objects.Length != 0)
+			{
+				hint.text = "Watch out for pedestrians/vehicles ahead";
 				//Debug.Log("object find in frame "+frameIndex);
-            	CreateObjects();
-            }
-			else{
-				hint.text="Safe";
+				CreateObjects();
+			}
+			else
+			{
+				hint.text = "Safe";
 			}
 		}
 	}
 
-	int calNormRatio(int x) 
+	int calNormRatio(int x)
 	{
-		return (int) System.Math.Floor(x * 2 * videoHeight / videoWidth);
+		return (int)System.Math.Floor(x * 2 * videoHeight / videoWidth);
 	}
-	
+
 	int[] normPlayer(float x, float y)
 	{
 		List<int> tempList = new List<int>();
-		tempList.Add((int) System.Math.Floor(-(MAX_X*2) * x/videoWidth) + MAX_X);
-		tempList.Add((int) System.Math.Floor(-(MAX_Y*2) * y/videoHeight) + MAX_Y);
+		tempList.Add((int)System.Math.Floor(-(MAX_X * 2) * x / videoWidth) + MAX_X);
+		tempList.Add((int)System.Math.Floor(-(MAX_Y * 2) * y / videoHeight) + MAX_Y);
 		int[] new_point = tempList.ToArray();
-    	return new_point;
-    }
+		return new_point;
+	}
 
 	void CreateObjects()
 	{
@@ -83,8 +85,8 @@ public class ObjectController : MonoBehaviour
 
 		for (int i = 0; i < NumOfObjects; i += 4)
 		{
-			Vector2 objectPointL = new Vector2(objects[i], objects[i+1]);
-			Vector2 objectPointR = new Vector2(objects[i] + objects[i+2], objects[i+1] + objects[i+3]);
+			Vector2 objectPointL = new Vector2(objects[i], objects[i + 1]);
+			Vector2 objectPointR = new Vector2(objects[i] + objects[i + 2], objects[i + 1] + objects[i + 3]);
 
 			int[] tmp_point = normPlayer(objectPointL.x, objectPointL.y);
 			float Left_x = tmp_point[0];
@@ -112,8 +114,16 @@ public class ObjectController : MonoBehaviour
 
 			if (player_posx >= min_x && player_posx <= max_x && player_posy >= min_y && player_posy <= max_y)
 			{
+				string SEString = PlayerPrefs.GetString("SEValue");
+				float SEnum = float.Parse(SEString, CultureInfo.InvariantCulture.NumberFormat);
+				crashSE.volume = SEnum;
+				crashSE.Play();
 				danger_win.win_on = true;
 				// Debug.Log("!!!!!!Crushed: " + frameIndex);
+				string crash_str = PlayerPrefs.GetString("crash_num");
+				int crash_num = int.Parse(crash_str, CultureInfo.InvariantCulture.NumberFormat);
+				crash_num += 1;
+				PlayerPrefs.SetString("crash_num", crash_num.ToString());
 			}
 		}
 	}

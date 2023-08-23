@@ -54,7 +54,7 @@ public class TCP_Client : MonoBehaviour
             client.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
             // client.Client.Bind(new IPEndPoint(localIpAddress, 14786));
             // client.Connect("192.168.100.145", 30000);
-            client.Connect("192.168.100.172", 30000);
+            client.Connect("127.0.0.1", 30000);
         }
 
         player = GameObject.FindObjectOfType<PlayerController>();
