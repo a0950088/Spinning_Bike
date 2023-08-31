@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
 using TMPro;
-using System.Globalization;
+using System.IO;
+using System;
 public class ObjectController : MonoBehaviour
 {
 	public GameObject bike;
@@ -26,7 +27,7 @@ public class ObjectController : MonoBehaviour
 	private int MAX_Y;
 
 	private TMP_Text hint;
-	public AudioSource crashSE;
+
 
 	void Start()
 	{
@@ -82,7 +83,6 @@ public class ObjectController : MonoBehaviour
 	void CreateObjects()
 	{
 		int NumOfObjects = objects.Length / 4;
-
 		for (int i = 0; i < NumOfObjects; i += 4)
 		{
 			Vector2 objectPointL = new Vector2(objects[i], objects[i + 1]);
@@ -112,19 +112,14 @@ public class ObjectController : MonoBehaviour
 			float min_y = System.Math.Min(Left_y, Right_y);
 			float max_y = System.Math.Max(Left_y, Right_y);
 
-			if (player_posx >= min_x && player_posx <= max_x && player_posy >= min_y && player_posy <= max_y)
+
+			//if (player_posx >= min_x && player_posx <= max_x && player_posy >= min_y && player_posy <= max_y)
+			if (player_posx >= min_x && player_posx <= max_x)
 			{
-				string SEString = PlayerPrefs.GetString("SEValue");
-				float SEnum = float.Parse(SEString, CultureInfo.InvariantCulture.NumberFormat);
-				crashSE.volume = SEnum;
-				crashSE.Play();
 				danger_win.win_on = true;
 				// Debug.Log("!!!!!!Crushed: " + frameIndex);
-				string crash_str = PlayerPrefs.GetString("crash_num");
-				int crash_num = int.Parse(crash_str, CultureInfo.InvariantCulture.NumberFormat);
-				crash_num += 1;
-				PlayerPrefs.SetString("crash_num", crash_num.ToString());
 			}
 		}
+
 	}
 }

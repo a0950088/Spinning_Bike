@@ -2772,6 +2772,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bike: {fileID: 1265276048}
   crashSE: {fileID: 1143847192}
+  test_cube: {fileID: 0}
 --- !u!1001 &1271536914
 PrefabInstance:
   m_ObjectHideFlags: 0
