@@ -6,7 +6,7 @@ using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using SFB;
-
+using TMPro;
 
 public class AddVideo : MonoBehaviour
 {
@@ -263,7 +263,9 @@ public class AddVideo : MonoBehaviour
         newButton.gameObject.SetActive(true);
 
         newButton.GetComponent<Image>().sprite = thumbnailSprite;
-        
+        TMP_Text buttonText = newButton.GetComponentInChildren<TMP_Text>();
+        buttonText.text = fileName;
+       
         ChangeState(newButton);
 
         buttonDictionary[fileName] = newButton;

@@ -148,7 +148,7 @@ public class VideoController : MonoBehaviour
         RectTransform score_minus = GameObject.Find("score_minus").GetComponent<RectTransform>();
         RectTransform left = GameObject.Find("Left").GetComponent<RectTransform>();
         RectTransform right = GameObject.Find("Right").GetComponent<RectTransform>();
-        RectTransform hint = GameObject.Find("hint").GetComponent<RectTransform>();
+        RectTransform hint = GameObject.Find("hint_image").GetComponent<RectTransform>();
 
 
         // 重新計算位置
