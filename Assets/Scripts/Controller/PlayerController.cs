@@ -6,6 +6,7 @@ using UnityEngine.Video;
 using TMPro;
 using System;
 
+
 public class PlayerController : MonoBehaviour
 {
     public GameObject Bike;
@@ -117,12 +118,16 @@ public class PlayerController : MonoBehaviour
 
     void ChangePlayerDirection(float angle)
     {
-        var bikeHandleBar_Y = UnityEditor.TransformUtils.GetInspectorRotation(BikeHandleBar.transform).y;
+        var bikeHandleBar_Y = BikeHandleBar.transform.eulerAngles.y;
+        //var bikeHandleBar_Y = UnityEditor.TransformUtils.GetInspectorRotation(BikeHandleBar.transform).y;
+        bikeHandleBar_Y -= 180;
+        if (bikeHandleBar_Y > 180)
+        {
+            bikeHandleBar_Y -= 360;
+        }
+        //Debug.Log("bikeHandleBar_Y=" + bikeHandleBar_Y);
 
         // Rotate turn left: minus right: plus
-        //Debug.Log("bikeHandleBar_Y: " + bikeHandleBar_Y);
-
-        // Position turn left: plus right: minus
 
         if (bikeHandleBar_Y <= MAX_RIGHT_ROTATE_ANGLE && bikeHandleBar_Y < -(angle))
         {
@@ -133,18 +138,20 @@ public class PlayerController : MonoBehaviour
             ChangeBikeDirection(-(angle + bikeHandleBar_Y));
         }
 
-        /*if (bikeHandleBar_Y <= MAX_RIGHT_ROTATE_ANGLE && bikeHandleBar_Y >= MAX_LEFT_ROTATE_ANGLE) {
-            Debug.Log("in1: ");
-            ChangeBikeDirection(-angle);
+        // Position turn left: plus right: minus
+
+        /*if (bikeHandleBar_Y <= MAX_RIGHT_ROTATE_ANGLE && bikeHandleBar_Y >= MAX_LEFT_ROTATE_ANGLE)
+        {
+            ChangeBikeDirection(angle);
         }
-        else if (bikeHandleBar_Y > MAX_RIGHT_ROTATE_ANGLE && (-angle) <= 0) {
+        else if (bikeHandleBar_Y > MAX_RIGHT_ROTATE_ANGLE && (-angle) <= 0)
+        {
             //右轉到底
-            Debug.Log("in2: ");
             ChangeBikeDirection(-angle);
         }
-        else if (bikeHandleBar_Y < MAX_LEFT_ROTATE_ANGLE && (-angle) >= 0) {
+        else if (bikeHandleBar_Y < MAX_LEFT_ROTATE_ANGLE && (-angle) >= 0)
+        {
             //左轉到底
-            Debug.Log("in3: ");
             ChangeBikeDirection(-angle);
         }*/
 
