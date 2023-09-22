@@ -82,6 +82,9 @@ public class Danger_jumpin_message : MonoBehaviour
         obstacle.initScale = 0.0f;
     }
 
+
+
+
     void Resume()
     {
         win_on = false;

@@ -28,6 +28,9 @@ public class ObjectController : MonoBehaviour
 
 	private TMP_Text hint;
 
+	private bool crash_this = false;
+	private long last_crash_frame = -1;
+
 
 	void Start()
 	{
@@ -57,11 +60,15 @@ public class ObjectController : MonoBehaviour
 			{
 				hint.text = "Watch out for pedestrians/vehicles ahead";
 				//Debug.Log("object find in frame "+frameIndex);
-				CreateObjects();
+				if (last_crash_frame != frameIndex)
+				{
+					crash_this = false;
+					CreateObjects(frameIndex);
+				}
 			}
 			else
 			{
-				hint.text = "Safe";
+				hint.text = "";
 			}
 		}
 	}
@@ -80,7 +87,7 @@ public class ObjectController : MonoBehaviour
 		return new_point;
 	}
 
-	void CreateObjects()
+	void CreateObjects(long objframe)
 	{
 		int NumOfObjects = objects.Length / 4;
 		for (int i = 0; i < NumOfObjects; i += 4)
@@ -114,8 +121,10 @@ public class ObjectController : MonoBehaviour
 
 
 			//if (player_posx >= min_x && player_posx <= max_x && player_posy >= min_y && player_posy <= max_y)
-			if (player_posx >= min_x && player_posx <= max_x)
+			if (player_posx >= min_x && player_posx <= max_x && crash_this == false)
 			{
+				crash_this = true;
+				last_crash_frame = objframe;
 				danger_win.win_on = true;
 				// Debug.Log("!!!!!!Crushed: " + frameIndex);
 			}

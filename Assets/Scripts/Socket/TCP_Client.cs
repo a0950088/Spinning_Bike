@@ -49,7 +49,7 @@ public class TCP_Client : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(this.gameObject);
             //IPAddress localIpAddress = IPAddress.Parse("192.168.100.145");
-            IPAddress localIpAddress = IPAddress.Parse("192.168.100.172");
+            //IPAddress localIpAddress = IPAddress.Parse("192.168.100.172");
             client = new TcpClient();
             client.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
             // client.Client.Bind(new IPEndPoint(localIpAddress, 14786));
