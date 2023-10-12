@@ -94,9 +94,16 @@ public class PlayerController : MonoBehaviour
 
     void setPlayerAnimation(float speed, float angle)
     {
-        if (init_speed > 0)
+        if (speed > 0)
         {  // while not stopped
             videoPlayer.playbackSpeed = (speed / 10.0f) + init_speed;
+            ChangePlayerDirection(angle);
+            RideBike(speed, angle);
+        }
+        else
+        {
+            videoPlayer.playbackSpeed = 0;
+            Debug.Log("speed=" + speed);
             ChangePlayerDirection(angle);
             RideBike(speed, angle);
         }

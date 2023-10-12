@@ -26,8 +26,6 @@ public class VideoController : MonoBehaviour
     private RectTransform dangerWindow;
     private RectTransform pauseWindow;
 
-
-
     private void Awake()
     {
         Debug.Log("VideoController Awake");
@@ -59,6 +57,7 @@ public class VideoController : MonoBehaviour
             Debug.Log("Video dimensions: " + videoPy.width + "x" + videoPy.height);
             ScaleUIWithVideo();
             videoPy.Play();
+            videoPy.playbackSpeed = 0;
         };
 
         dangerWindow = GameObject.Find("danger_window").GetComponent<RectTransform>();
@@ -77,7 +76,6 @@ public class VideoController : MonoBehaviour
                 // VideoSpeedControl();
                 nowframe = videoPy.frame;
                 // Debug.Log("Frame control:" + nowframe);
-                videoPy.playbackSpeed = 1;
             }
         }
         else
