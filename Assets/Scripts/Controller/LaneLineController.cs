@@ -13,7 +13,7 @@ public class LaneLineController : MonoBehaviour
 
 	private VideoPlayer videoPlayer;
 	private float videoWidth;
-    private float videoHeight;
+	private float videoHeight;
 
 	private LoadJsonData jsondata;
 	private long frameIndex;
@@ -37,22 +37,22 @@ public class LaneLineController : MonoBehaviour
 	void Start()
 	{
 		videoPlayer = GameObject.Find("Screen").GetComponent<VideoPlayer>();
-        videoPlayer.prepareCompleted += (source) =>
-        {
-            videoWidth = videoPlayer.width;
-            videoHeight = videoPlayer.height;           
-            bike = GameObject.FindGameObjectWithTag("Bike");
-            videoController = GameObject.FindObjectOfType<VideoController>();
-            jsondata = GameObject.FindObjectOfType<LoadJsonData>();
-        };
-        playerPos = bike.GetComponent<Transform>();
-        minus_point = GameObject.Find("score_minus");
-        scores = GameObject.Find("Score_text").GetComponent<TMP_Text>();
+		videoPlayer.prepareCompleted += (source) =>
+		{
+			videoWidth = videoPlayer.width;
+			videoHeight = videoPlayer.height;
+			bike = GameObject.FindGameObjectWithTag("Bike");
+			videoController = GameObject.FindObjectOfType<VideoController>();
+			jsondata = GameObject.FindObjectOfType<LoadJsonData>();
+		};
+		playerPos = bike.GetComponent<Transform>();
+		minus_point = GameObject.Find("score_minus");
+		scores = GameObject.Find("Score_text").GetComponent<TMP_Text>();
 		// score UI init
 		scores.text = "SCORE: " + points.ToString();
-        //direction_hit = GameObject.Find("hint").GetComponent<TMP_Text>();
-		Turn_right_tag=GameObject.Find("Right");
-		Turn_left_tag=GameObject.Find("Left");
+		//direction_hit = GameObject.Find("hint").GetComponent<TMP_Text>();
+		Turn_right_tag = GameObject.Find("Right");
+		Turn_left_tag = GameObject.Find("Left");
 	}
 
 	void FixedUpdate()
@@ -60,18 +60,18 @@ public class LaneLineController : MonoBehaviour
 		if (videoPlayer.isPrepared && videoController.nowframe > 0 && videoPlayer.frame > 0)
 		{
 			frameIndex = jsondata.dataWrapper.FrameData[videoController.nowframe].frame;
-            left_line = jsondata.dataWrapper.FrameData[videoController.nowframe].left_line_range;
-            right_line = jsondata.dataWrapper.FrameData[videoController.nowframe].right_line_range;
-            direction = jsondata.dataWrapper.FrameData[videoController.nowframe].direction;
+			left_line = jsondata.dataWrapper.FrameData[videoController.nowframe].left_line_range;
+			right_line = jsondata.dataWrapper.FrameData[videoController.nowframe].right_line_range;
+			direction = jsondata.dataWrapper.FrameData[videoController.nowframe].direction;
 
-            UpdateLaneLine();
+			UpdateLaneLine();
 		}
 	}
-	
+
 	int normPlayer(float x)
 	{
-    	return (int) System.Math.Floor(260 * x) - 130;
-    }
+		return (int)System.Math.Floor(260 * x) - 130;
+	}
 
 	void UpdateLaneLine()
 	{
@@ -89,9 +89,9 @@ public class LaneLineController : MonoBehaviour
 				{
 					minusPoints();
 				}
-				string SEString=PlayerPrefs.GetString("SEValue");
-            	float SEnum=float.Parse(SEString, CultureInfo.InvariantCulture.NumberFormat);
-				outlaneSE.volume=SEnum;
+				string SEString = PlayerPrefs.GetString("SEValue");
+				float SEnum = float.Parse(SEString);
+				outlaneSE.volume = SEnum;
 				outlaneSE.Play();
 				minus_point.SetActive(true);
 				scores.text = "SCORE: " + points.ToString();
@@ -102,15 +102,18 @@ public class LaneLineController : MonoBehaviour
 				continue_minus = false;
 			}
 			//direction_hit.text = direction;
-			if(direction=="Left"){
+			if (direction == "Left")
+			{
 				Turn_left_tag.SetActive(true);
 				Turn_right_tag.SetActive(false);
 			}
-			else if(direction=="Right"){
+			else if (direction == "Right")
+			{
 				Turn_right_tag.SetActive(true);
 				Turn_left_tag.SetActive(false);
 			}
-			else{
+			else
+			{
 				Turn_left_tag.SetActive(false);
 				Turn_right_tag.SetActive(false);
 			}

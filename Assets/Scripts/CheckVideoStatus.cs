@@ -78,7 +78,7 @@ public class CheckVideoStatus : MonoBehaviour
             ChangeStatus(button);
             ThumbnailStatus(button);
         }
-        
+
     }
 
 
@@ -88,7 +88,7 @@ public class CheckVideoStatus : MonoBehaviour
         if (buttonName != "AddVideo")
         {
             if (!JsonExists(buttonName))
-            { 
+            {
                 videoButton.interactable = false;
                 //改一下 TCP_Client 下面的 processPath
                 string videoFileName = buttonName + ".mp4";
@@ -120,7 +120,6 @@ public class CheckVideoStatus : MonoBehaviour
                 string videoPath = Path.Combine(videoFolder, buttonName);
                 thumbnaliButton = videoButton;
                 addVideo.GetThumbnailFromVideo(videoPath, AddThumbnail);
-                Debug.Log("Where is Image????????????????");
 
             }
 
@@ -143,9 +142,8 @@ public class CheckVideoStatus : MonoBehaviour
 
     public void AddThumbnail(Sprite thumbnailSprite)
     {
-        Debug.Log("Heyyyyyy");
         thumbnaliButton.GetComponent<Image>().sprite = thumbnailSprite;
-        
+
     }
 
 
