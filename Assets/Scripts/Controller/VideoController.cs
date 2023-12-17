@@ -146,7 +146,7 @@ public class VideoController : MonoBehaviour
         RectTransform score_minus = GameObject.Find("score_minus").GetComponent<RectTransform>();
         RectTransform left = GameObject.Find("Left").GetComponent<RectTransform>();
         RectTransform right = GameObject.Find("Right").GetComponent<RectTransform>();
-        RectTransform hint = GameObject.Find("hint_image").GetComponent<RectTransform>();
+        //RectTransform hint = GameObject.Find("hint_image").GetComponent<RectTransform>();
 
 
         // 重新計算位置
@@ -160,7 +160,7 @@ public class VideoController : MonoBehaviour
         Vector3 newPositionScoreMinus = score_minus.localPosition * scalingRatio;
         Vector3 newPositionLeft = left.localPosition * scalingRatio;
         Vector3 newPositionRight = right.localPosition * scalingRatio;
-        Vector3 newPositionhint = hint.localPosition * scalingRatio;
+        //Vector3 newPositionhint = hint.localPosition * scalingRatio;
 
         // 調整 UI
         speed.localScale = newScale;
@@ -184,8 +184,8 @@ public class VideoController : MonoBehaviour
         right.localScale = newScale;
         right.localPosition = newPositionRight;
 
-        hint.localScale = newScale;
-        hint.localPosition = newPositionhint;
+        //hint.localScale = newScale;
+        //hint.localPosition = newPositionhint;
 
         dangerWindow.localScale = newScale;
         pauseWindow.localScale = newScale;

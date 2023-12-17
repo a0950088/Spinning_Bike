@@ -26,7 +26,7 @@ public class ObjectController : MonoBehaviour
 	private int MAX_X = 130;
 	private int MAX_Y;
 
-	private TMP_Text hint;
+	//private TMP_Text hint;
 
 	private bool crash_this = false;
 	private long last_crash_frame = -1;
@@ -46,7 +46,7 @@ public class ObjectController : MonoBehaviour
 		danger_win = GameObject.FindObjectOfType<Danger_jumpin_message>();
 		playerPos = bike.GetComponent<Transform>();
 		MAX_Y = calNormRatio(MAX_X);
-		hint = GameObject.Find("hint").GetComponent<TMP_Text>();
+		//hint = GameObject.Find("hint").GetComponent<TMP_Text>();
 	}
 
 	void FixedUpdate()
@@ -58,7 +58,7 @@ public class ObjectController : MonoBehaviour
 
 			if (objects.Length != 0)
 			{
-				hint.text = "Watch out for pedestrians/vehicles ahead";
+				//hint.text = "Watch out for pedestrians/vehicles ahead";
 				//Debug.Log("object find in frame "+frameIndex);
 				if (last_crash_frame != frameIndex)
 				{
@@ -68,7 +68,7 @@ public class ObjectController : MonoBehaviour
 			}
 			else
 			{
-				hint.text = "";
+				//hint.text = "";
 			}
 		}
 	}
@@ -114,8 +114,8 @@ public class ObjectController : MonoBehaviour
 			// Debug.Log("player y: " + player_posy);
 			// Debug.Log("right y: " + Right_y);
 
-			float min_x = System.Math.Min(Left_x, Right_x);
-			float max_x = System.Math.Max(Left_x, Right_x);
+			float min_x = System.Math.Min(Left_x, Right_x) + 75;
+			float max_x = System.Math.Max(Left_x, Right_x) + 75;
 			float min_y = System.Math.Min(Left_y, Right_y);
 			float max_y = System.Math.Max(Left_y, Right_y);
 

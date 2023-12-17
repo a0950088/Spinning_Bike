@@ -45,11 +45,11 @@ public class Danger_jumpin_message : MonoBehaviour
                 if (counter == init_counter)
                 {
                     string SEString = PlayerPrefs.GetString("SEValue");
-                    float SEnum = float.Parse(SEString, CultureInfo.InvariantCulture.NumberFormat);
+                    float SEnum = float.Parse(SEString);
                     crashSE.volume = SEnum;
                     crashSE.Play();
                     string crash_str = PlayerPrefs.GetString("crash_num");
-                    int crash_num = int.Parse(crash_str, CultureInfo.InvariantCulture.NumberFormat);
+                    int crash_num = int.Parse(crash_str);
                     crash_num += 1;
                     PlayerPrefs.SetString("crash_num", crash_num.ToString());
                 }
